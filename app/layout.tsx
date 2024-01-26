@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Navbar } from "@/components/navbar";
+import { MobileNavbar } from "@/components/navbar/mobile-navbar";
 
 const monsterrat = Montserrat({ subsets: ["latin"] });
 
@@ -20,7 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <body className={monsterrat.className}>
         <ThemeProvider
           attribute="class"
@@ -30,6 +35,7 @@ export default function RootLayout({
           storageKey="theme"
         >
           <Navbar />
+          <MobileNavbar />
           {children}
         </ThemeProvider>
       </body>

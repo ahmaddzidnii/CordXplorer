@@ -19,6 +19,8 @@ export const ToogleTheme = () => {
       checked={theme === "dark"}
       onChange={toggleDarkMode}
       size={30}
+      sunColor="#facc15"
+      moonColor="#facc15"
     />
   );
 };

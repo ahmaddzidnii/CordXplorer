@@ -4,9 +4,9 @@ export const Logo = () => {
   return (
     <Link
       href="/"
-      className="font-[800] text-3xl tracking-tighter"
+      className="font-[800] text-3xl tracking-tighter text-violet-600"
     >
-      Cord<span className="text-4xl">X</span>plorer
+      Cord<span className="text-4xl text-violet-800">X</span>plorer
     </Link>
   );
 };
