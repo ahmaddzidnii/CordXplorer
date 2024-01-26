@@ -36,7 +36,7 @@ export default function RootLayout({
         >
           <Navbar />
           <MobileNavbar />
-          {children}
+          <main className="container">{children}</main>
         </ThemeProvider>
       </body>
     </html>

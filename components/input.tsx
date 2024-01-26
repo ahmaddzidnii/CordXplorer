@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 export const InputComponent = () => {
   return (
-    <div className="flex gap-x-1">
+    <div className="flex gap-x-2">
       <Input
         placeholder="cari cord lagu kesukaan anda.."
         className="rounded-s-full"
