@@ -10,6 +10,20 @@ Text Primary #0284c7
 
 */
 
+.container-navbar {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 0rem;
+  padding-left: 0rem;
+}
+
+@media (min-width: 1400px) {
+  .container-navbar {
+    max-width: 1400px;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 97%;

@@ -3,8 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/providers/theme-provider";
-import { Navbar } from "@/components/navbar";
-import { MobileNavbar } from "@/components/navbar/mobile-navbar";
+import NextTopLoader from "nextjs-toploader";
 
 const monsterrat = Montserrat({ subsets: ["latin"] });
 
@@ -27,6 +26,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={monsterrat.className}>
+        <NextTopLoader
+          color="#f472b6"
+          showSpinner={false}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -34,9 +37,7 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="theme"
         >
-          <Navbar />
-          <MobileNavbar />
-          <main className="container">{children}</main>
+          {children}
         </ThemeProvider>
       </body>
     </html>

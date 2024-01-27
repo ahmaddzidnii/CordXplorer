@@ -24,16 +24,16 @@ export const Navbar = () => {
   const { onOpen } = useNavbar();
   return (
     <header className="max-w-screen h-[72px]  z-50 bg-background dark:bg-[#1f1f1f] sticky top-0  w-full p-6 border-b shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/90 dark:supports-[backdrop-filter]:bg-[#1f1f1f]/60">
-      <nav className="container h-full  flex items-center ">
+      <nav className="container-navbar h-full  flex items-center ">
         <Logo />
         <div className="mx-auto w-[310px] hidden md:block">
           <InputComponent />
         </div>
         <div
-          className="ms-auto md:hidden  "
+          className="ms-auto md:hidden"
           onClick={() => onOpen()}
         >
-          <Menu className="w-10 h-10 text-violet-600 cursor-pointer" />
+          <Menu className="w-7 h-7 md:w-10 md:h-10 text-violet-600 cursor-pointer" />
         </div>
         <div className="hidden md:block ms-auto">
           <NavItem />
