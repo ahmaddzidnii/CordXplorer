@@ -1,10 +1,15 @@
+import { GiMusicalScore } from "react-icons/gi";
+
 import { YtEmbed } from "@/components/embed/yt-embed";
 import { Separator } from "@/components/ui/separator";
-import { GiMusicalScore } from "react-icons/gi";
+import { ControlPlayer } from "@/components/control-player";
+
 export default function SongsPage({ params }: { params: { slug: string } }) {
   return (
-    <div className="min-h-screen">
-      {/* song = {params.slug} */}
+    <div className="min-h-screen relative">
+      {/* Control Player */}
+      <ControlPlayer />
+      {/* Control Player */}
       <section className="min-h-screen grid grid-cols-12 pt-4 gap-5">
         <div className="col-span-12 md:col-span-3">
           <aside className="w-full">
@@ -43,14 +48,14 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
             </div>
             <div className="flex items-center w-full h-[40px] mt-2">
               <div className="w-[40%]">
-                <Separator className="dark:bg-white" />
+                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
               </div>
               <div className="w-[20%] flex items-center justify-center">
-                <GiMusicalScore className="w-12 h-12" />
+                <GiMusicalScore className="w-12 h-12 text-[#1f1f1f]/50 dark:text-white/50" />
               </div>
 
               <div className="w-[40%]">
-                <Separator className="dark:bg-white" />
+                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
               </div>
             </div>
           </article>
