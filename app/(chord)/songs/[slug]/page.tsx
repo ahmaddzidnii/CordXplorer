@@ -2,15 +2,33 @@ import { GiMusicalScore } from "react-icons/gi";
 
 import { YtEmbed } from "@/components/embed/yt-embed";
 import { Separator } from "@/components/ui/separator";
-import { ControlPlayer } from "@/components/control-player";
 
 export default function SongsPage({ params }: { params: { slug: string } }) {
   return (
     <div className="min-h-screen relative">
-      {/* Control Player */}
-      <ControlPlayer />
-      {/* Control Player */}
       <section className="min-h-screen grid grid-cols-12 pt-4 gap-5">
+        <div className="col-span-12 md:col-span-9 order-last md:order-first">
+          <article className="bg-white dark:bg-[#1f1f1f] p-5 shadow-lg rounded-lg min-h-screen">
+            <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
+            <div className="flex justify-between">
+              <p>Arsy Widianto, Tiara Andini</p>
+              <p>Bb</p>
+            </div>
+            <div className="flex items-center w-full h-[40px] mt-2">
+              <div className="w-[40%]">
+                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
+              </div>
+              <div className="w-[20%] flex items-center justify-center">
+                <GiMusicalScore className="w-12 h-12 text-[#1f1f1f]/50 dark:text-white/50" />
+              </div>
+
+              <div className="w-[40%]">
+                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
+              </div>
+            </div>
+          </article>
+        </div>
+
         <div className="col-span-12 md:col-span-3">
           <aside className="w-full">
             <div>
@@ -37,28 +55,6 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
               <YtEmbed />
             </div>
           </aside>
-        </div>
-
-        <div className="col-span-12 md:col-span-9">
-          <article className="bg-white dark:bg-[#1f1f1f] p-5 shadow-lg rounded-lg min-h-screen">
-            <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
-            <div className="flex justify-between">
-              <p>Arsy Widianto, Tiara Andini</p>
-              <p>Bb</p>
-            </div>
-            <div className="flex items-center w-full h-[40px] mt-2">
-              <div className="w-[40%]">
-                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
-              </div>
-              <div className="w-[20%] flex items-center justify-center">
-                <GiMusicalScore className="w-12 h-12 text-[#1f1f1f]/50 dark:text-white/50" />
-              </div>
-
-              <div className="w-[40%]">
-                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
-              </div>
-            </div>
-          </article>
         </div>
       </section>
     </div>

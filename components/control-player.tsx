@@ -2,12 +2,38 @@
 
 import { FaPlay } from "react-icons/fa6";
 import { FaPause } from "react-icons/fa";
+import {
+  TbPlayerTrackNextFilled,
+  TbPlayerTrackPrevFilled,
+} from "react-icons/tb";
 
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { useVideo } from "@/hooks/use-video";
-export const ControlPlayer = () => {
-  const { duration, played, isPlaying, togglePlayPause, setPlayed } =
+
+function formatTime(seconds: number) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+interface ControlPlayerProps {
+  onSeek?: (value: number[]) => void;
+  onSeekMouseUp?: (value: number[]) => void;
+  prevSeek?: () => void;
+  nextSeek?: () => void;
+}
+export const ControlPlayer = ({
+  onSeek,
+  onSeekMouseUp,
+  nextSeek,
+  prevSeek,
+}: ControlPlayerProps) => {
+  const { duration, played, isPlaying, togglePlayPause, setIsPlaying } =
     useVideo();
   console.log({
     duration,
@@ -16,7 +42,6 @@ export const ControlPlayer = () => {
 
   const handlePlayButton = () => {
     togglePlayPause();
-    console.log("play");
   };
 
   return (
@@ -35,21 +60,55 @@ export const ControlPlayer = () => {
             )}
           </div>
         </div>
-        <div className="pt-16 px-4">
+
+        {/* Before */}
+        <div
+          role="button"
+          onClick={prevSeek}
+          className="w-12 h-12 bg-violet-600 rounded-full absolute -top-6 left-1/4 -translate-x-1/4 "
+        >
+          <div className="w-full h-full flex justify-center items-center">
+            <TbPlayerTrackPrevFilled className="w-7 h-6 text-white" />
+          </div>
+        </div>
+
+        {/* Next */}
+        <div
+          role="button"
+          onClick={nextSeek}
+          className="w-12 h-12 bg-violet-600 rounded-full absolute -top-6 right-1/4 translate-x-1/4 "
+        >
+          <div className="w-full h-full flex justify-center items-center">
+            <TbPlayerTrackNextFilled className="w-7 h-6 text-white" />
+          </div>
+        </div>
+        <div className="pt-10 px-4">
+          <div className="">
+            <span className="text-xs font-semibold text-violet-600 ">
+              {formatTime(played)}
+            </span>
+          </div>
           <Slider
-            className="cursor-pointer"
+            className="cursor-pointer py-2"
             max={duration}
             step={1}
             value={[played]}
-            onValueChange={(value) => setPlayed(value[0])}
+            onValueChange={onSeek}
+            onValueCommit={onSeekMouseUp}
           />
         </div>
-        <div className="pt-7 px-4 w-full flex justify-between items-center">
+        <div className="pt-6 px-4 w-full flex justify-between items-center">
+          <div className="w-1/2">{/* TODO: implement Tranpose */}</div>
           <div className="flex gap-x-2 items-center">
-            <Switch />
+            <Switch
+              onCheckedChange={(cheked) => {
+                if (cheked) {
+                  setIsPlaying(cheked);
+                }
+              }}
+            />
             <span className="text-sm">Auto Scroll</span>
           </div>
-          {/* TODO: implement Tranpose */}
         </div>
       </div>
     </div>
