@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "slug": "cintanya-aku-arsy-widianto-tiara-andini",
+    "song_info": {
+      "title": "Cintanya Aku",
+      "artist": "Arsy Widianto, Tiara Andini",
+      "album": " ArTi untuk Cinta",
+      "release_date": "22 Januari 2021",
+      "label": "Universal Music Indonesia",
+      "cover_image": "https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA",
+      "youtube_url": "https://youtu.be/sfuq3y_zuGw?si=skHMK1EAwEhrLylh"
+    }
+  },
+  "data": {
+    "key": "Bb",
+    "song": [
+      {
+        "section_info": {
+          "text": "intro",
+          "text_uppercase": "INTRO",
+          "start_time": 18,
+          "end_time": 27
+        },
+        "chord": ["D#", "F#", "Dm", "Gm", "Cm", "F", "Bb"]
+      },
+      {
+        "section_info": {
+          "text": "verse-1",
+          "text_uppercase": "VERSE 1",
+          "start_time": 28,
+          "end_time": 27
+        },
+        "chord": ["Tergetar aku.."]
+      }
+    ]
+  }
+}
