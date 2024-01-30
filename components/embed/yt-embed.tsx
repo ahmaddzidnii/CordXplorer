@@ -30,7 +30,7 @@ export const YtEmbed = () => {
 
   const handleProgress = (state: OnProgressProps) => {
     if (!seeking) {
-      setPlayed(state.playedSeconds);
+      setPlayed(Math.ceil(state.playedSeconds));
     }
   };
 
@@ -75,7 +75,7 @@ export const YtEmbed = () => {
           }}
           width="100%"
           height="100%"
-          url="https://www.youtube.com/embed/sfuq3y_zuGw?si=TlN2qloc1SYZwEyn"
+          url="https://youtu.be/5g12MLvunm0?si=70SHy00GsBqRP1i4"
           onDuration={(duration) => {
             setDuration(duration);
           }}

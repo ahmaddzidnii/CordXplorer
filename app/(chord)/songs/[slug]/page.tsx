@@ -3,34 +3,7 @@ import { GiMusicalScore } from "react-icons/gi";
 import { YtEmbed } from "@/components/embed/yt-embed";
 import { Separator } from "@/components/ui/separator";
 
-const jsonData = {
-  verse_1: [
-    {
-      chord: [
-        { chord: "Bb", text: "Tergetar ", space: false },
-        { chord: "Bb/D", text: "aku.. ", space: true },
-      ],
-    },
-    {
-      chord: [
-        { chord: null, text: "tepat ", space: false },
-        { chord: "Gm", text: "di hadapanku.. ", space: true },
-      ],
-    },
-    {
-      chord: [
-        { chord: null, text: "Debar jant" },
-        { chord: "D#", text: "ungku berdetak.. " },
-      ],
-    },
-    {
-      chord: [
-        { chord: null, text: "saat ku ge" },
-        { chord: "F", text: "nggam tanganmu" },
-      ],
-    },
-  ],
-};
+import { ChordPage } from "@/components/chord-page";
 
 export default function SongsPage({ params }: { params: { slug: string } }) {
   return (
@@ -56,54 +29,7 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
               </div>
             </div>
             {/* Chord */}
-            <div>
-              {jsonData.verse_1.map((item, index) => (
-                <p
-                  key={index}
-                  className="text-nowrap whitespace-nowrap mt-6"
-                >
-                  {item.chord.map((item, index) => (
-                    <span
-                      key={index}
-                      className={`relative`}
-                    >
-                      {item.chord && (
-                        <span className="absolute bottom-full whitespace-nowrap mt-2 ml-2">
-                          {item.chord}
-                        </span>
-                      )}
-                      {item.text}
-                    </span>
-                  ))}
-                </p>
-              ))}
-
-              {/* <p className="text-nowrap whitespace-nowrap mt-5">
-                <span className="relative">
-                  <span className="absolute bottom-full whitespace-nowrap">
-                    Bb
-                  </span>
-                </span>
-                Tergetar&nbsp;
-                <span className="relative">
-                  <span className="absolute bottom-full whitespace-nowrap">
-                    Bb/D
-                  </span>
-                </span>
-                aku... tepat&nbsp;
-                <span className="relative">
-                  <span className="absolute bottom-full whitespace-nowrap">
-                    Gm
-                  </span>
-                </span>
-                di hadapanmu
-                <span className="relative">
-                  <span className="absolute bottom-full whitespace-nowrap">
-                    A
-                  </span>
-                </span>
-              </p> */}
-            </div>
+            <ChordPage />
           </article>
         </div>
 

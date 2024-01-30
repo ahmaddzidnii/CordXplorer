@@ -33,8 +33,14 @@ export const ControlPlayer = ({
   nextSeek,
   prevSeek,
 }: ControlPlayerProps) => {
-  const { duration, played, isPlaying, togglePlayPause, setIsPlaying } =
-    useVideo();
+  const {
+    duration,
+    played,
+    isPlaying,
+    setAutoScroll,
+    togglePlayPause,
+    setIsPlaying,
+  } = useVideo();
   console.log({
     duration,
     played,
@@ -46,7 +52,7 @@ export const ControlPlayer = ({
 
   return (
     <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[60]">
-      <div className=" relative backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[350px] h-[150px] rounded-lg ">
+      <div className=" relative backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[300px] h-[116px] rounded-lg ">
         <div
           role="button"
           onClick={handlePlayButton}
@@ -82,14 +88,14 @@ export const ControlPlayer = ({
             <TbPlayerTrackNextFilled className="w-7 h-6 text-white" />
           </div>
         </div>
-        <div className="pt-10 px-4">
+        <div className="pt-7 px-4">
           <div className="">
             <span className="text-xs font-semibold text-violet-600 ">
               {formatTime(played)}
             </span>
           </div>
           <Slider
-            className="cursor-pointer py-2"
+            className="cursor-pointer py-1"
             max={duration}
             step={1}
             value={[played]}
@@ -103,7 +109,10 @@ export const ControlPlayer = ({
             <Switch
               onCheckedChange={(cheked) => {
                 if (cheked) {
+                  setAutoScroll(true);
                   setIsPlaying(cheked);
+                } else {
+                  setAutoScroll(false);
                 }
               }}
             />
