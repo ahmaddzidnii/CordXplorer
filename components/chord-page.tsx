@@ -36,7 +36,7 @@ export const ChordPage = () => {
             key={index}
             ref={isActive ? highlightedRef : null}
             className={`px-2 py-4 ${
-              isActive ? "bg-violet-300/50 rounded-sm" : ""
+              isActive ? "bg-violet-300/40 rounded-sm" : ""
             }`}
           >
             <div>

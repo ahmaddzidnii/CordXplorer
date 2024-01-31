@@ -41,10 +41,10 @@ export const ControlPlayer = ({
     togglePlayPause,
     setIsPlaying,
   } = useVideo();
-  console.log({
-    duration,
-    played,
-  });
+  // console.log({
+  //   duration,
+  //   played,
+  // });
 
   const handlePlayButton = () => {
     togglePlayPause();
