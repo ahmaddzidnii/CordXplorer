@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import { Skeleton } from "../ui/skeleton";
 import { useVideo } from "@/hooks/use-video";
