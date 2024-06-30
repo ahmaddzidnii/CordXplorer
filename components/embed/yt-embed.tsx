@@ -14,14 +14,7 @@ export const YtEmbed = () => {
   const [mounted, setMounted] = useState(false);
 
   const player = useRef<ReactPlayer>(null);
-  const {
-    setPlayed,
-    setDuration,
-    seeking,
-    isPlaying,
-    setIsPlaying,
-    setSeeking,
-  } = useVideo();
+  const { setPlayed, setDuration, seeking, isPlaying, setIsPlaying, setSeeking } = useVideo();
 
   const handleSeek = (value: number[]) => {
     setSeeking(true);
@@ -61,18 +54,12 @@ export const YtEmbed = () => {
         prevSeek={handlePrevSeek}
         nextSeek={handleNextSeek}
       />
-      <div className="relative pt-[56.25%] rounded-md">
+      <div className="aspect-video">
         <ReactPlayer
           ref={player}
           controls
           playing={isPlaying}
           fallback={<YtEmbedSkeleton />}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            borderRadius: "2px",
-          }}
           width="100%"
           height="100%"
           url="https://youtu.be/5g12MLvunm0?si=70SHy00GsBqRP1i4"

@@ -2,10 +2,7 @@
 
 import { FaPlay } from "react-icons/fa6";
 import { FaPause } from "react-icons/fa";
-import {
-  TbPlayerTrackNextFilled,
-  TbPlayerTrackPrevFilled,
-} from "react-icons/tb";
+import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb";
 
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -33,18 +30,7 @@ export const ControlPlayer = ({
   nextSeek,
   prevSeek,
 }: ControlPlayerProps) => {
-  const {
-    duration,
-    played,
-    isPlaying,
-    setAutoScroll,
-    togglePlayPause,
-    setIsPlaying,
-  } = useVideo();
-  // console.log({
-  //   duration,
-  //   played,
-  // });
+  const { duration, played, isPlaying, setAutoScroll, togglePlayPause, setIsPlaying } = useVideo();
 
   const handlePlayButton = () => {
     togglePlayPause();
@@ -90,9 +76,7 @@ export const ControlPlayer = ({
         </div>
         <div className="pt-7 px-4">
           <div className="">
-            <span className="text-xs font-semibold text-violet-600 ">
-              {formatTime(played)}
-            </span>
+            <span className="text-xs font-semibold text-violet-600 ">{formatTime(played)}</span>
           </div>
           <Slider
             className="cursor-pointer py-1"

@@ -9,7 +9,30 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
   return (
     <div className="min-h-screen relative">
       <section className="min-h-screen grid grid-cols-12 pt-4 gap-5">
-        <div className="col-span-12 md:col-span-9 order-last md:order-first">
+        <div className="col-span-12 md:col-span-3">
+          <aside className="w-full">
+            <div>
+              <img
+                src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
+                alt=""
+                className="rounded-xl shadow-md w-full"
+              />
+            </div>
+            <div className="my-3">
+              <p className="text-sm text-muted-foreground">Dirilis pada 2021</p>
+              <p className="text-sm text-muted-foreground uppercase">℗ Universal Music Indonesia</p>
+            </div>
+            <div className="my-3">
+              <p className="text-sm text-muted-foreground font-bold">Album</p>
+              <p className="text-sm text-muted-foreground">ArTi</p>
+            </div>
+            <div className="my-3 w-full">
+              <p className="text-sm text-muted-foreground font-bold mb-2">Video Music</p>
+              <YtEmbed />
+            </div>
+          </aside>
+        </div>
+        <div className="col-span-12 md:col-span-9 ">
           <article className="bg-white dark:bg-[#1f1f1f] p-5 shadow-lg rounded-lg min-h-screen">
             <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
             <div className="flex justify-between">
@@ -31,34 +54,6 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
             {/* Chord */}
             <ChordPage />
           </article>
-        </div>
-
-        <div className="col-span-12 md:col-span-3">
-          <aside className="w-full">
-            <div>
-              <img
-                src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
-                alt=""
-                className="rounded-xl shadow-md"
-              />
-            </div>
-            <div className="my-3">
-              <p className="text-sm text-muted-foreground">Dirilis pada 2021</p>
-              <p className="text-sm text-muted-foreground uppercase">
-                ℗ Universal Music Indonesia
-              </p>
-            </div>
-            <div className="my-3">
-              <p className="text-sm text-muted-foreground font-bold">Album</p>
-              <p className="text-sm text-muted-foreground">ArTi</p>
-            </div>
-            <div className="my-3 w-full">
-              <p className="text-sm text-muted-foreground font-bold">
-                Video Music
-              </p>
-              <YtEmbed />
-            </div>
-          </aside>
         </div>
       </section>
     </div>
