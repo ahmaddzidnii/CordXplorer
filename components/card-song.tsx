@@ -27,18 +27,14 @@ export const CardSong = ({
           alt={songTitle}
           className="rounded-sm w-full h-full"
         />
-        <div className="absolute bottom-0 backdrop-blur rounded-b-sm bg-white/70 dark:bg-background/70 p-3 w-full">
+        <div className="absolute bottom-0 backdrop-blur rounded-b-sm bg-white/70 dark:bg-black/70 p-3 w-full">
           <div>
             <p className="font-bold text-[1.125rem]">{songTitle}</p>
             <p className="text-sm text-muted-foreground">by {artist}</p>
-            <p className="text-sm text-muted-foreground">
-              {youtubeName} Youtube Channel
-            </p>
+            <p className="text-sm text-muted-foreground">{youtubeName} Youtube Channel</p>
           </div>
           <div className="mt-3">
-            <span className="text-xs text-muted-foreground">
-              Dirilis Pada {realeaseDate}
-            </span>
+            <span className="text-xs text-muted-foreground">Dirilis Pada {realeaseDate}</span>
           </div>
         </div>
       </Link>

@@ -32,12 +32,14 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
             </div>
           </aside>
         </div>
-        <div className="col-span-12 md:col-span-9 ">
-          <article className="bg-white dark:bg-[#1f1f1f] p-5 shadow-lg rounded-lg min-h-screen">
+        <div className="col-span-12 md:col-span-9">
+          <article className="bg-white dark:bg-[#282828]/80 p-5 shadow-lg rounded-lg min-h-screen">
             <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
             <div className="flex justify-between">
               <p>Arsy Widianto, Tiara Andini</p>
-              <p>Bb</p>
+              <p>
+                Key&nbsp;:&nbsp;<span className="c">Bb</span>
+              </p>
             </div>
             <div className="flex items-center w-full h-[40px] mt-2">
               <div className="w-[40%]">

@@ -24,8 +24,7 @@ export const ChordPage = () => {
     <div className="my-5">
       {data.sections.map((section, index) => {
         const isActive =
-          played >= section.start_time - tolerance &&
-          played < section.end_time + tolerance;
+          played >= section.start_time - tolerance && played < section.end_time + tolerance;
 
         if (isActive && autoScroll) {
           scrollToHighlighted();
@@ -35,18 +34,14 @@ export const ChordPage = () => {
           <div
             key={index}
             ref={isActive ? highlightedRef : null}
-            className={`px-2 py-4 ${
-              isActive ? "bg-violet-300/40 rounded-sm" : ""
-            }`}
+            className={`px-2 py-4 ${isActive ? "bg-secondary-foreground/15 rounded-sm" : ""}`}
           >
             <div>
               <strong>{section.text_uppercase}</strong>
               {section.content.map((content, index) => (
                 <p
                   key={index}
-                  className={`text-nowrap whitespace-nowrap ${
-                    content.margin_top ? "mt-5" : ""
-                  }`}
+                  className={`text-nowrap whitespace-nowrap ${content.margin_top ? "mt-5" : ""}`}
                   dangerouslySetInnerHTML={{ __html: content.content }}
                 ></p>
               ))}

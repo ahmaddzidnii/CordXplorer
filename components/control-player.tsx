@@ -30,7 +30,8 @@ export const ControlPlayer = ({
   nextSeek,
   prevSeek,
 }: ControlPlayerProps) => {
-  const { duration, played, isPlaying, setAutoScroll, togglePlayPause, setIsPlaying } = useVideo();
+  const { duration, played, isPlaying, autoScroll, setAutoScroll, togglePlayPause, setIsPlaying } =
+    useVideo();
 
   const handlePlayButton = () => {
     togglePlayPause();
@@ -42,7 +43,7 @@ export const ControlPlayer = ({
         <div
           role="button"
           onClick={handlePlayButton}
-          className="w-14 h-14 bg-violet-600 rounded-full absolute -top-7 left-1/2 -translate-x-1/2 "
+          className="w-14 h-14 bg-primary rounded-full absolute -top-7 left-1/2 -translate-x-1/2 "
         >
           <div className="w-full h-full flex justify-center items-center">
             {isPlaying ? (
@@ -57,7 +58,7 @@ export const ControlPlayer = ({
         <div
           role="button"
           onClick={prevSeek}
-          className="w-12 h-12 bg-violet-600 rounded-full absolute -top-6 left-1/4 -translate-x-1/4 "
+          className="w-12 h-12 bg-primary rounded-full absolute -top-6 left-1/4 -translate-x-1/4 "
         >
           <div className="w-full h-full flex justify-center items-center">
             <TbPlayerTrackPrevFilled className="w-7 h-6 text-white" />
@@ -68,7 +69,7 @@ export const ControlPlayer = ({
         <div
           role="button"
           onClick={nextSeek}
-          className="w-12 h-12 bg-violet-600 rounded-full absolute -top-6 right-1/4 translate-x-1/4 "
+          className="w-12 h-12 bg-primary rounded-full absolute -top-6 right-1/4 translate-x-1/4 "
         >
           <div className="w-full h-full flex justify-center items-center">
             <TbPlayerTrackNextFilled className="w-7 h-6 text-white" />
@@ -76,7 +77,7 @@ export const ControlPlayer = ({
         </div>
         <div className="pt-7 px-4">
           <div className="">
-            <span className="text-xs font-semibold text-violet-600 ">{formatTime(played)}</span>
+            <span className="text-xs font-semibold text-primary ">{formatTime(played)}</span>
           </div>
           <Slider
             className="cursor-pointer py-1"
@@ -88,7 +89,10 @@ export const ControlPlayer = ({
           />
         </div>
         <div className="pt-6 px-4 w-full flex justify-between items-center">
-          <div className="w-1/2">{/* TODO: implement Tranpose */}</div>
+          <div className="flex gap-x-2 items-center">
+            <Switch disabled={autoScroll ? true : false} />
+            <span className="text-sm"> Basic Scroll</span>
+          </div>
           <div className="flex gap-x-2 items-center">
             <Switch
               onCheckedChange={(cheked) => {
@@ -100,7 +104,7 @@ export const ControlPlayer = ({
                 }
               }}
             />
-            <span className="text-sm">Auto Scroll</span>
+            <span className="text-sm"> ⚡Scroll</span>
           </div>
         </div>
       </div>
