@@ -25,7 +25,7 @@ export const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
         <SidebarMobile className="md:hidden" />
         <aside
           className={cn(
-            "w-56 pt-5 border-e-2 min-h-screen  flex-col items-center justify-between hidden md:flex"
+            "w-56 pt-5 px-4 border-e-2 min-h-screen shadow-lg flex-col items-center justify-between hidden md:flex"
           )}
         >
           <div className="space-y-4 flex flex-col items-center">
@@ -65,7 +65,7 @@ export const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
         </aside>
-        <div>{children}</div>
+        <div className="mx-3 w-full">{children}</div>
       </div>
     </div>
   );
