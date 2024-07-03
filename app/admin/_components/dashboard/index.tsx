@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview } from "./overview";
@@ -17,24 +16,7 @@ export const Dashboard = () => {
         >
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger
-              value="analytics"
-              disabled
-            >
-              Analytics
-            </TabsTrigger>
-            <TabsTrigger
-              value="reports"
-              disabled
-            >
-              Reports
-            </TabsTrigger>
-            <TabsTrigger
-              value="notifications"
-              disabled
-            >
-              Notifications
-            </TabsTrigger>
+            <TabsTrigger value="notifications">Notifications</TabsTrigger>
           </TabsList>
           <TabsContent
             value="overview"
@@ -158,6 +140,12 @@ export const Dashboard = () => {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+          <TabsContent
+            value="notifications"
+            className="space-y-4"
+          >
+            TODO: add UI Notification TAB
           </TabsContent>
         </Tabs>
       </div>
