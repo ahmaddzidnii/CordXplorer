@@ -19,7 +19,7 @@ export const menuItems = [
     href: "/admin/albums",
   },
   {
-    title: "Manage Category",
+    title: "Manage category",
     icon: <BiSolidCategoryAlt className="w-7 h-7" />,
     href: "/admin/categories",
   },
