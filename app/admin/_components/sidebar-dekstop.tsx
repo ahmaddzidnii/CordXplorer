@@ -1,4 +1,3 @@
-import { useWindowWidth } from "@react-hook/window-size/throttled";
 import { useRouter } from "next-nprogress-bar";
 import { usePathname } from "next/navigation";
 
@@ -8,6 +7,7 @@ import { ToogleTheme } from "@/components/navbar/toogle-theme";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/logo";
+import { isActive } from "@/app/admin/_components/is-active";
 
 export const SidebarDekstop = ({ className }: { className?: string }) => {
   const router = useRouter();
@@ -26,7 +26,10 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
         {menuItems.map((item, id) => (
           <div
             key={id}
-            className={cn("flex w-full rounded-lg", pathname === item.href && "bg-fuchsia-300")}
+            className={cn(
+              "flex w-full rounded-lg",
+              isActive(item.href, pathname) && "sidebar-admin-active"
+            )}
           >
             <Button
               variant="ghost"

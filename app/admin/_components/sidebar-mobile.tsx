@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useSidebar } from "@/hooks/use-sidebar";
+import { isActive } from "@/app/admin/_components/is-active";
 
 export const SidebarMobile = ({ className }: { className?: string }) => {
   const router = useRouter();
@@ -67,7 +68,7 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
           {menuItems.map((item, id) => (
             <div
               key={id}
-              className={cn("flex w-full", pathname === item.href && "bg-fuchsia-300")}
+              className={cn("flex w-full", isActive(item.href, pathname) && "sidebar-admin-active")}
             >
               <Button
                 className="items-center justify-center hover:bg-transparent"

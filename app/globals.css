@@ -6,9 +6,17 @@
   @apply text-primary relative font-semibold;
 }
 
+.sidebar-admin-active {
+  @apply bg-fuchsia-300;
+}
+
 .c span {
   position: absolute;
   bottom: 100%;
+}
+
+.react-player {
+  @apply bg-muted;
 }
 
 /* 
