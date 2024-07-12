@@ -2,7 +2,6 @@ import { Separator } from "@/components/ui/separator";
 import { MusicEmptyPlaceholder } from "./_components/music-empty-placeholder";
 import { AddMusic } from "./_components/add-music";
 import Link from "next/link";
-import { ListMusic } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function SongsAdminPage() {

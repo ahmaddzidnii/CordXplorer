@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 export const MediaPlayerAdmin = () => {
   const [link, setLink] = useState("");
+  const [currentSecond, setCurrentSecond] = useState(0);
   const formLink = useRef<HTMLInputElement>(null);
 
   function isValidYouTubeUrl(url: string): boolean {
@@ -49,15 +50,19 @@ export const MediaPlayerAdmin = () => {
   return (
     <div className="space-y-5">
       <h1 className="font-bold text-lg">Preview Youtube :</h1>
-      <div className="relative aspect-video rounded-sm overflow-hidden">
+      <div className="relative aspect-video shadow-primary shadow-[0_3px_10px] rounded-sm overflow-hidden">
         <ReactPlayer
           className="react-player"
           url={link}
           controls
           width="100%"
           height="100%"
+          onProgress={(state) => {
+            setCurrentSecond(state.playedSeconds);
+          }}
         />
       </div>
+      <div>{!!link && <p>Current seconds: {currentSecond.toFixed(0)}</p>}</div>
       <div className="flex gap-x-3">
         <Input
           ref={formLink}

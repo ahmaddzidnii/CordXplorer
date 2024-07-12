@@ -15,7 +15,7 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
   return (
     <aside
       className={cn(
-        "w-56 pt-5 px-4 sticky top-0 border-e-2 max-h-screen shadow-lg flex-col items-center justify-between",
+        "w-56 pt-5 px-4 sticky top-0  max-h-screen shadow-sm shadow-primary flex-col items-center justify-between",
         className
       )}
     >
