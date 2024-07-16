@@ -1,5 +1,6 @@
 import { useRouter } from "next-nprogress-bar";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/utils";
 import { menuItems } from "@/constants/menu-admin-items";
@@ -12,6 +13,10 @@ import { isActive } from "@/app/admin/_components/is-active";
 export const SidebarDekstop = ({ className }: { className?: string }) => {
   const router = useRouter();
   const pathname = usePathname();
+
+  const session = useSession();
+
+  console.log(session);
   return (
     <aside
       className={cn(
@@ -51,10 +56,10 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
         </div>
         <div className="flex items-center gap-x-4">
           <Avatar className="w-8 h-8">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={session.data?.user?.image || "https://github.com/shadcn.png"} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <p className="font-semibold">Admin</p>
+          <p className="font-semibold">{session.data?.user?.name}</p>
         </div>
       </div>
     </aside>

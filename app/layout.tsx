@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import { TopLoaderBarProvider } from "@/providers/toploaderbar-provider";
+import { SessionProvider } from "next-auth/react";
 
 const monsterrat = Montserrat({ subsets: ["latin"] });
 
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
           storageKey="theme"
         >
-          <TopLoaderBarProvider>{children}</TopLoaderBarProvider>
+          <TopLoaderBarProvider>
+            <SessionProvider>{children}</SessionProvider>
+          </TopLoaderBarProvider>
         </ThemeProvider>
       </body>
     </html>
