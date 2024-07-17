@@ -1,9 +1,9 @@
 /**
  *
  * Array of private routes
- * @type {String[]}
+ * @type {String|RegExp[]}
  **/
-export const privateRoutes = ["/settings", "/admin/(.*)"];
+export const privateRoutes = ["/admin", /^\/admin\/(.*)/];
 
 /**
  *
@@ -24,4 +24,4 @@ export const apiAuthPrefix = "/api/auth";
  * default login redirect
  * @type {String}
  * **/
-export const DEFAULT_LOGIN_REDIRECT = "/settings";
+export const DEFAULT_LOGIN_REDIRECT = "/admin";

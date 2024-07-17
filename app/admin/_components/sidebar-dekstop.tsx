@@ -1,6 +1,5 @@
 import { useRouter } from "next-nprogress-bar";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/utils";
 import { menuItems } from "@/constants/menu-admin-items";
@@ -9,14 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/logo";
 import { isActive } from "@/app/admin/_components/is-active";
+import { useUser } from "@/hooks/use-user";
+import { Skeleton } from "@/components/ui/skeleton";
+import { UserProfile } from "@/components/auth/user-profile";
 
 export const SidebarDekstop = ({ className }: { className?: string }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const session = useSession();
+  const { isLoading, user } = useUser();
 
-  console.log(session);
   return (
     <aside
       className={cn(
@@ -49,18 +50,12 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
           </div>
         ))}
       </div>
-      <div className="space-y-4 pb-5">
+      <div className="space-y-4 pb-5 w-full">
         <div className="flex items-center gap-x-4">
           <ToogleTheme />
-          <p className="font-semibold">Theme</p>
+          <p className="font-semibold">Theme mode</p>
         </div>
-        <div className="flex items-center gap-x-4">
-          <Avatar className="w-8 h-8">
-            <AvatarImage src={session.data?.user?.image || "https://github.com/shadcn.png"} />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <p className="font-semibold">{session.data?.user?.name}</p>
-        </div>
+        <UserProfile />
       </div>
     </aside>
   );

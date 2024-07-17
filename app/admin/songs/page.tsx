@@ -49,7 +49,7 @@ export default function SongsAdminPage() {
   );
 }
 
-export const ListMusicSkeleton = () => {
+const ListMusicSkeleton = () => {
   return (
     <div className="bg-background p-4 rounded-lg  flex items-center w-full">
       <div className="flex items-center space-x-4 w-full">

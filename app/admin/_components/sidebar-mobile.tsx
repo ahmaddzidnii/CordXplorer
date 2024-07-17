@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { isActive } from "@/app/admin/_components/is-active";
+import { UserProfile } from "@/components/auth/user-profile";
 
 export const SidebarMobile = ({ className }: { className?: string }) => {
   const router = useRouter();
@@ -84,10 +85,7 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
         </div>
         <div className="space-y-4 pb-5">
           <ToogleTheme />
-          <Avatar className="w-8 h-8">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <UserProfile showName={false} />
         </div>
       </aside>
     </>

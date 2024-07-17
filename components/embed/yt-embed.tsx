@@ -54,7 +54,7 @@ export const YtEmbed = () => {
         prevSeek={handlePrevSeek}
         nextSeek={handleNextSeek}
       />
-      <div className="aspect-video">
+      <div className="aspect-video rounded-sm overflow-hidden">
         <ReactPlayer
           ref={player}
           controls

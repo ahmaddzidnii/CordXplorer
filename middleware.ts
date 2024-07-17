@@ -12,9 +12,13 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = req.url.startsWith(apiAuthPrefix);
-  const isPrivateRoute = privateRoutes.some((route) => {
-    const regex = new RegExp(route);
-    return regex.test(nextUrl.pathname) || nextUrl.pathname === route;
+  const isPrivateRoute = privateRoutes.some((route: string | RegExp) => {
+    if (typeof route === "string") {
+      return nextUrl.pathname === route;
+    } else if (route instanceof RegExp) {
+      return route.test(nextUrl.pathname);
+    }
+    return false;
   });
 
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
