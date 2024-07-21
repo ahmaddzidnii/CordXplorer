@@ -1,19 +1,15 @@
 "use client";
 
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { CheckIcon, SortAscIcon } from "lucide-react";
+import { useRef, useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next-nprogress-bar";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
+
 import {
   Form,
   FormControl,
@@ -23,64 +19,67 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { toast } from "@/components/ui/use-toast";
+import { MediaPlayerAdmin } from "../media-player";
 
-const languages = [
-  { label: "English", value: "en" },
-  { label: "French", value: "fr" },
-  { label: "German", value: "de" },
-  { label: "Spanish", value: "es" },
-  { label: "Portuguese", value: "pt" },
-  { label: "Russian", value: "ru" },
-  { label: "Japanese", value: "ja" },
-  { label: "Korean", value: "ko" },
-  { label: "Chinese", value: "zh" },
-] as const;
+import { isValidYouTubeUrl } from "@/lib/validation/validation-url-youtube";
+import { useSongCreate } from "@/hooks/admin/songs/create";
 
 const addMusicFormSchema = z.object({
   title: z
-    .string()
+    .string({
+      required_error: "Title is required.",
+    })
     .min(2, {
       message: "Name must be at least 2 characters.",
     })
-    .max(30, {
-      message: "Name must not be longer than 30 characters.",
-    }),
-  slug: z.string({
-    required_error: "A slug is required.",
-  }),
-  categories: z.string().optional(),
+    .refine((value) => {
+      const regex = /^[^\d]*$/;
+      return regex.test(value);
+    }, "Name not be a number."),
+
+  youtubeUrl: z
+    .string({
+      required_error: "Youtube URL is required.",
+    })
+    .refine((value) => {
+      return isValidYouTubeUrl(value);
+    }, "Invalid Youtube URL"),
 });
 
-type MainInformationMusicForm = z.infer<typeof addMusicFormSchema>;
+export type MainInformationMusicForm = z.infer<typeof addMusicFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<MainInformationMusicForm> = {};
+export const AccountForm = () => {
+  const router = useRouter();
+  const youtubeUrlRef = useRef<HTMLInputElement | null>(null);
+  const [link, setLink] = useState("");
+  const { song, setSong } = useSongCreate();
 
-function generateSlug(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, "");
-}
+  const defaultValues: Partial<MainInformationMusicForm> = {
+    title: song.title,
+    youtubeUrl: song.youtubeUrl,
+  };
 
-export function AccountForm() {
   const form = useForm<MainInformationMusicForm>({
     resolver: zodResolver(addMusicFormSchema),
     defaultValues,
+    mode: "onChange",
   });
 
   function onSubmit(data: MainInformationMusicForm) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    console.log(data);
+    setSong(data);
+    router.push("?step=2");
   }
+
+  const handleLoadButtonClick = () => {
+    const url = youtubeUrlRef.current?.value;
+    if (isValidYouTubeUrl(url as string)) {
+      setLink(url as string);
+    } else {
+      toast.error("Invalid Youtube URL");
+      return;
+    }
+  };
 
   return (
     <Form {...form}>
@@ -106,78 +105,38 @@ export function AccountForm() {
         />
         <FormField
           control={form.control}
-          name="slug"
+          name="youtubeUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Slug</FormLabel>
+              <div className="max-w-lg">
+                <MediaPlayerAdmin link={link} />
+              </div>
+              <FormLabel>Youtube url</FormLabel>
               <FormControl>
-                <Input
-                  readOnly
-                  placeholder="Slug"
-                  {...field}
-                />
+                <div className="flex gap-x-3 max-w-xl">
+                  <Input
+                    // autoComplete="off"
+                    placeholder="ex: https://youtu.be/QhubX_VQogk"
+                    {...field}
+                    ref={(e: HTMLInputElement | null) => {
+                      youtubeUrlRef.current = e;
+                      field.ref(e);
+                    }}
+                  />
+                  <Button
+                    onClick={handleLoadButtonClick}
+                    type="button"
+                  >
+                    Load
+                  </Button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="categories"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Categories</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      disabled
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value
-                        ? languages.find((language) => language.value === field.value)?.label
-                        : "Select categories"}
-                      <SortAscIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                  <Command>
-                    <CommandInput placeholder="Search language..." />
-                    <CommandEmpty>No language found.</CommandEmpty>
-                    <CommandGroup>
-                      {languages.map((language) => (
-                        <CommandItem
-                          value={language.label}
-                          key={language.value}
-                          onSelect={() => {
-                            form.setValue("categories", language.value);
-                          }}
-                        >
-                          <CheckIcon
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              language.value === field.value ? "opacity-100" : "opacity-0"
-                            )}
-                          />
-                          {language.label}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Update Information</Button>
+        <Button type="submit">Next</Button>
       </form>
     </Form>
   );
-}
+};

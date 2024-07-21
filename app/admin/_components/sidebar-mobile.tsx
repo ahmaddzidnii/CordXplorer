@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import { menuItems } from "@/constants/menu-admin-items";
 import { ToogleTheme } from "@/components/navbar/toogle-theme";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useSidebar } from "@/hooks/use-sidebar";
@@ -85,7 +84,10 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
         </div>
         <div className="space-y-4 pb-5">
           <ToogleTheme />
-          <UserProfile showName={false} />
+          <UserProfile
+            showName={false}
+            popoverClassName="ml-5"
+          />
         </div>
       </aside>
     </>

@@ -26,10 +26,14 @@ const NavItem = () => {
 
 tems-center gap-3"
     >
-      <FaGithub className="size-10 text-neutral-800 dark:text-neutral-100" />
+      <FaGithub className="w-8 h-8 text-neutral-800 dark:text-neutral-100" />
       <ToogleTheme />
       {session.status === "authenticated" ? (
-        <UserProfile showName={false} />
+        <UserProfile
+          showName={false}
+          side="left"
+          popoverClassName="mt-[48px]"
+        />
       ) : (
         <Link
           href={`/auth/login?redirect_back=${encodedCallbackUrl}`}

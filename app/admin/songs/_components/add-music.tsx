@@ -12,7 +12,7 @@ export const AddMusic = () => {
       size="sm"
       className="text-white"
       onClick={() => {
-        router.push("/admin/songs/create");
+        router.push("/admin/songs/create?step=1");
       }}
     >
       <Plus className="w-5 h-5 mr-2" /> Add Music

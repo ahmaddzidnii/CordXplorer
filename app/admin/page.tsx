@@ -1,4 +1,3 @@
-import { getToken } from "@/helper/getToken";
 import { Dashboard } from "./_components/dashboard";
 import { cookies } from "next/headers";
 

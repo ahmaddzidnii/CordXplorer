@@ -1,38 +1,48 @@
-import { Separator } from "@/components/ui/separator";
 import { MediaPlayerAdmin } from "./_components/media-player";
 import FormAddMusic from "./_components/form-music";
 import { FormSection } from "./_components/form-section/form-section";
+import { isValidStep } from "./track-step";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import Step2Component from "../_components/step-2";
 
 export const metadata = {
   title: "Add Music",
 };
 
-export default function SongsAdminCreatePage() {
-  return (
-    <div className="flex-col flex w-full">
-      <div className="flex-1 space-y-5 pt-6">
-        <div className=" space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Add Music</h2>
-          <p className="text-muted-foreground">Add a new music to the list chord.</p>
+export default function SongsAdminCreatePage({
+  searchParams,
+}: {
+  searchParams: {
+    step: string;
+    [key: string]: string;
+  };
+}) {
+  const { step } = searchParams;
+
+  if (!isValidStep(step)) {
+    return notFound();
+  }
+
+  if (step === "1" || step === undefined || step === "" || step === null) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <div className="pb-5 ">
+          <h3 className="text-2xl font-bold tracking-tight">Add Information About Song</h3>
+          <p className="text-muted-foreground"> Please enter the information about the song.</p>
         </div>
-        <Separator className="bg-primary h-[2px]" />
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+        <FormAddMusic />
+        {/* <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
           <div className="space-y-5">
             <MediaPlayerAdmin />
           </div>
           <div className="space-y-5 order-first">
             <FormAddMusic />
           </div>
-        </div>
-
-        {/* Section Add Song */}
-        <div>
-          <h3 className="text-2xl font-bold tracking-tight">Add Section Song</h3>
-          <p className="text-muted-foreground">Add a new section to the song.</p>
-          <FormSection />
-        </div>
-        {/* Section Add Song */}
+        </div> */}
       </div>
-    </div>
-  );
+    );
+  } else if (step === "2") {
+    return <Step2Component />;
+  }
 }

@@ -5,18 +5,13 @@ import { cn } from "@/lib/utils";
 import { menuItems } from "@/constants/menu-admin-items";
 import { ToogleTheme } from "@/components/navbar/toogle-theme";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/logo";
 import { isActive } from "@/app/admin/_components/is-active";
-import { useUser } from "@/hooks/use-user";
-import { Skeleton } from "@/components/ui/skeleton";
 import { UserProfile } from "@/components/auth/user-profile";
 
 export const SidebarDekstop = ({ className }: { className?: string }) => {
   const router = useRouter();
   const pathname = usePathname();
-
-  const { isLoading, user } = useUser();
 
   return (
     <aside
@@ -55,7 +50,7 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
           <ToogleTheme />
           <p className="font-semibold">Theme mode</p>
         </div>
-        <UserProfile />
+        <UserProfile popoverClassName="ml-5" />
       </div>
     </aside>
   );

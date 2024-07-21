@@ -18,7 +18,7 @@ export const ToogleTheme = () => {
     <DarkModeSwitch
       checked={theme === "dark"}
       onChange={toggleDarkMode}
-      size={40}
+      size={36}
       sunColor="#facc15"
       moonColor="#facc15"
     />
