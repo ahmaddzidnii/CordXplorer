@@ -3,8 +3,7 @@ import FormAddMusic from "./_components/form-music";
 import { FormSection } from "./_components/form-section/form-section";
 import { isValidStep } from "./track-step";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import Step2Component from "../_components/step-2";
+import { Step2Component } from "../_components/step-2";
 
 export const metadata = {
   title: "Add Music",

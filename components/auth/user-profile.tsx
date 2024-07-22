@@ -63,9 +63,7 @@ export const UserProfile = ({
         <div className={cn("flex items-center w-full gap-x-4", className)}>
           <Avatar className="size-10 border-[4px] border-muted">
             <AvatarImage src={user?.image || "https://github.com/shadcn.png"} />
-            <AvatarFallback>
-              <Skeleton className="size-10 aspect-square rounded-full" />
-            </AvatarFallback>
+            <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           {showName && <p className="font-semibold truncate">{user?.name || "John Doe"}</p>}
         </div>
