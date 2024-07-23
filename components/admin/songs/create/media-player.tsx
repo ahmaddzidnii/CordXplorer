@@ -6,7 +6,12 @@ import { useRef, useState } from "react";
 interface MediaPlayerAdminProps extends ReactPlayerProps {
   link: string;
 }
-export const MediaPlayerAdmin = ({ link, onError, onProgress, onReady }: MediaPlayerAdminProps) => {
+export const MediaPlayerCreateSong = ({
+  link,
+  onError,
+  onProgress,
+  onReady,
+}: MediaPlayerAdminProps) => {
   const [currentSecond, setCurrentSecond] = useState(0);
 
   return (

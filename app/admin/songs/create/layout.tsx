@@ -9,7 +9,9 @@ export default function SongsAdminCreatePageLayout({ children }: { children: Rea
         <p className="text-muted-foreground">Add a new music to the list chord.</p>
       </div>
       <Separator className="bg-primary h-[2px] my-5" />
-      <PreventRefresh>{children}</PreventRefresh>
+      <div className="md:px-5">
+        <PreventRefresh>{children}</PreventRefresh>
+      </div>
     </div>
   );
 }

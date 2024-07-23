@@ -1,19 +1,19 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 
-import { MainInformationMusicForm } from "@/app/admin/songs/create/_components/form-music/add-music-form";
-import { title } from "process";
-import { set } from "zod";
-
+import { SongsCreateDto } from "@/dto/admin/songs/create";
 interface SongCreateState {
-  song: MainInformationMusicForm;
-  setSong: (song: MainInformationMusicForm) => void;
+  song: SongsCreateDto;
+  setSong: (song: SongsCreateDto) => void;
 }
 
 export const useSongCreate = create<SongCreateState>((set) => ({
   song: {
     title: "",
     youtubeUrl: "",
+    key: "",
+    publisher: "",
+    releaseYear: "",
+    sections: [],
   },
   setSong: (song) => set({ song }),
 }));

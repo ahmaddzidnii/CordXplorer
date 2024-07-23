@@ -1,6 +1,8 @@
 "use client";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
+import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next-nprogress-bar";
 import { Plus } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,56 +10,56 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/admin/songs/create/rich-text-editor";
 import { Button } from "@/components/ui/button";
-import { MediaPlayerAdmin } from "../../create/_components/media-player";
+import { MediaPlayerCreateSong } from "@/components/admin/songs/create/media-player";
 import { useSongCreate } from "@/hooks/admin/songs/create";
-import { useFieldArray, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormMessage } from "@/components/ui/form";
 
 const step2AddMusicSchema = z.object({
-  sections: z
-    .array(
-      z.object({
-        nameSection: z
-          .string({ required_error: "Please enter a name for the section." })
-          .min(1, "Please enter a name for the section."),
-        startTime: z
-          .number({
-            required_error: "Please enter a start time.",
-            invalid_type_error: "Please enter a valid number.",
-          })
-          .min(0, "Please enter a valid number."),
-        endTime: z
-          .number({
-            required_error: "Please enter an end time.",
-            invalid_type_error: "Please enter a valid number.",
-          })
-          .min(0, "Please enter a valid number."),
-        content: z.string({ required_error: "Please enter a content." }),
-      })
-    )
-    .optional(),
+  sections: z.array(
+    z.object({
+      nameSection: z
+        .string({ required_error: "Please enter a name for the section." })
+        .min(1, "Please enter a name for the section."),
+      startTime: z
+        .number({
+          required_error: "Please enter a start time.",
+          invalid_type_error: "Please enter a valid number.",
+        })
+        .min(0, "Please enter a valid number."),
+      endTime: z
+        .number({
+          required_error: "Please enter an end time.",
+          invalid_type_error: "Please enter a valid number.",
+        })
+        .min(0, "Please enter a valid number."),
+      content: z.string({ required_error: "Please enter a content." }),
+    })
+  ),
 });
 
 type Step2AddMusicValues = z.infer<typeof step2AddMusicSchema>;
 
-export const Step2Component = () => {
-  const { song } = useSongCreate();
+export const StepTwo = () => {
+  const { song, setSong } = useSongCreate();
   const router = useRouter();
   if (!song.title) {
-    // router.replace("?step=1");
+    router.replace("?step=1");
   }
 
   const form = useForm<Step2AddMusicValues>({
     resolver: zodResolver(step2AddMusicSchema),
     defaultValues: {
-      sections: [
-        {
-          nameSection: undefined,
-          startTime: undefined,
-          endTime: undefined,
-        },
-      ],
+      sections:
+        song.sections?.length > 0
+          ? song.sections
+          : [
+              {
+                nameSection: "",
+                startTime: 0,
+                endTime: 0,
+                content: "",
+              },
+            ],
     },
     mode: "onChange",
   });
@@ -65,10 +67,15 @@ export const Step2Component = () => {
   const { fields, append } = useFieldArray({
     name: "sections",
     control: form.control,
+    rules: { required: "Please add a section." },
   });
 
   function onSubmit(data: Step2AddMusicValues) {
-    console.log(data);
+    setSong({
+      ...song,
+      sections: data.sections,
+    });
+    router.push("?step=3");
   }
 
   return (
@@ -77,7 +84,7 @@ export const Step2Component = () => {
       <p className="text-muted-foreground">Add a new section to the song.</p>
       <div className="my-5">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <MediaPlayerAdmin link={song.youtubeUrl} />
+          <MediaPlayerCreateSong link={song.youtubeUrl} />
         </div>
         <p className="text-xl font-bold">Sections</p>
         <Form {...form}>
@@ -167,6 +174,7 @@ export const Step2Component = () => {
             <div className="flex flex-col mt-5">
               <Button
                 type="button"
+                variant="default"
                 onClick={() => {
                   append({
                     endTime: 0,
@@ -180,9 +188,9 @@ export const Step2Component = () => {
               </Button>
               <Button
                 type="submit"
-                className="mt-5"
+                className="mt-10 w-1/4"
               >
-                Save
+                Next
               </Button>
             </div>
           </form>

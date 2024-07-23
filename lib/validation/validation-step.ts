@@ -6,6 +6,7 @@ export const isValidStep = (step: string): boolean => {
     case null:
       return true;
     case "2":
+    case "3":
       return true;
     default:
       return false;
