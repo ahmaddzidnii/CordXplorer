@@ -25,9 +25,9 @@ export default function SongsAdminPage() {
               <Link
                 href={`/admin/songs/${index}`}
                 key={index}
-                className="bg-background p-4 rounded-lg  flex items-center hover:border-secondary-foreground hover:border"
+                className="bg-background rounded-lg  flex items-center hover:border-secondary-foreground hover:border"
               >
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 p-4">
                   <img
                     className="flex-shrink-0 w-16 h-16 aspect-square rounded-lg"
                     src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"

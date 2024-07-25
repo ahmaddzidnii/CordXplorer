@@ -1,13 +1,13 @@
 "use client";
 
 import { z } from "zod";
+import ReactSelect from "react-select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next-nprogress-bar";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -24,59 +24,51 @@ import { MediaPlayerCreateSong } from "@/components/admin/songs/create/media-pla
 
 import { isValidYouTubeUrl } from "@/lib/validation/validation-url-youtube";
 import { useSongCreate } from "@/hooks/admin/songs/create";
+import { form1Schema } from "./schema";
 
-const addMusicFormSchema = z.object({
-  title: z
-    .string({
-      required_error: "Title is required.",
-    })
-    .min(2, {
-      message: "Name must be at least 2 characters.",
-    })
-    .refine((value) => {
-      const regex = /^[^\d]*$/;
-      return regex.test(value);
-    }, "Name not be a number."),
+const options = [
+  {
+    value: "1",
+    label: "Arsy Widianto",
+  },
+  {
+    value: "2",
+    label: "Tiara Andini",
+  },
+];
 
-  youtubeUrl: z
-    .string({
-      required_error: "Youtube URL is required.",
-    })
-    .refine((value) => {
-      return isValidYouTubeUrl(value);
-    }, "Invalid Youtube URL"),
-  key: z
-    .string({
-      required_error: "Key is required.",
-    })
-    .refine(
-      (value) => {
-        const regex = /^[A-G](#|b)?(m)?(,[A-G](#|b)?(m)?)*$/;
-        return regex.test(value);
-      },
-      {
-        message: "Invalid key format.",
-      }
-    ),
-  publisher: z.string({
-    required_error: "Publisher is required.",
-  }),
-  releaseYear: z
-    .string({
-      required_error: "Release year is required.",
-    })
-    .refine(
-      (value) => {
-        const regex = /^\d{4}$/;
-        return regex.test(value);
-      },
-      {
-        message: "Invalid year format.",
-      }
-    ),
-});
+const genresOptions = [
+  {
+    value: "1",
+    label: "Pop",
+  },
+  {
+    value: "2",
+    label: "Rock",
+  },
+  {
+    value: "3",
+    label: "Hip Hop",
+  },
+  {
+    value: "4",
+    label: "R&B",
+  },
+  {
+    value: "5",
+    label: "Country",
+  },
+  {
+    value: "6",
+    label: "Romance",
+  },
+  {
+    value: "7",
+    label: "J-Pop",
+  },
+];
 
-export type MainInformationMusicForm = z.infer<typeof addMusicFormSchema>;
+export type MainInformationMusicForm = z.infer<typeof form1Schema>;
 
 export const StepOne = () => {
   const router = useRouter();
@@ -93,7 +85,7 @@ export const StepOne = () => {
   };
 
   const form = useForm<MainInformationMusicForm>({
-    resolver: zodResolver(addMusicFormSchema),
+    resolver: zodResolver(form1Schema),
     defaultValues,
     mode: "onChange",
   });
@@ -139,6 +131,44 @@ export const StepOne = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="artists"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select artist</FormLabel>
+                  <ReactSelect
+                    className="my-react-select-container"
+                    classNamePrefix="my-react-select"
+                    isMulti
+                    options={options}
+                    onChange={(selectedOption) => {
+                      field.onChange(selectedOption);
+                    }}
+                  />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="genre"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select genre</FormLabel>
+                  <ReactSelect
+                    className="my-react-select-container"
+                    classNamePrefix="my-react-select"
+                    placeholder="Select genre"
+                    options={genresOptions}
+                    onChange={(selectedOption) => {
+                      field.onChange(selectedOption?.value);
+                    }}
+                  />
                   <FormMessage />
                 </FormItem>
               )}
@@ -232,7 +262,7 @@ export const StepOne = () => {
               )}
             />
             <Button
-              className="w-full"
+              className="w-[100px]"
               type="submit"
             >
               Next

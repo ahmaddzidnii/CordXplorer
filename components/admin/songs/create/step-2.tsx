@@ -3,7 +3,7 @@ import { z } from "zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next-nprogress-bar";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -64,7 +64,7 @@ export const StepTwo = () => {
     mode: "onChange",
   });
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "sections",
     control: form.control,
     rules: { required: "Please add a section." },
@@ -92,7 +92,16 @@ export const StepTwo = () => {
             <div className="space-y-5 mt-5">
               {fields.map((field, index) => (
                 <Card key={field.id}>
-                  <CardContent className="space-y-5 p-5">
+                  <CardContent className="space-y-5 p-5 relative">
+                    <div
+                      className="top-0 right-0 absolute p-3 "
+                      role="button"
+                      onClick={() => {
+                        remove(index);
+                      }}
+                    >
+                      <X className="size-5" />
+                    </div>
                     <FormField
                       control={form.control}
                       name={`sections.${index}.nameSection`}
@@ -160,7 +169,7 @@ export const StepTwo = () => {
                               onChange={(v) => {
                                 form.setValue(`sections.${index}.content`, v);
                               }}
-                              className="bg-background py-5 px-3 min-h-[10rem] rounded-2xl "
+                              className="border-border border-2 dark:bg-input py-5 px-3 min-h-[10rem] rounded-2xl "
                             />
                           </FormControl>
                           <FormMessage />
@@ -188,7 +197,7 @@ export const StepTwo = () => {
               </Button>
               <Button
                 type="submit"
-                className="mt-10 w-1/4"
+                className="mt-10 w-[100px]"
               >
                 Next
               </Button>
