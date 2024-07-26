@@ -14,14 +14,36 @@ export const SongsCreateDtoSchema = z.object({
       const regex = /^[^\d]*$/;
       return regex.test(value);
     }, "Name not be a number."),
-
+  artists: z
+    .array(
+      z.object({
+        value: z.string(),
+        label: z.string(),
+      })
+    )
+    .refine(
+      (value) => {
+        return value.length > 0;
+      },
+      {
+        message: "Artist is required.",
+      }
+    ),
+  genre: z.string({
+    required_error: "Genre is required.",
+  }),
   youtubeUrl: z
     .string({
       required_error: "Youtube URL is required.",
     })
-    .refine((value) => {
-      return isValidYouTubeUrl(value);
-    }, "Invalid Youtube URL"),
+    .refine(
+      (value) => {
+        return isValidYouTubeUrl(value);
+      },
+      {
+        message: "Invalid Youtube URL.",
+      }
+    ),
   key: z
     .string({
       required_error: "Key is required.",
@@ -35,9 +57,13 @@ export const SongsCreateDtoSchema = z.object({
         message: "Invalid key format.",
       }
     ),
-  publisher: z.string({
-    required_error: "Publisher is required.",
-  }),
+  publisher: z
+    .string({
+      required_error: "Publisher is required.",
+    })
+    .refine((value) => value.length > 0, {
+      message: "Publisher is required.",
+    }),
   releaseYear: z
     .string({
       required_error: "Release year is required.",

@@ -1,6 +1,5 @@
 "use client";
 
-import { z } from "zod";
 import ReactSelect from "react-select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,7 +23,7 @@ import { MediaPlayerCreateSong } from "@/components/admin/songs/create/media-pla
 
 import { isValidYouTubeUrl } from "@/lib/validation/validation-url-youtube";
 import { useSongCreate } from "@/hooks/admin/songs/create";
-import { form1Schema } from "./schema";
+import { form1Schema, Form1Type } from "@/components/admin/songs/create/schema";
 
 const options = [
   {
@@ -68,15 +67,13 @@ const genresOptions = [
   },
 ];
 
-export type MainInformationMusicForm = z.infer<typeof form1Schema>;
-
 export const StepOne = () => {
   const router = useRouter();
   const youtubeUrlRef = useRef<HTMLInputElement | null>(null);
   const [link, setLink] = useState("");
   const { song, setSong } = useSongCreate();
 
-  const defaultValues: Partial<MainInformationMusicForm> = {
+  const defaultValues: Partial<Form1Type> = {
     title: song.title,
     youtubeUrl: song.youtubeUrl,
     key: song.key,
@@ -84,13 +81,13 @@ export const StepOne = () => {
     releaseYear: song.releaseYear,
   };
 
-  const form = useForm<MainInformationMusicForm>({
+  const form = useForm<Form1Type>({
     resolver: zodResolver(form1Schema),
     defaultValues,
     mode: "onChange",
   });
 
-  function onSubmit(data: MainInformationMusicForm) {
+  function onSubmit(data: Form1Type) {
     setSong({
       ...data,
       sections: song.sections,
@@ -234,14 +231,13 @@ export const StepOne = () => {
               name="youtubeUrl"
               render={({ field }) => (
                 <FormItem>
-                  <div className="max-w-lg">
+                  <div className="max-w-lg mb-5">
                     <MediaPlayerCreateSong link={link} />
                   </div>
                   <FormLabel>Youtube url</FormLabel>
                   <FormControl>
                     <div className="flex gap-x-3 max-w-xl">
                       <Input
-                        // autoComplete="off"
                         placeholder="ex: https://youtu.be/QhubX_VQogk"
                         {...field}
                         ref={(e: HTMLInputElement | null) => {

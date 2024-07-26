@@ -11,9 +11,10 @@ import { Button } from "@/components/ui/button";
 
 interface RichTextEditorProps {
   className?: string;
+  content?: string;
   onChange?: (content: string) => void;
 }
-export const RichTextEditor = ({ className, onChange }: RichTextEditorProps) => {
+export const RichTextEditor = ({ className, content, onChange }: RichTextEditorProps) => {
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -30,7 +31,7 @@ export const RichTextEditor = ({ className, onChange }: RichTextEditorProps) => 
         placeholder: "Type lyrics and chord here...",
       }),
     ],
-    content: undefined,
+    content: content || undefined,
     onUpdate: ({ editor }) => {
       if (onChange) {
         onChange(editor.getHTML());

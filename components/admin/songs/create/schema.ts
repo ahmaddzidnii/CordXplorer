@@ -77,3 +77,30 @@ export const form1Schema = z.object({
       }
     ),
 });
+
+export type Form1Type = z.infer<typeof form1Schema>;
+
+export const form2Schema = z.object({
+  sections: z.array(
+    z.object({
+      nameSection: z
+        .string({ required_error: "Please enter a name for the section." })
+        .min(1, "Please enter a name for the section."),
+      startTime: z
+        .number({
+          required_error: "Please enter a start time.",
+          invalid_type_error: "Please enter a valid number.",
+        })
+        .min(0, "Please enter a valid number."),
+      endTime: z
+        .number({
+          required_error: "Please enter an end time.",
+          invalid_type_error: "Please enter a valid number.",
+        })
+        .min(0, "Please enter a valid number."),
+      content: z.string({ required_error: "Please enter a content." }),
+    })
+  ),
+});
+
+export type Form2Type = z.infer<typeof form2Schema>;

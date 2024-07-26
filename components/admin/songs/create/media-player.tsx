@@ -1,7 +1,6 @@
 "use client";
 
 import ReactPlayer, { ReactPlayerProps } from "react-player/lazy";
-import { useRef, useState } from "react";
 
 interface MediaPlayerAdminProps extends ReactPlayerProps {
   link: string;
@@ -12,8 +11,6 @@ export const MediaPlayerCreateSong = ({
   onProgress,
   onReady,
 }: MediaPlayerAdminProps) => {
-  const [currentSecond, setCurrentSecond] = useState(0);
-
   return (
     <div className="space-y-5">
       <h1 className="font-bold text-lg">Preview Youtube :</h1>
@@ -24,18 +21,11 @@ export const MediaPlayerCreateSong = ({
           controls
           width="100%"
           height="100%"
-          onProgress={(state) => {
-            setCurrentSecond(state.playedSeconds);
-          }}
-          onError={(error, data) => {
-            onError && onError(error, data);
-          }}
-          onReady={(player) => {
-            onReady && onReady(player);
-          }}
+          onProgress={onProgress}
+          onError={onError}
+          onReady={onReady}
         />
       </div>
-      <div>{!!link && <p>Current seconds: {currentSecond.toFixed(0)}</p>}</div>
     </div>
   );
 };

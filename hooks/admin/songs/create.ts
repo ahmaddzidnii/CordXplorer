@@ -13,6 +13,8 @@ export const useSongCreate = create<SongCreateState>((set) => ({
     key: "",
     publisher: "",
     releaseYear: "",
+    genre: "",
+    artists: [],
     sections: [],
   },
   setSong: (song) => set({ song }),
