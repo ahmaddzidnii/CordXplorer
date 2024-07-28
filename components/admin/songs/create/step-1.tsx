@@ -142,6 +142,8 @@ export const StepOne = () => {
                     className="my-react-select-container"
                     classNamePrefix="my-react-select"
                     isMulti
+                    closeMenuOnSelect={false}
+                    placeholder="Select artist"
                     options={options}
                     onChange={(selectedOption) => {
                       field.onChange(selectedOption);

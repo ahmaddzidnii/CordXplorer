@@ -4,7 +4,11 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next-nprogress-bar";
 import { Plus, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import ReactPlayer from "react-player";
+
+import { FaPause, FaPlay } from "react-icons/fa";
+import { IoMusicalNoteSharp } from "react-icons/io5";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,12 +19,13 @@ import { MediaPlayerCreateSong } from "@/components/admin/songs/create/media-pla
 import { useSongCreate } from "@/hooks/admin/songs/create";
 import { Form, FormControl, FormField, FormMessage } from "@/components/ui/form";
 import { form2Schema, Form2Type } from "@/components/admin/songs/create/schema";
-import { IoMusicalNoteSharp } from "react-icons/io5";
+import { MediaController } from "./media-controller";
 
 export const StepTwo = () => {
   const { song, setSong } = useSongCreate();
   const router = useRouter();
 
+  const playerRef = useRef<ReactPlayer>(null);
   useEffect(() => {
     if (!song.title) {
       router.replace("?step=1");
@@ -63,14 +68,14 @@ export const StepTwo = () => {
     <div className="flex-col flex w-full">
       <h3 className="text-2xl font-bold tracking-tight">Add Section Song</h3>
       <p className="text-muted-foreground">Add a new section to the song.</p>
-      <div className="my-5">
-        <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="my-5 space-y-5">
+        <h1 className="font-bold text-lg">Preview Youtube :</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-5">
           <MediaPlayerCreateSong
             link={song.youtubeUrl}
-            onProgress={(progres) => {
-              console.log({ progres });
-            }}
+            ref={playerRef}
           />
+          <MediaController playerRef={playerRef} />
         </div>
         <p className="text-xl font-bold">Sections</p>
         <Form {...form}>
@@ -105,7 +110,7 @@ export const StepTwo = () => {
                           </div>
                         )}
                       />
-                      <div className="flex gap-x-5">
+                      <div className="flex gap-x-5 ">
                         <FormField
                           control={form.control}
                           name={`sections.${index}.startTime`}
@@ -188,7 +193,7 @@ export const StepTwo = () => {
               </Button>
               <Button
                 type="submit"
-                className="mt-10 w-[100px]"
+                className="mt-5 w-[100px]"
               >
                 Next
               </Button>
