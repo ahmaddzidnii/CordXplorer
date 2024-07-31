@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { toast } from "sonner";
 import { useRouter } from "next-nprogress-bar";
 
 import { H1 } from "@/components/typography/h1";
@@ -18,7 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { toast } from "sonner";
 
 export const StepThree = () => {
   const { song } = useSongCreate();
@@ -39,49 +39,56 @@ export const StepThree = () => {
         <H1 className="lg:text-3xl">Confirmation</H1>
         <P>Please review the information below and confirm the details before proceeding.</P>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div>
-          <h1 className="font-bold text-lg mb-5">General Information :</h1>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-1/2">Fields</TableHead>
-                <TableHead>Value</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">Title</TableCell>
-                <TableCell>{song.title}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Key</TableCell>
-                <TableCell>{song.key}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Artist</TableCell>
-                <TableCell>{song.artists.map((artist) => artist.label).join(", ")}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Genre</TableCell>
-                <TableCell>{song.genre}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Youtube Url</TableCell>
-                <TableCell>{song.youtubeUrl}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Publisher</TableCell>
-                <TableCell>{song.publisher}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Release Year</TableCell>
-                <TableCell>{song.releaseYear}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
+        <div className="flex justify-center">
+          <img
+            src={song.coverImage}
+            alt="Cover"
+            className="w-full lg:w-[350px] h-[350px] aspect-square object-cover rounded-sm shadow-primary"
+          />
         </div>
         <MediaPlayerCreateSong link={song.youtubeUrl} />
+      </div>
+      <div>
+        <h1 className="font-bold text-lg mb-5">General Information :</h1>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-1/2">Fields</TableHead>
+              <TableHead>Value</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell className="font-medium">Title</TableCell>
+              <TableCell>{song.title}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Key</TableCell>
+              <TableCell>{song.key}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Artist</TableCell>
+              <TableCell>{song.artists.map((artist) => artist.label).join(", ")}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Genre</TableCell>
+              <TableCell>{song.genre}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Youtube Url</TableCell>
+              <TableCell>{song.youtubeUrl}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Publisher</TableCell>
+              <TableCell>{song.publisher}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Release Year</TableCell>
+              <TableCell>{song.releaseYear}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </div>
       <div>
         <h1 className="font-bold text-lg mb-5">Section :</h1>

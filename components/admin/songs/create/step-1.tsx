@@ -3,7 +3,7 @@
 import ReactSelect from "react-select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next-nprogress-bar";
 
@@ -24,6 +24,7 @@ import { MediaPlayerCreateSong } from "@/components/admin/songs/create/media-pla
 import { isValidYouTubeUrl } from "@/lib/validation/validation-url-youtube";
 import { useSongCreate } from "@/hooks/admin/songs/create";
 import { form1Schema, Form1Type } from "@/components/admin/songs/create/schema";
+import { PreviewImage } from "./preview-image";
 
 const options = [
   {
@@ -70,11 +71,16 @@ const genresOptions = [
 export const StepOne = () => {
   const router = useRouter();
   const youtubeUrlRef = useRef<HTMLInputElement | null>(null);
+  const previewImageRef = useRef<HTMLInputElement | null>(null);
+
   const [link, setLink] = useState("");
+  const [imageLink, setImageLink] = useState("");
   const { song, setSong } = useSongCreate();
+  const imageLinkArray = useMemo(() => (imageLink ? [imageLink] : []), [imageLink]);
 
   const defaultValues: Partial<Form1Type> = {
     title: song.title,
+    coverImage: song.coverImage,
     youtubeUrl: song.youtubeUrl,
     key: song.key,
     publisher: song.publisher,
@@ -95,15 +101,33 @@ export const StepOne = () => {
     router.push("?step=2");
   }
 
+  const handleLoadImage = () => {
+    const regex = /^(https:\/\/)?(www\.)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\/.*)?$/;
+    const urlImage = previewImageRef.current?.value;
+
+    if (regex.test(urlImage as string)) {
+      setImageLink(urlImage as string);
+    } else {
+      toast.error("Invalid image URL");
+    }
+  };
+
   const handleLoadButtonClick = () => {
     const url = youtubeUrlRef.current?.value;
+
     if (isValidYouTubeUrl(url as string)) {
       setLink(url as string);
     } else {
       toast.error("Invalid Youtube URL");
-      return;
     }
   };
+
+  const handleImageError = useCallback(() => {
+    form.resetField("coverImage");
+    form.setValue("coverImage", "");
+    toast.error("Image not found!");
+  }, []);
+
   return (
     <div className="space-y-5">
       <div>
@@ -128,6 +152,39 @@ export const StepOne = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="coverImage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cover</FormLabel>
+                  <PreviewImage
+                    images={imageLinkArray}
+                    onError={handleImageError}
+                  />
+                  <FormControl>
+                    <div className="flex gap-x-5">
+                      <Input
+                        placeholder="ex https://image.com/image.jpg"
+                        {...field}
+                        ref={(e: HTMLInputElement | null) => {
+                          previewImageRef.current = e;
+                          field.ref(e);
+                        }}
+                      />
+                      <Button
+                        onClick={handleLoadImage}
+                        type="button"
+                      >
+                        Load
+                      </Button>
+                    </div>
+                  </FormControl>
+                  <FormDescription> Now only supported image via URL </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { produce } from "immer";
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 import ReactPlayer from "react-player/lazy";
 import { create } from "zustand";
 interface StateHook {
@@ -35,8 +35,9 @@ export const mediaPlayerAdminState = create<StateHook>((set) => ({
 interface MediaPlayerAdminProps {
   link: string;
 }
-export const MediaPlayerCreateSong = forwardRef<ReactPlayer, MediaPlayerAdminProps>(
+const MediaPlayerCreateSongComponent = forwardRef<ReactPlayer, MediaPlayerAdminProps>(
   ({ link }, ref) => {
+    console.log("MediaPlayerCreateSongComponent");
     const { state, setState } = mediaPlayerAdminState();
 
     const handleDuration = (duration: number) => {
@@ -69,4 +70,10 @@ export const MediaPlayerCreateSong = forwardRef<ReactPlayer, MediaPlayerAdminPro
   }
 );
 
-MediaPlayerCreateSong.displayName = "MediaPlayerCreateSong";
+// Tambahkan displayName untuk debugging
+MediaPlayerCreateSongComponent.displayName = "MediaPlayerCreateSong";
+
+// Bungkus dengan React.memo
+const MediaPlayerCreateSong = React.memo(MediaPlayerCreateSongComponent);
+
+export { MediaPlayerCreateSong };

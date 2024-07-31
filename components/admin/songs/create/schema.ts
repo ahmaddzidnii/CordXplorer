@@ -28,6 +28,21 @@ export const form1Schema = z.object({
         message: "Artist is required.",
       }
     ),
+  coverImage: z
+    .string()
+    .refine(
+      (value) => {
+        const regex = /^(https:\/\/)?(www\.)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\/.*)?$/; // regex for url
+
+        if (value === "") {
+          return true;
+        }
+
+        return regex.test(value);
+      },
+      { message: "URl must be over HTTPS." }
+    )
+    .optional(),
   genre: z.string({
     required_error: "Genre is required.",
   }),

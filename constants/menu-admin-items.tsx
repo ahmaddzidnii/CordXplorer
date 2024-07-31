@@ -20,11 +20,6 @@ export const menuItems = [
     href: "/admin/artists",
   },
   {
-    title: "Manage album",
-    icon: <IoAlbumsSharp className="w-7 h-7" />,
-    href: "/admin/albums",
-  },
-  {
     title: "Manage category",
     icon: <BiSolidCategoryAlt className="w-7 h-7" />,
     href: "/admin/categories",

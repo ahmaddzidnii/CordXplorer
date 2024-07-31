@@ -7,7 +7,6 @@ import { Plus, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import ReactPlayer from "react-player";
 
-import { FaPause, FaPlay } from "react-icons/fa";
 import { IoMusicalNoteSharp } from "react-icons/io5";
 
 import { Card, CardContent } from "@/components/ui/card";
