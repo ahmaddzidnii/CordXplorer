@@ -1,16 +1,15 @@
 import { GiMusicalScore } from "react-icons/gi";
-
-import { YtEmbed } from "@/components/embed/yt-embed";
 import { Separator } from "@/components/ui/separator";
 
 import { ChordPage } from "@/components/chord-page";
+import Test from "./test";
 
 export default function SongsPage({ params }: { params: { slug: string } }) {
   return (
     <div className="min-h-screen relative">
-      <section className="min-h-screen grid grid-cols-12 pt-4 gap-5">
+      <section className="h-full grid grid-cols-12 pt-4 gap-5">
         <div className="col-span-12 md:col-span-3">
-          <aside className="w-full">
+          <aside className="w-full md:sticky md:top-20">
             <div>
               <img
                 src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
@@ -28,7 +27,7 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
             </div>
             <div className="my-3 w-full">
               <p className="text-sm text-muted-foreground font-bold mb-2">Video Music</p>
-              <YtEmbed />
+              <Test />
             </div>
           </aside>
         </div>
@@ -53,7 +52,6 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
                 <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
               </div>
             </div>
-            {/* Chord */}
             <ChordPage />
           </article>
         </div>

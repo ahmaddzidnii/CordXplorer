@@ -2,7 +2,7 @@ import { CardSong } from "@/components/card-song";
 
 export default function ChordPage() {
   return (
-    <>
+    <div className="container">
       <section>
         <h1 className="font-bold text-4xl py-5">Japanese Song</h1>
         <div className="grid grid-cols-12 gap-2">
@@ -29,6 +29,6 @@ export default function ChordPage() {
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

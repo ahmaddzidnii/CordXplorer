@@ -2,42 +2,42 @@
 
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/youtube";
-import { Skeleton } from "../ui/skeleton";
-import { useVideo } from "@/hooks/use-video";
-import { ControlPlayer } from "../control-player";
+import throttle from "lodash.throttle";
+
+import { Skeleton } from "@/components/ui/skeleton";
 import { OnProgressProps } from "react-player/base";
+import { useMediaPlayer, usePlaybackControl } from "@/hooks/chord/use-media-player";
 
 const YtEmbedSkeleton = () => {
   return <Skeleton className="w-full h-[190px] bg-neutral-300" />;
 };
-export const YtEmbed = () => {
+export const YtEmbed = ({ playerRef }: { playerRef: any }) => {
   const [mounted, setMounted] = useState(false);
 
-  const player = useRef<ReactPlayer>(null);
-  const { setPlayed, setDuration, seeking, isPlaying, setIsPlaying, setSeeking } = useVideo();
+  const { setState } = useMediaPlayer();
+  const { playbackControl, setPlaybackControl } = usePlaybackControl();
 
-  const handleSeek = (value: number[]) => {
-    setSeeking(true);
-    setPlayed(value[0]);
+  const handleProgress = throttle((state: OnProgressProps) => {
+    setState({ progress: Math.floor(state.playedSeconds) });
+  }, 1000);
+
+  const onPause = () => {
+    setPlaybackControl({ playing: false });
   };
 
-  const handleProgress = (state: OnProgressProps) => {
-    if (!seeking) {
-      setPlayed(Math.ceil(state.playedSeconds));
-    }
+  const onPlay = () => {
+    setPlaybackControl({ playing: true });
   };
 
-  const handleSeekMouseUp = (value: number[]) => {
-    setSeeking(false);
-    // console.log({ value: value[0] });
-    player.current?.seekTo(value[0]);
+  const onDuration = (duration: number) => {
+    setState({ duration: Math.floor(duration) });
+  };
+  const onReady = () => {
+    setPlaybackControl({ isReady: true });
   };
 
-  const handleNextSeek = () => {
-    player.current?.seekTo(player.current?.getCurrentTime() + 10);
-  };
-  const handlePrevSeek = () => {
-    player.current?.seekTo(player.current?.getCurrentTime() - 10);
+  const onEnded = () => {
+    setPlaybackControl({ isEnded: true, playing: false });
   };
 
   useEffect(() => {
@@ -48,37 +48,21 @@ export const YtEmbed = () => {
 
   return (
     <>
-      <ControlPlayer
-        onSeek={handleSeek}
-        onSeekMouseUp={handleSeekMouseUp}
-        prevSeek={handlePrevSeek}
-        nextSeek={handleNextSeek}
-      />
       <div className="aspect-video rounded-sm overflow-hidden">
         <ReactPlayer
-          ref={player}
-          controls
-          playing={isPlaying}
+          ref={playerRef}
+          controls={false}
+          playing={playbackControl.playing}
           fallback={<YtEmbedSkeleton />}
           width="100%"
           height="100%"
-          url="https://youtu.be/5g12MLvunm0?si=70SHy00GsBqRP1i4"
-          onDuration={(duration) => {
-            setDuration(duration);
-          }}
-          onEnded={() => {
-            setIsPlaying(false);
-            console.log("end");
-          }}
-          onPlay={() => {
-            setIsPlaying(true);
-            console.log("play");
-          }}
-          onPause={() => {
-            setIsPlaying(false);
-            console.log("pause");
-          }}
+          url="https://www.youtube.com/watch?v=QhubX_VQogk"
+          onDuration={onDuration}
+          onPlay={onPlay}
+          onPause={onPause}
           onProgress={handleProgress}
+          onReady={onReady}
+          onEnded={onEnded}
         />
       </div>
     </>
