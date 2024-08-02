@@ -37,7 +37,6 @@ interface MediaPlayerAdminProps {
 }
 const MediaPlayerCreateSongComponent = forwardRef<ReactPlayer, MediaPlayerAdminProps>(
   ({ link }, ref) => {
-    console.log("MediaPlayerCreateSongComponent");
     const { state, setState } = mediaPlayerAdminState();
 
     const handleDuration = (duration: number) => {

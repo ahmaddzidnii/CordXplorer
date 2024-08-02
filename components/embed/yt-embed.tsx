@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import throttle from "lodash.throttle";
 
@@ -48,10 +48,10 @@ export const YtEmbed = ({ playerRef }: { playerRef: any }) => {
 
   return (
     <>
-      <div className="aspect-video rounded-sm overflow-hidden">
+      <div className="aspect-video rounded-sm overflow-hidden shadow-sm shadow-primary">
         <ReactPlayer
           ref={playerRef}
-          controls={false}
+          controls
           playing={playbackControl.playing}
           fallback={<YtEmbedSkeleton />}
           width="100%"

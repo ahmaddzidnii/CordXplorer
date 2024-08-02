@@ -4,6 +4,7 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 
 import { cn } from "@/lib/utils";
+import { convertTimeToMilitary } from "@/lib/format/format-second";
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
@@ -17,7 +18,11 @@ const Slider = React.forwardRef<
     <SliderPrimitive.Track className="relative h-[3px] w-full grow overflow-hidden rounded-full cursor-pointer bg-violet-300 ">
       <SliderPrimitive.Range className="absolute h-full bg-violet-600" />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 cursor-pointer rounded-full border-2 border-violet-200 bg-violet-600 ring-offset-background  focus-visible:outline-none focus-visible:ring-2 focus-visible:focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50    transition-all ease-in-out duration-200" />
+    <SliderPrimitive.Thumb className="block h-5 w-5 cursor-pointer rounded-full bg-violet-600 ring-offset-background  focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 transition-all ease-in duration-1000">
+      <span className="text-xs font-semibold text-primary absolute -top-4 -left-1.5">
+        {convertTimeToMilitary(props.value![0])}
+      </span>
+    </SliderPrimitive.Thumb>
   </SliderPrimitive.Root>
 ));
 Slider.displayName = SliderPrimitive.Root.displayName;

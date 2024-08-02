@@ -1,10 +1,37 @@
-import { GiMusicalScore } from "react-icons/gi";
-import { Separator } from "@/components/ui/separator";
+export interface Root {
+  title: string;
+  artists: Artist[];
+  coverImage: string;
+  genre: string;
+  youtubeUrl: string;
+  key: string;
+  publisher: string;
+  releaseYear: string;
+  sections: Section[];
+}
 
+export interface Artist {
+  value: string;
+  label: string;
+}
+
+export interface Section {
+  nameSection: string;
+  startTime: number;
+  endTime: number;
+  content: string;
+}
+
+import { GiMusicalScore } from "react-icons/gi";
+import { promises as fs } from "fs";
+
+import { Separator } from "@/components/ui/separator";
 import { ChordPage } from "@/components/chord-page";
 import Test from "./test";
 
-export default function SongsPage({ params }: { params: { slug: string } }) {
+export default async function SongsPage({ params }: { params: { slug: string } }) {
+  const file = await fs.readFile(process.cwd() + "/dummy.json", "utf8");
+  const data: Root = JSON.parse(file);
   return (
     <div className="min-h-screen relative">
       <section className="h-full grid grid-cols-12 pt-4 gap-5">
@@ -32,7 +59,7 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
           </aside>
         </div>
         <div className="col-span-12 md:col-span-9">
-          <article className="bg-white dark:bg-[#282828]/80 p-5 shadow-lg rounded-lg min-h-screen">
+          <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg min-h-screen">
             <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
             <div className="flex justify-between">
               <p>Arsy Widianto, Tiara Andini</p>
@@ -52,7 +79,7 @@ export default function SongsPage({ params }: { params: { slug: string } }) {
                 <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
               </div>
             </div>
-            <ChordPage />
+            <ChordPage data={data} />
           </article>
         </div>
       </section>

@@ -3,17 +3,21 @@
 @tailwind utilities;
 
 .c {
-  @apply text-primary relative font-semibold;
+  @apply text-primary font-semibold;
+}
+
+.active-section {
+  @apply bg-background rounded-lg;
 }
 
 .sidebar-admin-active {
   @apply bg-fuchsia-300;
 }
 
-.c span {
+/* .c span {
   position: absolute;
   bottom: 100%;
-}
+} */
 
 .react-player {
   @apply bg-muted;

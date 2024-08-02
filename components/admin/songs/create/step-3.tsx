@@ -121,6 +121,7 @@ export const StepThree = () => {
             });
 
             await submit;
+            console.log(song);
           }}
         >
           Submit Chord
