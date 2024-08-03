@@ -11,9 +11,7 @@ const Test = () => {
   return (
     <>
       <YtEmbed playerRef={playerRef} />
-      <div>
-        <ControlPlayer playerRef={playerRef} />
-      </div>
+      <ControlPlayer playerRef={playerRef} />
     </>
   );
 };

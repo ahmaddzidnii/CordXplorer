@@ -28,15 +28,18 @@ import { promises as fs } from "fs";
 import { Separator } from "@/components/ui/separator";
 import { ChordPage } from "@/components/chord-page";
 import Test from "./test";
+import { CardWrapper } from "@/components/card/card-wrapper";
+import { CardSong } from "@/components/card/card-song";
+import { TextHeader } from "@/components/text-header";
 
 export default async function SongsPage({ params }: { params: { slug: string } }) {
   const file = await fs.readFile(process.cwd() + "/dummy.json", "utf8");
   const data: Root = JSON.parse(file);
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen  space-y-5">
       <section className="h-full grid grid-cols-12 pt-4 gap-5">
         <div className="col-span-12 md:col-span-3">
-          <aside className="w-full md:sticky md:top-20">
+          <aside className="w-full md:top-20 md:sticky  md:z-[999]">
             <div>
               <img
                 src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
@@ -59,7 +62,7 @@ export default async function SongsPage({ params }: { params: { slug: string } }
           </aside>
         </div>
         <div className="col-span-12 md:col-span-9">
-          <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg min-h-screen">
+          <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg h-max">
             <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
             <div className="flex justify-between">
               <p>Arsy Widianto, Tiara Andini</p>
@@ -82,6 +85,29 @@ export default async function SongsPage({ params }: { params: { slug: string } }
             <ChordPage data={data} />
           </article>
         </div>
+      </section>
+      <section className="pt-5">
+        <TextHeader title="Related Song" />
+        <CardWrapper>
+          {Array.from({ length: 8 }).map((_, index) => (
+            <CardSong
+              key={index}
+              imageSrc="https://www.kawaiikakkoiisugoi.com/wp-content/uploads/2020/07/YOASOBI-Tabun-620x620.jpg"
+              artist="Yoasobi"
+              realeaseDate="2020"
+              songTitle="Probably"
+              youtubeName="Ayase"
+              href="/songs/probably-yoasobi"
+            />
+          ))}
+          <div className="mb-16" />
+        </CardWrapper>
+      </section>
+
+      <section>
+        <blockquote className="mt-6 border-l-2 pl-6 italic">
+          Learning is attained by chance, it must be sought for with ardor and diligence.
+        </blockquote>
       </section>
     </div>
   );

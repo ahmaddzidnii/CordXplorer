@@ -3,13 +3,9 @@
 import { Root } from "@/app/(chord)/songs/[slug]/page";
 import { useMediaPlayer } from "@/hooks/chord/use-media-player";
 import { cn } from "@/lib/utils";
-import throttle from "lodash.throttle";
-import { useEffect, useMemo, useRef } from "react";
 
 export const ChordPage = ({ data }: { data: Root }) => {
   const { state } = useMediaPlayer();
-
-  // console.log("chord page render");
 
   const isCurrentActive = (currentTime: number, startTime: number, endTime: number) => {
     console.log("inside func isCurrentActive");

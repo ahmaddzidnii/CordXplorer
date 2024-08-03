@@ -11,6 +11,7 @@ export const TopLoaderBarProvider = ({ children }: { children: React.ReactNode }
         shallowRouting
         options={{ easing: "ease", speed: 500, showSpinner: false }}
       />
+
       {children}
     </div>
   );

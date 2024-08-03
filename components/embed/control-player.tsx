@@ -19,7 +19,7 @@ interface PlayerRefProps {
 export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
   return (
     <>
-      <div className="hidden md:block md:fixed  bottom-6 left-1/2 -translate-x-1/2 backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[400px] h-[116px] rounded-lg ">
+      <div className="hidden md:block fixed z-[99999]  bottom-6 left-1/2 -translate-x-1/2 backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[400px] h-[116px] rounded-lg ">
         <ButtonController playerRef={playerRef} />
         <ButtonTranspose />
         <div className="pt-7 px-4">
