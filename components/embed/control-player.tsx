@@ -1,7 +1,14 @@
 "use client";
 
-import { FaPlay } from "react-icons/fa6";
-import { FaPause } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaMusic,
+  FaTextHeight,
+  FaRotateLeft,
+  FaMinus,
+  FaPlus,
+} from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
 import { memo, RefObject, useCallback } from "react";
 import throttle from "lodash.throttle";
@@ -12,6 +19,8 @@ import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { useMediaPlayer, usePlaybackControl } from "@/hooks/chord/use-media-player";
+import { useTransposeSwitcher } from "@/hooks/use-transpose-switcher";
+import { useTransposeState } from "@/hooks/use-tranpose-state";
 
 interface PlayerRefProps {
   playerRef: RefObject<ReactPlayer>;
@@ -19,9 +28,10 @@ interface PlayerRefProps {
 export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
   return (
     <>
+      {/* Desktop */}
       <div className="hidden md:block fixed z-[99999]  bottom-6 left-1/2 -translate-x-1/2 backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[400px] h-[116px] rounded-lg ">
-        <ButtonController playerRef={playerRef} />
-        <ButtonTranspose />
+        <ButtonWrapper playerRef={playerRef} />
+        <ButtonSwitcherTranpose />
         <div className="pt-7 px-4">
           <SliderControl playerRef={playerRef} />
         </div>
@@ -35,11 +45,12 @@ export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
           </div>
         </div>
       </div>
+      {/* Desktop */}
 
       {/* Device */}
       <div className="fixed h-24 w-[100vw] left-0 z-[99999] rounded-t-lg backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg bottom-0 md:hidden">
-        <ButtonController playerRef={playerRef} />
-        <ButtonTranspose />
+        <ButtonWrapper playerRef={playerRef} />
+        <ButtonSwitcherTranpose />
         <div className="flex gap-x-3 items-center h-full px-4 py-1.5">
           <div className="shrink-0">
             <div className="flex flex-col gap-y-2 items-center">
@@ -88,9 +99,21 @@ function SliderControl({ playerRef }: PlayerRefProps) {
   );
 }
 
-const ButtonController = memo(({ playerRef }: PlayerRefProps) => {
+function ButtonWrapper({ playerRef }: PlayerRefProps) {
+  const { isTranpose } = useTransposeSwitcher();
+
+  return (
+    <>
+      {isTranpose ? <ButtonControllerTranpose /> : <ButtonControllerPlayer playerRef={playerRef} />}
+    </>
+  );
+}
+
+const ButtonControllerPlayer = memo(({ playerRef }: PlayerRefProps) => {
+  console.log("button controller render");
+
   const { playbackControl, setPlaybackControl } = usePlaybackControl();
-  console.log("button render");
+
   const handlePlayPause = useCallback(() => {
     setPlaybackControl({ playing: !playbackControl.playing });
   }, [playbackControl.playing]);
@@ -158,19 +181,93 @@ const ButtonController = memo(({ playerRef }: PlayerRefProps) => {
   );
 });
 
-function ButtonTranspose() {
+function ButtonControllerTranpose() {
+  const { tranpose, increment, decrement, reset } = useTransposeState();
+
+  const handleTranposeUp = useCallback(() => {
+    increment();
+  }, [tranpose]);
+
+  const handleTranposeDown = useCallback(() => {
+    decrement();
+  }, [tranpose]);
+
+  const handleResetTranpose = useCallback(() => {
+    reset();
+  }, [tranpose]);
+
   return (
     <>
-      <button className="flex items-center gap-x-3 absolute -top-6 right-5 w-10 h-10 bg-primary rounded-full justify-center">
-        <span className="text-3xl font-bold text-white">T</span>
+      {/* Reset Tranpose Key */}
+      <button
+        onClick={handleResetTranpose}
+        className="flex items-center gap-x-3 absolute -top-6 left-5 w-10 h-10 bg-primary rounded-full justify-center"
+      >
+        <FaRotateLeft className="fill-white size-4" />
       </button>
-      <p className="absolute mt-5 right-2 text-xs font-semibold">
-        Tranpose : <span>0</span>
-      </p>
+      {/* Reset Tranpose Key */}
+
+      {/* Tranpose Button */}
+      <div className="flex items-center h-12 absolute -top-7 left-1/2 -translate-x-1/2">
+        <button
+          className="w-12 h-12 bg-primary rounded-s-full"
+          onClick={handleTranposeDown}
+        >
+          <div className="w-full h-full flex justify-center items-center">
+            <FaMinus className="fill-white size-4" />
+          </div>
+        </button>
+        <div className="px-2 py-1.5 border-y h-full border-primary bg-background font-semibold w-10 flex items-center justify-center">
+          {tranpose}
+        </div>
+        <button
+          className="w-12 h-12 bg-primary rounded-e-full"
+          onClick={handleTranposeUp}
+        >
+          <div className="w-full h-full flex justify-center items-center">
+            <FaPlus className="fill-white size-4" />
+          </div>
+        </button>
+      </div>
+      {/* Tranpose Button */}
     </>
   );
 }
 
+function ButtonSwitcherTranpose() {
+  const { isTranpose, toggleTransposeSwitcher } = useTransposeSwitcher();
+  const { tranpose } = useTransposeState();
+  return (
+    <>
+      <button
+        onClick={() => {
+          toggleTransposeSwitcher();
+        }}
+        className="flex items-center gap-x-3 absolute -top-6 right-5 w-10 h-10 bg-primary rounded-full justify-center"
+      >
+        {isTranpose ? <MediaPlayerIcon /> : <TranposeIcon />}
+      </button>
+      {isTranpose ? (
+        <p className="absolute mt-5 right-5 text-xs font-semibold">
+          <span>Player</span>
+        </p>
+      ) : (
+        <p className="absolute mt-5 right-2 text-xs font-semibold">
+          <span>
+            Tranpose : <span>{tranpose}</span>
+          </span>
+        </p>
+      )}
+    </>
+  );
+}
+
+function TranposeIcon() {
+  return <FaTextHeight className="fill-white size-4" />;
+}
+function MediaPlayerIcon() {
+  return <FaMusic className="fill-white size-4" />;
+}
 function Loader() {
   return (
     <svg

@@ -35,6 +35,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",
+    "embla-carousel": "^8.1.8",
+    "embla-carousel-react": "^8.1.8",
     "hono": "^4.5.0",
     "immer": "^10.1.1",
     "lodash.debounce": "^4.0.8",

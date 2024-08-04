@@ -27,7 +27,7 @@ import { promises as fs } from "fs";
 
 import { Separator } from "@/components/ui/separator";
 import { ChordPage } from "@/components/chord-page";
-import Test from "./test";
+import { PlayerController } from "./player-controller";
 import { CardWrapper } from "@/components/card/card-wrapper";
 import { CardSong } from "@/components/card/card-song";
 import { TextHeader } from "@/components/text-header";
@@ -57,7 +57,7 @@ export default async function SongsPage({ params }: { params: { slug: string } }
             </div>
             <div className="my-3 w-full">
               <p className="text-sm text-muted-foreground font-bold mb-2">Video Music</p>
-              <Test />
+              <PlayerController />
             </div>
           </aside>
         </div>

@@ -3,6 +3,15 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselIndicator,
+  CarouselMainContainer,
+  CarouselNext,
+  CarouselPrevious,
+  CarouselThumbsContainer,
+  SliderMainItem,
+} from "@/components/carousel";
 
 export default function LandingPage() {
   return (
@@ -100,6 +109,7 @@ export default function LandingPage() {
           <p className="max-w-[700px] mx-auto mt-4 text-muted-foreground md:text-xl">
             Hear from real musicians who have used ChordXplorer to enhance their musical journey.
           </p>
+
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="text-left">
               <CardHeader>

@@ -5,7 +5,7 @@ import { YtEmbed } from "@/components/embed/yt-embed";
 import { useRef } from "react";
 import ReactPlayer from "react-player";
 
-const Test = () => {
+export const PlayerController = () => {
   const playerRef = useRef<ReactPlayer>(null);
 
   return (
@@ -15,5 +15,3 @@ const Test = () => {
     </>
   );
 };
-
-export default Test;

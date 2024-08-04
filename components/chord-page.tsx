@@ -8,7 +8,6 @@ export const ChordPage = ({ data }: { data: Root }) => {
   const { state } = useMediaPlayer();
 
   const isCurrentActive = (currentTime: number, startTime: number, endTime: number) => {
-    console.log("inside func isCurrentActive");
     return currentTime >= startTime && currentTime <= endTime;
   };
 
