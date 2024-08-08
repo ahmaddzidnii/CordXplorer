@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { TopLoaderBarProvider } from "@/providers/toploaderbar-provider";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/sonner";
 
 const monsterrat = Montserrat({ subsets: ["latin"] });
 
@@ -32,6 +33,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           storageKey="theme"
         >
           <TopLoaderBarProvider>
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                className: "border-primary",
+              }}
+            />
             <SessionProvider>{children}</SessionProvider>
           </TopLoaderBarProvider>
         </ThemeProvider>

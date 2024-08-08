@@ -67,7 +67,13 @@ export default async function SongsPage({ params }: { params: { slug: string } }
             <div className="flex justify-between">
               <p>Arsy Widianto, Tiara Andini</p>
               <p>
-                Key&nbsp;:&nbsp;<span className="c">Bb</span>
+                Key&nbsp;:&nbsp;
+                <span
+                  data-origin="Bb"
+                  className="c"
+                >
+                  Bb
+                </span>
               </p>
             </div>
             <div className="flex items-center w-full h-[40px] mt-2">

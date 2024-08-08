@@ -3,15 +3,6 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselIndicator,
-  CarouselMainContainer,
-  CarouselNext,
-  CarouselPrevious,
-  CarouselThumbsContainer,
-  SliderMainItem,
-} from "@/components/carousel";
 
 export default function LandingPage() {
   return (

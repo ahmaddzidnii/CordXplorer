@@ -6,7 +6,7 @@
   @apply text-primary font-semibold;
 }
 
-.active-section {
+.focus {
   @apply bg-background rounded-lg;
 }
 
@@ -14,23 +14,18 @@
   @apply bg-fuchsia-300;
 }
 
-/* .c span {
-  position: absolute;
-  bottom: 100%;
-} */
-
 .react-player {
   @apply bg-muted;
 }
 
-* {
+/* * {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-}
+} */
 
 .container-navbar {
   width: 100%;

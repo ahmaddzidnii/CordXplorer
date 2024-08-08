@@ -14,6 +14,19 @@ interface RichTextEditorProps {
   content?: string;
   onChange?: (content: string) => void;
 }
+
+const BoldExtended = Bold.extend({
+  renderHTML: ({ HTMLAttributes }) => {
+    return [
+      "span",
+      {
+        class: "c",
+        ...HTMLAttributes,
+      },
+    ];
+  },
+});
+
 export const RichTextEditor = ({ className, content, onChange }: RichTextEditorProps) => {
   const editor = useEditor({
     immediatelyRender: false,
@@ -22,11 +35,8 @@ export const RichTextEditor = ({ className, content, onChange }: RichTextEditorP
         italic: false,
         bold: false,
       }),
-      Bold.configure({
-        HTMLAttributes: {
-          class: "c",
-        },
-      }),
+      BoldExtended,
+
       PlaceHolder.configure({
         placeholder: "Type lyrics and chord here...",
       }),
@@ -34,7 +44,7 @@ export const RichTextEditor = ({ className, content, onChange }: RichTextEditorP
     content: content || undefined,
     onUpdate: ({ editor }) => {
       if (onChange) {
-        onChange(editor.getHTML());
+        onChange(editor.getHTML().replace(/\s+/g, "&nbsp;"));
       }
     },
   });
@@ -59,6 +69,16 @@ export const RichTextEditor = ({ className, content, onChange }: RichTextEditorP
       <EditorContent
         className={cn("w-full ", className)}
         editor={editor}
+        onPaste={(event) => {
+          // Mencegah aksi paste default
+          event.preventDefault();
+
+          // Ambil data plain text dari clipboard
+          const clipboardData = (event.clipboardData || window.ClipboardItem).getData("text");
+
+          // Perbarui state dengan data plain text
+          console.log(clipboardData);
+        }}
       />
     </div>
   );

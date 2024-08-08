@@ -10,7 +10,7 @@ import {
   FaPlus,
 } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
-import { memo, RefObject, useCallback } from "react";
+import { memo, RefObject, useCallback, useEffect, useState } from "react";
 import throttle from "lodash.throttle";
 import ReactPlayer from "react-player";
 
@@ -110,8 +110,6 @@ function ButtonWrapper({ playerRef }: PlayerRefProps) {
 }
 
 const ButtonControllerPlayer = memo(({ playerRef }: PlayerRefProps) => {
-  console.log("button controller render");
-
   const { playbackControl, setPlaybackControl } = usePlaybackControl();
 
   const handlePlayPause = useCallback(() => {
