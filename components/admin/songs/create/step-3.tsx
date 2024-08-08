@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Image from "next/image";
 
 export const StepThree = () => {
   const { song } = useSongCreate();
@@ -32,7 +33,7 @@ export const StepThree = () => {
       router.replace("?step=2");
       return;
     }
-  }, [song]);
+  }, [song, router]);
   return (
     <div className="space-y-5">
       <div>
@@ -40,11 +41,12 @@ export const StepThree = () => {
         <P>Please review the information below and confirm the details before proceeding.</P>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
-        <div className="flex justify-center">
-          <img
-            src={song.coverImage}
+        <div className="flex justify-center relative w-full lg:w-[350px] h-[350px] ">
+          <Image
+            fill
+            src={song.coverImage as string}
             alt="Cover"
-            className="w-full lg:w-[350px] h-[350px] aspect-square object-cover rounded-sm shadow-primary"
+            className=" aspect-square object-cover rounded-sm shadow-primary"
           />
         </div>
         <MediaPlayerCreateSong link={song.youtubeUrl} />

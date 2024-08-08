@@ -10,7 +10,7 @@ import {
   FaPlus,
 } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
-import { memo, RefObject, useCallback, useEffect, useState } from "react";
+import { memo, RefObject, useCallback } from "react";
 import throttle from "lodash.throttle";
 import ReactPlayer from "react-player";
 
@@ -114,7 +114,7 @@ const ButtonControllerPlayer = memo(({ playerRef }: PlayerRefProps) => {
 
   const handlePlayPause = useCallback(() => {
     setPlaybackControl({ playing: !playbackControl.playing });
-  }, [playbackControl.playing]);
+  }, [playbackControl.playing, setPlaybackControl]);
 
   const handleSeekPrev = throttle(() => {
     const currentTime = playerRef?.current?.getCurrentTime();
@@ -179,20 +179,22 @@ const ButtonControllerPlayer = memo(({ playerRef }: PlayerRefProps) => {
   );
 });
 
+ButtonControllerPlayer.displayName = "ButtonControllerPlayer";
+
 function ButtonControllerTranpose() {
   const { tranpose, increment, decrement, reset } = useTransposeState();
 
   const handleTranposeUp = useCallback(() => {
     increment();
-  }, [tranpose]);
+  }, [increment]);
 
   const handleTranposeDown = useCallback(() => {
     decrement();
-  }, [tranpose]);
+  }, [decrement]);
 
   const handleResetTranpose = useCallback(() => {
     reset();
-  }, [tranpose]);
+  }, [reset]);
 
   return (
     <>
@@ -231,6 +233,7 @@ function ButtonControllerTranpose() {
     </>
   );
 }
+ButtonControllerTranpose.displayName = "ButtonControllerTranpose";
 
 function ButtonSwitcherTranpose() {
   const { isTranpose, toggleTransposeSwitcher } = useTransposeSwitcher();
@@ -259,13 +262,16 @@ function ButtonSwitcherTranpose() {
     </>
   );
 }
+ButtonSwitcherTranpose.displayName = "ButtonSwitcherTranpose";
 
 function TranposeIcon() {
   return <FaTextHeight className="fill-white size-4" />;
 }
+TranposeIcon.displayName = "TranposeIcon";
 function MediaPlayerIcon() {
   return <FaMusic className="fill-white size-4" />;
 }
+MediaPlayerIcon.displayName = "MediaPlayerIcon";
 function Loader() {
   return (
     <svg
@@ -300,3 +306,4 @@ function Loader() {
     </svg>
   );
 }
+Loader.displayName = "Loader";

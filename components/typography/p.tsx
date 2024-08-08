@@ -19,3 +19,5 @@ export const P = forwardRef<HTMLParagraphElement, H1Props>(
     );
   }
 );
+
+P.displayName = "P";

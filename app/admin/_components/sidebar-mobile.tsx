@@ -14,11 +14,13 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { isActive } from "@/app/admin/_components/is-active";
 import { UserProfile } from "@/components/auth/user-profile";
+import Image from "next/image";
 
 export const SidebarMobile = ({ className }: { className?: string }) => {
+  const { isOpen, onClose, onOpen } = useSidebar();
+
   const router = useRouter();
   const pathname = usePathname();
-
   const width = useWindowWidth();
 
   useEffect(() => {
@@ -26,9 +28,8 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
     if (!isMobile) {
       onClose();
     }
-  }, [width]);
+  }, [width, onClose]);
 
-  const { isOpen, onClose, onOpen } = useSidebar();
   return (
     <>
       {/* Sheet Sidebar */}
@@ -59,10 +60,12 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
             </Button>
           </div>
           <div>
-            <img
+            <Image
               src="/logo.svg"
               alt="logo"
-              className="w-8 h-8 aspect-square"
+              className="aspect-square"
+              width={32}
+              height={32}
             />
           </div>
           {menuItems.map((item, id) => (

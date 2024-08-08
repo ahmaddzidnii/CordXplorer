@@ -31,6 +31,7 @@ import { PlayerController } from "./player-controller";
 import { CardWrapper } from "@/components/card/card-wrapper";
 import { CardSong } from "@/components/card/card-song";
 import { TextHeader } from "@/components/text-header";
+import Image from "next/image";
 
 export default async function SongsPage({ params }: { params: { slug: string } }) {
   const file = await fs.readFile(process.cwd() + "/dummy.json", "utf8");
@@ -40,8 +41,9 @@ export default async function SongsPage({ params }: { params: { slug: string } }
       <section className="h-full grid grid-cols-12 pt-4 gap-5">
         <div className="col-span-12 md:col-span-3">
           <aside className="w-full md:top-20 md:sticky  md:z-[999]">
-            <div>
-              <img
+            <div className="relative aspect-square">
+              <Image
+                fill
                 src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
                 alt=""
                 className="rounded-xl shadow-md w-full"

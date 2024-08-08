@@ -1,5 +1,6 @@
 import { ScrollIcon, SearchIcon, ShuffleIcon, TagsIcon } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -26,7 +27,7 @@ export default function LandingPage() {
                 <Link href="/songs">Explore now</Link>
               </Button>
             </div>
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1657721841432-f96e3f7f7eff?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               width="550"
               height="550"
@@ -116,9 +117,9 @@ export default function LandingPage() {
               </CardHeader>
               <CardContent>
                 <p>
-                  "ChordXplorer has been a game-changer for my songwriting.\n The chord lookup and
-                  progression tools have helped me\n discover new harmonies and take my music to the
-                  next\n level."
+                  &quot;ChordXplorer has been a game-changer for my songwriting.\n The chord lookup
+                  and progression tools have helped me\n discover new harmonies and take my music to
+                  the next\n level.&quot;
                 </p>
               </CardContent>
             </Card>
@@ -136,9 +137,9 @@ export default function LandingPage() {
               </CardHeader>
               <CardContent>
                 <p>
-                  "As a producer, I rely on ChordXplorer to quickly\n understand the chord
-                  structures in the music I'm\n working on. The analysis tools have been invaluable
-                  for\n my workflow."
+                  &quot;As a producer, I rely on ChordXplorer to quickly\n understand the chord
+                  structures in the music I&apos;m\n working on. The analysis tools have been
+                  invaluable for\n my workflow.&quot;
                 </p>
               </CardContent>
             </Card>
@@ -156,9 +157,9 @@ export default function LandingPage() {
               </CardHeader>
               <CardContent>
                 <p>
-                  "As a music student, ChordXplorer has been an\n indispensable tool for learning
-                  and understanding\n chord theory. The intuitive interface and wealth of\n
-                  information have made it a crucial part of my\n studies."
+                  &quot;As a music student, ChordXplorer has been an\n indispensable tool for
+                  learning and understanding\n chord theory. The intuitive interface and wealth of\n
+                  information have made it a crucial part of my\n studies.&quot;
                 </p>
               </CardContent>
             </Card>

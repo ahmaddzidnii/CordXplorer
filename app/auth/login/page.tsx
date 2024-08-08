@@ -3,6 +3,7 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { signIn } from "@/auth";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Logo } from "@/components/logo";
+import Image from "next/image";
 
 export default function AdminLoginPage({
   searchParams,
@@ -34,10 +35,12 @@ export default function AdminLoginPage({
                 className="group h-10 md:h-12 px-6 border-2 border-gray-300 rounded-full transition duration-100 hover:border-blue-400 "
               >
                 <div className=" flex items-center space-x-4 justify-center">
-                  <img
+                  <Image
                     src="https://www.svgrepo.com/show/475656/google-color.svg"
-                    className=" w-5"
+                    className="aspect-square"
                     alt="google logo"
+                    width={20}
+                    height={20}
                   />
                   <span className="block  w-max font-semibold tracking-wide text-gray-700 dark:text-white text-sm transition duration-100 group-hover:text-blue-600 sm:text-base">
                     Continue with Google
@@ -48,17 +51,21 @@ export default function AdminLoginPage({
           </CardContent>
         </Card>
       </div>
-      <div className="bg-muted-foreground/5 p-5 hidden md:flex items-center justify-center">
-        <img
-          src="/svg-ui/svg-login-light.svg"
-          alt="svg-login"
-          className="dark:hidden"
-        />
-        <img
-          src="/svg-ui/svg-login-dark.svg"
-          alt="svg-login"
-          className="hidden dark:block"
-        />
+      <div className="bg-muted-foreground/5 p-5 hidden md:flex items-center justify-center ">
+        <div className="relative w-full h-full hidden dark:flex items-center ">
+          <Image
+            fill
+            src="/svg-ui/svg-login-dark.svg"
+            alt="svg-login"
+          />
+        </div>
+        <div className="relative w-full h-full dark:hidden flex items-center">
+          <Image
+            fill
+            src="/svg-ui/svg-login-light.svg"
+            alt="svg-login"
+          />
+        </div>
       </div>
     </div>
   );

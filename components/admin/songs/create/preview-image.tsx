@@ -2,6 +2,7 @@ import React, { useCallback, useReducer, useState } from "react";
 import ImageViewer from "react-simple-image-viewer";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 interface PreviewImageProps {
   images: string[];
@@ -32,14 +33,16 @@ const PreviewImage = React.memo(({ images, onError }: PreviewImageProps) => {
     <div>
       {images?.length > 0 ? (
         images.map((src, index) => (
-          <img
+          <Image
             onError={handleImageError}
             onLoad={() => {
               isError && setIsError(false);
             }}
             src={src}
+            width={144}
+            height={144}
             onClick={() => !isError && openImageViewer(index)}
-            className="aspect-square rounded-lg size-36 cursor-pointer"
+            className="aspect-square rounded-lg cursor-pointer"
             key={index}
             alt={`Image ${index}`}
           />
@@ -66,3 +69,5 @@ function FallbackImage() {
 }
 
 export { PreviewImage };
+
+PreviewImage.displayName = "PreviewImage";

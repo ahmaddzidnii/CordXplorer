@@ -22,3 +22,5 @@ export const H1 = forwardRef<HTMLHeadingElement, H1Props>(
     );
   }
 );
+
+H1.displayName = "H1";

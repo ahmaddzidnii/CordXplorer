@@ -126,7 +126,7 @@ export const StepOne = () => {
     form.resetField("coverImage");
     form.setValue("coverImage", "");
     toast.error("Image not found!");
-  }, []);
+  }, [form]);
 
   return (
     <div className="space-y-5">

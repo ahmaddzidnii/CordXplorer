@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 interface CardSongProps {
@@ -22,11 +23,14 @@ export const CardSong = ({
         href={href!}
         className="w-full h-full"
       >
-        <img
-          src={imageSrc}
-          alt={songTitle}
-          className="rounded-sm w-full h-full"
-        />
+        <div className="relative aspect-square">
+          <Image
+            fill
+            src={imageSrc as string}
+            alt={songTitle as string}
+            className="rounded-sm w-full h-full"
+          />
+        </div>
         <div className="absolute bottom-0 backdrop-blur rounded-b-sm bg-white/70 dark:bg-black/70 p-3 w-full">
           <div>
             <p className="font-bold text-[1.125rem]">{songTitle}</p>

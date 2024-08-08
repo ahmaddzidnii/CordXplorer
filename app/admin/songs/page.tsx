@@ -3,6 +3,7 @@ import { MusicEmptyPlaceholder } from "./_components/music-empty-placeholder";
 import { AddMusic } from "./_components/add-music";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 export default function SongsAdminPage() {
   return (
@@ -28,10 +29,14 @@ export default function SongsAdminPage() {
                 className="bg-background rounded-lg  flex items-center hover:border-secondary-foreground hover:border"
               >
                 <div className="flex items-center space-x-4 p-4">
-                  <img
-                    className="flex-shrink-0 w-16 h-16 aspect-square rounded-lg"
+                  <Image
+                    width={64}
+                    height={64}
+                    alt="music"
+                    className="flex-shrink-0 aspect-square rounded-lg"
                     src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
                   />
+
                   <div className="w-full">
                     <h3 className="text-lg font-semibold">Title</h3>
                     <p className="text-muted-foreground">Artist</p>
