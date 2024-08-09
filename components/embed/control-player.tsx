@@ -10,7 +10,7 @@ import {
   FaPlus,
 } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
-import { memo, RefObject, useCallback } from "react";
+import { memo, RefObject, useCallback, useEffect, useMemo, useState } from "react";
 import throttle from "lodash.throttle";
 import ReactPlayer from "react-player";
 
@@ -18,18 +18,27 @@ import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb
 
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import { Skeleton } from "@/components/ui/skeleton";
+
 import { useMediaPlayer, usePlaybackControl } from "@/hooks/chord/use-media-player";
 import { useTransposeSwitcher } from "@/hooks/use-transpose-switcher";
 import { useTransposeState } from "@/hooks/use-tranpose-state";
+import { dialogOptionsStore, usePreferenceStore } from "@/store/dialog-options-store";
 
 interface PlayerRefProps {
   playerRef: RefObject<ReactPlayer>;
 }
 export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
+  const { isOpen, setIsOpen } = dialogOptionsStore();
+
+  const handleOpenDialog = useCallback(() => {
+    setIsOpen(!isOpen);
+  }, [isOpen, setIsOpen]);
+
   return (
     <>
       {/* Desktop */}
-      <div className="hidden md:block fixed z-[99999]  bottom-6 left-1/2 -translate-x-1/2 backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[400px] h-[116px] rounded-lg ">
+      <div className="hidden md:block fixed z-[97]  bottom-6 left-1/2 -translate-x-1/2 backdrop-blur-md bg-white/70 dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[400px] h-[116px] rounded-lg ">
         <ButtonWrapper playerRef={playerRef} />
         <ButtonSwitcherTranpose />
         <div className="pt-7 px-4">
@@ -38,38 +47,63 @@ export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
         <div className="py-1.5 px-4 w-full flex justify-between items-center">
           <div className="flex gap-x-2 items-center">
             <Switch />
-            <span className="text-xs font-semibold">⚡Scroll</span>
+            <RenderScrollType />
           </div>
-          <div className="flex gap-x-2 items-center">
+          <button
+            onClick={handleOpenDialog}
+            className="flex gap-x-2 items-center"
+          >
             <IoIosMore className="w-8 h-8 text-primary" />
-          </div>
+          </button>
         </div>
       </div>
       {/* Desktop */}
 
       {/* Device */}
-      <div className="fixed h-24 w-[100vw] left-0 z-[99999] rounded-t-lg backdrop-blur-xl bg-background dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg bottom-0 md:hidden">
+      <div className="fixed h-24 w-[100vw] z-[97] left-0 rounded-t-lg backdrop-blur-md bg-white/70 dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg bottom-0 md:hidden">
         <ButtonWrapper playerRef={playerRef} />
         <ButtonSwitcherTranpose />
         <div className="flex gap-x-3 items-center h-full px-4 py-1.5">
           <div className="shrink-0">
             <div className="flex flex-col gap-y-2 items-center">
               <Switch />
-              <span className="text-xs font-semibold"> ⚡Scroll</span>
+              <RenderScrollType />
             </div>
           </div>
           <div className="flex-1">
             <SliderControl playerRef={playerRef} />
           </div>
-          <div className="shrink-0">
+          <button
+            onClick={handleOpenDialog}
+            className="shrink-0"
+          >
             <IoIosMore className="w-8 h-8 text-primary" />
-          </div>
+          </button>
         </div>
       </div>
       {/* Device */}
     </>
   );
 };
+
+function RenderScrollType() {
+  const { preferences } = usePreferenceStore();
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  const typeScroll = preferences.scrollType === "smart" ? "Smart" : "Page";
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <Skeleton className="w-16 h-6" />;
+  }
+
+  return <span className="text-xs font-semibold">{typeScroll}&nbsp;scroll</span>;
+}
+RenderScrollType.displayName = "RenderScrollType";
 
 function SliderControl({ playerRef }: PlayerRefProps) {
   const { state, setState } = useMediaPlayer();
@@ -217,7 +251,7 @@ function ButtonControllerTranpose() {
             <FaMinus className="fill-white size-4" />
           </div>
         </button>
-        <div className="px-2 py-1.5 border-y h-full border-primary bg-background font-semibold w-10 flex items-center justify-center">
+        <div className="px-2 py-1.5 border-y h-full border-primary bg-background font-bold w-10 flex items-center justify-center text-xl">
           {tranpose}
         </div>
         <button

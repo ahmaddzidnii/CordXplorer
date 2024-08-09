@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 import { transpose as transposeFunc } from "@/constants/chord-index";
 import { useTransposeState } from "@/hooks/use-tranpose-state";
+import { usePreferenceStore } from "@/store/dialog-options-store";
 
 export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
   const { tranpose } = useTransposeState();
-  const [enharmonicPreference, setEnharmonicPreference] = useState<"flat" | "sharp">("sharp");
+  const { preferences } = usePreferenceStore();
 
   useLayoutEffect(() => {
     const cordsDom = document.querySelectorAll("span.c");
@@ -24,10 +25,10 @@ export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
     chordElements.forEach((chordElement) => {
       const originalChord = chordElement.getAttribute("data-origin");
 
-      const transposedChord = transposeFunc(originalChord!, tranpose, enharmonicPreference);
+      const transposedChord = transposeFunc(originalChord!, tranpose, preferences.enharmonic);
       chordElement.textContent = transposedChord;
     });
-  }, [enharmonicPreference, tranpose]);
+  }, [preferences.enharmonic, tranpose]);
 
   return <>{children}</>;
 };

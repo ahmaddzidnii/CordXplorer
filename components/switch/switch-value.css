@@ -1,0 +1,26 @@
+.switch {
+  @apply relative block w-24 h-6 bg-muted rounded-full cursor-pointer;
+}
+
+/* Kelas Switch Knob */
+.switch::after {
+  content: "";
+  @apply absolute top-0.5 left-1 w-11 h-5 bg-secondary rounded-full transition-transform duration-300 ease-in-out;
+}
+
+.checkbox-options:checked + .switch::after {
+  @apply right-1;
+  transform: translateX(100%);
+}
+
+.type {
+  @apply absolute text-[12px] font-medium;
+}
+
+.off {
+  @apply top-1 left-2 z-10;
+}
+
+.on {
+  @apply top-1 right-2 z-10;
+}

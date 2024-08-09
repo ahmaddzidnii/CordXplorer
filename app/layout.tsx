@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -7,7 +7,10 @@ import { TopLoaderBarProvider } from "@/providers/toploaderbar-provider";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 
-const monsterrat = Montserrat({ subsets: ["latin"] });
+const quicksand = Quicksand({
+  weight: ["300", "400", "700", "500", "600"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
       className="min-w-[300px]"
     >
-      <body className={monsterrat.className}>
+      <body className={quicksand.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

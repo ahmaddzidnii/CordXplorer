@@ -40,7 +40,7 @@ export default async function SongsPage({ params }: { params: { slug: string } }
     <div className="min-h-screen  space-y-5">
       <section className="h-full grid grid-cols-12 pt-4 gap-5">
         <div className="col-span-12 md:col-span-3">
-          <aside className="w-full md:top-20 md:sticky  md:z-[999]">
+          <aside className="w-full md:top-20 md:sticky  md:z-[98]">
             <div className="relative aspect-square">
               <Image
                 fill
@@ -63,8 +63,8 @@ export default async function SongsPage({ params }: { params: { slug: string } }
             </div>
           </aside>
         </div>
-        <div className="col-span-12 md:col-span-9">
-          <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg h-max">
+        <div className="col-span-12 md:col-span-9 h-full">
+          <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg h-full">
             <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
             <div className="flex justify-between">
               <p>Arsy Widianto, Tiara Andini</p>
