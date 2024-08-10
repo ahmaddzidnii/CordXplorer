@@ -17,15 +17,18 @@
 .react-player {
   @apply bg-muted;
 }
+body {
+  @apply bg-background-liniar;
+}
 
-/* * {
+* {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-} */
+}
 
 .container-navbar {
   width: 100%;
@@ -137,6 +140,12 @@
     --ring: 262, 83%, 58%;
 
     --radius: 0.5rem;
+
+    --gradient-color-1: 255, 230, 240;
+    --gradient-color-2: 230, 255, 250;
+    --gradient-color-3: 240, 240, 255;
+    --gradient-color-4: 255, 240, 230;
+    --gradient-color-5: 255, 230, 240;
   }
 
   .dark {
@@ -167,6 +176,12 @@
     --border: 0, 0%, 25%;
     --input: 0, 0%, 25%;
     --ring: 262, 83%, 58%;
+
+    --gradient-color-1: 0, 50, 70;
+    --gradient-color-2: 100, 0, 0;
+    --gradient-color-3: 20, 20, 20;
+    --gradient-color-4: 40, 0, 60;
+    --gradient-color-5: 20, 40, 80;
   }
 }
 

@@ -70,7 +70,7 @@ export const UserProfile = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         side={side}
-        className={cn("shadow-primary shadow-sm px-0 w-[300px]", popoverClassName)}
+        className={cn("shadow-primary shadow-sm px-0 w-[300px] z-[101]", popoverClassName)}
       >
         <div className="flex flex-col space-y-2">
           <div className="p-5 flex items-center gap-x-2">

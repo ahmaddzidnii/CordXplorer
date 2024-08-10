@@ -10,7 +10,7 @@ import {
   FaPlus,
 } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
-import { memo, RefObject, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, RefObject, useCallback, useEffect, useState } from "react";
 import throttle from "lodash.throttle";
 import ReactPlayer from "react-player";
 
@@ -31,6 +31,8 @@ interface PlayerRefProps {
 export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
   const { isOpen, setIsOpen } = dialogOptionsStore();
 
+  const { preferences, setPreferences } = usePreferenceStore();
+
   const handleOpenDialog = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen, setIsOpen]);
@@ -46,7 +48,12 @@ export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
         </div>
         <div className="py-1.5 px-4 w-full flex justify-between items-center">
           <div className="flex gap-x-2 items-center">
-            <Switch />
+            <Switch
+              checked={preferences.isScrolling}
+              onCheckedChange={(checked) => {
+                setPreferences({ isScrolling: checked });
+              }}
+            />
             <RenderScrollType />
           </div>
           <button
@@ -66,7 +73,12 @@ export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
         <div className="flex gap-x-3 items-center h-full px-4 py-1.5">
           <div className="shrink-0">
             <div className="flex flex-col gap-y-2 items-center">
-              <Switch />
+              <Switch
+                checked={preferences.isScrolling}
+                onCheckedChange={(checked) => {
+                  setPreferences({ isScrolling: checked });
+                }}
+              />
               <RenderScrollType />
             </div>
           </div>

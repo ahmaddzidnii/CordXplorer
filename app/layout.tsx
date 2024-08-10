@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { TopLoaderBarProvider } from "@/providers/toploaderbar-provider";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
 
 const quicksand = Quicksand({
   weight: ["300", "400", "700", "500", "600"],
@@ -25,9 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className="min-w-[300px]"
+      className="min-w-[300px] "
     >
-      <body className={quicksand.className}>
+      <body className={cn("bg-background-liniar", quicksand.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

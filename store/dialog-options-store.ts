@@ -16,6 +16,7 @@ interface PreferencesStore {
   preferences: {
     scrollType: "smart" | "page";
     scrollSpeed: number;
+    isScrolling: boolean;
     enharmonic: "sharp" | "flat";
   };
   setPreferences: (value: Partial<PreferencesStore["preferences"]>) => void;
@@ -26,10 +27,11 @@ interface PreferencesStore {
 export const usePreferenceStore = create<PreferencesStore>()(
   devtools(
     persist(
-      (set, get) => ({
+      (set) => ({
         preferences: {
           scrollType: "smart",
           scrollSpeed: 1.0,
+          isScrolling: false,
           enharmonic: "sharp",
         },
         setPreferences(value) {

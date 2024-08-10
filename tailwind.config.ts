@@ -17,6 +17,16 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        "background-liniar": `linear-gradient(
+          135deg,
+          rgba(var(--gradient-color-1), 0.7) 0%,
+          rgba(var(--gradient-color-2), 0.7) 25%,
+          rgba(var(--gradient-color-3), 0.7) 50%,
+          rgba(var(--gradient-color-4), 0.7) 75%,
+          rgba(var(--gradient-color-5), 0.7) 100%
+        )`,
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -32,6 +32,7 @@ import { CardWrapper } from "@/components/card/card-wrapper";
 import { CardSong } from "@/components/card/card-song";
 import { TextHeader } from "@/components/text-header";
 import Image from "next/image";
+import { AutoScrollWrapper } from "@/components/chord/auto-scroll-provider";
 
 export default async function SongsPage({ params }: { params: { slug: string } }) {
   const file = await fs.readFile(process.cwd() + "/dummy.json", "utf8");
@@ -44,7 +45,7 @@ export default async function SongsPage({ params }: { params: { slug: string } }
             <div className="relative aspect-square">
               <Image
                 fill
-                src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
+                src="https://lh3.googleusercontent.com/UjAeIeYzL_DS7cMO3_ZS7s4H86Ddl4R2YP4SqnVKHqVdYf_qxeGiziK-6DP4izfY6uJNBWPNOBkz99g"
                 alt=""
                 className="rounded-xl shadow-md w-full"
               />
@@ -90,7 +91,9 @@ export default async function SongsPage({ params }: { params: { slug: string } }
                 <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
               </div>
             </div>
-            <ChordPage data={data} />
+            <AutoScrollWrapper>
+              <ChordPage data={data} />
+            </AutoScrollWrapper>
           </article>
         </div>
       </section>

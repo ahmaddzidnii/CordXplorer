@@ -16,7 +16,7 @@ export const ChordPage = ({ data }: { data: Root }) => {
 
   return (
     <ChordWrapper>
-      <div className="my-5 h-full">
+      <div className="my-5 h-[129vh]">
         {data.sections.map((section, index) => {
           const isActived = isCurrentActive(state.progress!, section.startTime, section.endTime);
           return (
