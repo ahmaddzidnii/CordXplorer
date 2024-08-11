@@ -1,13 +1,21 @@
 "use client";
-import { useEffect, useLayoutEffect } from "react";
+
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import { transpose as transposeFunc } from "@/constants/chord-index";
 import { useTransposeState } from "@/hooks/use-tranpose-state";
 import { usePreferenceStore } from "@/store/dialog-options-store";
+import { Loader } from "lucide-react";
 
 export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
   const { tranpose } = useTransposeState();
   const { preferences } = usePreferenceStore();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useLayoutEffect(() => {
     const cordsDom = document.querySelectorAll("span.c");
@@ -30,5 +38,8 @@ export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
     });
   }, [preferences.enharmonic, tranpose]);
 
+  if (!isMounted) {
+    return <div className="min h-screen bg-muted animate-pulse rounded-md"></div>;
+  }
   return <>{children}</>;
 };

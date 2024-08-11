@@ -30,6 +30,7 @@ export default function LandingPage() {
             <Image
               src="https://images.unsplash.com/photo-1657721841432-f96e3f7f7eff?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               width="550"
+              priority={true}
               height="550"
               alt="Hero"
               className="shadow-primary shadow-md mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
@@ -44,7 +45,7 @@ export default function LandingPage() {
         >
           <path
             className="fill-muted"
-            fill-opacity="1"
+            fillOpacity="1"
             d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
         </svg>
@@ -88,7 +89,7 @@ export default function LandingPage() {
         >
           <path
             className="fill-muted"
-            fill-opacity="1"
+            fillOpacity="1"
             d="M0,128L48,149.3C96,171,192,213,288,229.3C384,245,480,235,576,197.3C672,160,768,96,864,112C960,128,1056,224,1152,261.3C1248,299,1344,277,1392,266.7L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
           ></path>
         </svg>

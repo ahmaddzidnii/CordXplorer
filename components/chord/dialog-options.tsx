@@ -5,6 +5,7 @@ import { FaGear } from "react-icons/fa6";
 import { SwitchValue } from "../switch/switch-value";
 import { dialogOptionsStore, usePreferenceStore } from "@/store/dialog-options-store";
 import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
 
 export const DialogOptions = () => {
   const state = dialogOptionsStore();

@@ -33,18 +33,20 @@ import { CardSong } from "@/components/card/card-song";
 import { TextHeader } from "@/components/text-header";
 import Image from "next/image";
 import { AutoScrollWrapper } from "@/components/chord/auto-scroll-provider";
+import { ChordWrapper } from "@/components/chord/chord-wrapper";
 
 export default async function SongsPage({ params }: { params: { slug: string } }) {
   const file = await fs.readFile(process.cwd() + "/dummy.json", "utf8");
   const data: Root = JSON.parse(file);
   return (
-    <div className="min-h-screen  space-y-5">
+    <div className="min-h-screen space-y-5">
       <section className="h-full grid grid-cols-12 pt-4 gap-5">
         <div className="col-span-12 md:col-span-3">
           <aside className="w-full md:top-20 md:sticky  md:z-[98]">
             <div className="relative aspect-square">
               <Image
                 fill
+                priority={true}
                 src="https://lh3.googleusercontent.com/UjAeIeYzL_DS7cMO3_ZS7s4H86Ddl4R2YP4SqnVKHqVdYf_qxeGiziK-6DP4izfY6uJNBWPNOBkz99g"
                 alt=""
                 className="rounded-xl shadow-md w-full"
@@ -65,36 +67,38 @@ export default async function SongsPage({ params }: { params: { slug: string } }
           </aside>
         </div>
         <div className="col-span-12 md:col-span-9 h-full">
-          <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg h-full">
-            <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
-            <div className="flex justify-between">
-              <p>Arsy Widianto, Tiara Andini</p>
-              <p>
-                Key&nbsp;:&nbsp;
-                <span
-                  data-origin="Bb"
-                  className="c"
-                >
-                  Bb
-                </span>
-              </p>
-            </div>
-            <div className="flex items-center w-full h-[40px] mt-2">
-              <div className="w-[40%]">
-                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
+          <ChordWrapper>
+            <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg h-full">
+              <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
+              <div className="flex justify-between">
+                <p>Arsy Widianto, Tiara Andini</p>
+                <p>
+                  Key&nbsp;:&nbsp;
+                  <span
+                    data-origin="Bb"
+                    className="c"
+                  >
+                    Bb
+                  </span>
+                </p>
               </div>
-              <div className="w-[20%] flex items-center justify-center">
-                <GiMusicalScore className="w-12 h-12 text-[#1f1f1f]/50 dark:text-white/50" />
-              </div>
+              <div className="flex items-center w-full h-[40px] mt-2">
+                <div className="w-[40%]">
+                  <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
+                </div>
+                <div className="w-[20%] flex items-center justify-center">
+                  <GiMusicalScore className="w-12 h-12 text-[#1f1f1f]/50 dark:text-white/50" />
+                </div>
 
-              <div className="w-[40%]">
-                <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
+                <div className="w-[40%]">
+                  <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
+                </div>
               </div>
-            </div>
-            <AutoScrollWrapper>
-              <ChordPage data={data} />
-            </AutoScrollWrapper>
-          </article>
+              <AutoScrollWrapper>
+                <ChordPage data={data} />
+              </AutoScrollWrapper>
+            </article>
+          </ChordWrapper>
         </div>
       </section>
       <section className="pt-5">

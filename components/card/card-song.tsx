@@ -26,6 +26,9 @@ export const CardSong = ({
         <div className="relative aspect-square">
           <Image
             fill
+            quality={100}
+            placeholder="empty"
+            priority
             src={imageSrc as string}
             alt={songTitle as string}
             className="rounded-sm w-full h-full"

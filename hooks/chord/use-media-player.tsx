@@ -30,12 +30,12 @@ export const useMediaPlayer = create<MediaPlayerHook>((set) => ({
     ),
 }));
 
-// Store untuk kontrol playback
 interface PlaybackControlState {
   playbackControl: {
     playing: boolean;
     isReady: boolean;
     isEnded?: boolean;
+    isBuffer?: boolean;
   };
   setPlaybackControl: (playbackControl: Record<string, boolean>) => void;
 }
@@ -45,6 +45,7 @@ export const usePlaybackControl = create<PlaybackControlState>((set) => ({
     playing: false,
     isReady: false,
     isEnded: false,
+    isBuffer: false,
   },
   setPlaybackControl: (newState) =>
     set(

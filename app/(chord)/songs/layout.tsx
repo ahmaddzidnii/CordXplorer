@@ -9,9 +9,7 @@ export default function SongsLayout({ children }: { children: React.ReactNode })
       <Navbar />
       <MobileNavbar />
       <DialogOptions />
-
-      <main className="container">{children}</main>
-
+      <main className="container pt-20">{children}</main>
       <Footer />
     </>
   );

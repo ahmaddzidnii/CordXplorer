@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className="min-w-[300px] "
+      className="min-w-[300px] subpixel-antialiased"
     >
       <body className={cn("bg-background-liniar", quicksand.className)}>
         <ThemeProvider

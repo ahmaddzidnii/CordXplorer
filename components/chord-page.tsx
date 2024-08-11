@@ -15,24 +15,22 @@ export const ChordPage = ({ data }: { data: Root }) => {
   };
 
   return (
-    <ChordWrapper>
-      <div className="my-5 h-[129vh]">
-        {data.sections.map((section, index) => {
-          const isActived = isCurrentActive(state.progress!, section.startTime, section.endTime);
-          return (
-            <div
-              key={index}
-              className={cn(
-                "px-2 py-1.5 whitespace-pre text-nowrap",
-                isActived && state.playing && "focus"
-              )}
-            >
-              <strong className=" mb-2">{section.nameSection}</strong>
-              {parse(section.content)}
-            </div>
-          );
-        })}
-      </div>
-    </ChordWrapper>
+    <div className="my-5 h-[129vh]">
+      {data.sections.map((section, index) => {
+        const isActived = isCurrentActive(state.progress!, section.startTime, section.endTime);
+        return (
+          <div
+            key={index}
+            className={cn(
+              "px-2 py-1.5 whitespace-pre text-nowrap",
+              isActived && state.playing && "focus"
+            )}
+          >
+            <strong className=" mb-2">{section.nameSection}</strong>
+            {parse(section.content)}
+          </div>
+        );
+      })}
+    </div>
   );
 };

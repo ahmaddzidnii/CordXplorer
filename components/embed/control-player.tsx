@@ -110,7 +110,7 @@ function RenderScrollType() {
   }, []);
 
   if (!isMounted) {
-    return <Skeleton className="w-16 h-6" />;
+    return null;
   }
 
   return <span className="text-xs font-semibold">{typeScroll}&nbsp;scroll</span>;
@@ -190,7 +190,8 @@ const ButtonControllerPlayer = memo(({ playerRef }: PlayerRefProps) => {
       <button
         role="button"
         onClick={handleSeekPrev}
-        className="w-12 h-12 bg-primary rounded-full "
+        disabled={!playbackControl.isReady}
+        className="w-12 h-12 bg-primary rounded-full disabled:opacity-50 "
       >
         <div className="w-full h-full flex justify-center items-center">
           <TbPlayerTrackPrevFilled className="w-7 h-6 text-white" />
@@ -199,11 +200,11 @@ const ButtonControllerPlayer = memo(({ playerRef }: PlayerRefProps) => {
       <button
         role="button"
         onClick={handlePlayPause}
-        disabled={!playbackControl.isReady}
-        className="w-14 h-14 bg-primary rounded-full"
+        disabled={!playbackControl.isReady || playbackControl.isBuffer}
+        className="w-14 h-14 bg-primary rounded-full disabled:opacity-50"
       >
         <div className="w-full h-full flex justify-center items-center">
-          {!playbackControl.isReady ? (
+          {!playbackControl.isReady || playbackControl.isBuffer ? (
             <Loader />
           ) : playbackControl.playing ? (
             <FaPause className="w-7 h-6 text-white" />
@@ -215,7 +216,8 @@ const ButtonControllerPlayer = memo(({ playerRef }: PlayerRefProps) => {
       <button
         role="button"
         onClick={handleSeekNext}
-        className="w-12 h-12 bg-primary rounded-full"
+        disabled={!playbackControl.isReady}
+        className="w-12 h-12 bg-primary rounded-full disabled:opacity-50"
       >
         <div className="w-full h-full flex justify-center items-center">
           <TbPlayerTrackNextFilled className="w-7 h-6 text-white" />
@@ -251,6 +253,7 @@ function ButtonControllerTranpose() {
       >
         <FaRotateLeft className="fill-white size-4" />
       </button>
+      <p className="absolute mt-5 left-6 text-xs font-semibold">Reset</p>
       {/* Reset Tranpose Key */}
 
       {/* Tranpose Button */}

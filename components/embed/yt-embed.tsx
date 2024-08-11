@@ -39,6 +39,12 @@ export const YtEmbed = ({ playerRef }: { playerRef: any }) => {
   const onEnded = () => {
     setPlaybackControl({ isEnded: true, playing: false });
   };
+  const onBufferStart = () => {
+    setPlaybackControl({ isBuffer: true });
+  };
+  const onBufferEnd = () => {
+    setPlaybackControl({ isBuffer: false });
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -63,6 +69,8 @@ export const YtEmbed = ({ playerRef }: { playerRef: any }) => {
           onProgress={handleProgress}
           onReady={onReady}
           onEnded={onEnded}
+          onBuffer={onBufferStart}
+          onBufferEnd={onBufferEnd}
         />
       </div>
     </>
