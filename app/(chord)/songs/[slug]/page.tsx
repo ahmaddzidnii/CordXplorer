@@ -38,7 +38,7 @@ import { ChordWrapper } from "@/components/chord/chord-wrapper";
 import React from "react";
 
 export default async function SongsPage({ params }: { params: { slug: string } }) {
-  const file = await fs.readFile(process.cwd() + "dummy.json", "utf8");
+  const file = await fs.readFile(process.cwd() + "/app/data/dummy.json", "utf8");
   const data: Root = JSON.parse(file);
   return (
     <div className="min-h-screen space-y-5">
