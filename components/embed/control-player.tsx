@@ -24,6 +24,7 @@ import { useMediaPlayer, usePlaybackControl } from "@/hooks/chord/use-media-play
 import { useTransposeSwitcher } from "@/hooks/use-transpose-switcher";
 import { useTransposeState } from "@/hooks/use-tranpose-state";
 import { dialogOptionsStore, usePreferenceStore } from "@/store/dialog-options-store";
+import { SnackBar } from "../snack-bar";
 
 interface PlayerRefProps {
   playerRef: RefObject<ReactPlayer>;
@@ -43,6 +44,7 @@ export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
       <div className="hidden md:block fixed z-[97]  bottom-6 left-1/2 -translate-x-1/2 backdrop-blur-md bg-white/70 dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg w-[400px] h-[116px] rounded-lg ">
         <ButtonWrapper playerRef={playerRef} />
         <ButtonSwitcherTranpose />
+        <SnackBar />
         <div className="pt-7 px-4">
           <SliderControl playerRef={playerRef} />
         </div>
@@ -70,6 +72,7 @@ export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
       <div className="fixed h-24 w-[100vw] z-[97] left-0 rounded-t-lg backdrop-blur-md bg-white/70 dark:bg-[#1f1f1f]/50 ring-1 ring-foreground/25 shadow-lg bottom-0 md:hidden">
         <ButtonWrapper playerRef={playerRef} />
         <ButtonSwitcherTranpose />
+        <SnackBar />
         <div className="flex gap-x-3 items-center h-full px-4 py-1.5">
           <div className="shrink-0">
             <div className="flex flex-col gap-y-2 items-center">

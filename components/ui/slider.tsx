@@ -12,13 +12,16 @@ const Slider = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
-    className={cn("relative flex w-full touch-none select-none items-center", className)}
+    className={cn(
+      "relative flex w-full touch-none select-none items-center transition-all ease-in-out duration-1000",
+      className
+    )}
     {...props}
   >
     <SliderPrimitive.Track className="relative h-[3px] w-full grow overflow-hidden rounded-full cursor-pointer bg-violet-300 ">
       <SliderPrimitive.Range className="absolute h-full bg-violet-600" />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 cursor-pointer rounded-full bg-violet-600 ring-offset-background  focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 transition-all ease-in duration-1000">
+    <SliderPrimitive.Thumb className="block h-5 w-5 cursor-pointer rounded-full bg-violet-600 ring-offset-background  focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ">
       <span className="text-xs font-semibold text-primary absolute -top-4 -left-1.5">
         {convertTimeToMilitary(props.value![0])}
       </span>

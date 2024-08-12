@@ -7,7 +7,7 @@
 }
 
 .focus {
-  @apply bg-background rounded-lg;
+  @apply bg-background dark:bg-slate-700/60 rounded-lg;
 }
 
 .sidebar-admin-active {

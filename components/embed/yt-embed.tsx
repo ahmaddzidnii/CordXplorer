@@ -11,7 +11,7 @@ import { useMediaPlayer, usePlaybackControl } from "@/hooks/chord/use-media-play
 const YtEmbedSkeleton = () => {
   return <Skeleton className="w-full h-[190px] bg-neutral-300" />;
 };
-export const YtEmbed = ({ playerRef }: { playerRef: any }) => {
+export const YtEmbed = ({ playerRef, youtubeUrl }: { playerRef: any; youtubeUrl: string }) => {
   const [mounted, setMounted] = useState(false);
 
   const { setState } = useMediaPlayer();
@@ -62,7 +62,7 @@ export const YtEmbed = ({ playerRef }: { playerRef: any }) => {
           fallback={<YtEmbedSkeleton />}
           width="100%"
           height="100%"
-          url="https://www.youtube.com/watch?v=QhubX_VQogk"
+          url={youtubeUrl}
           onDuration={onDuration}
           onPlay={onPlay}
           onPause={onPause}

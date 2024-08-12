@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { usePreferenceStore } from "@/store/dialog-options-store";
+import { usePlaybackControl } from "@/hooks/chord/use-media-player";
 
 const INTERVAL_SPEED: {
   [key: number]: number;
@@ -32,33 +33,36 @@ const INTERVAL_SPEED: {
 
 const PIXEL_PER_SCROLL = 1;
 
+function smartScroll() {
+  console.log("harus scroll!!");
+  const element = document.querySelector(".focus");
+
+  element?.scrollIntoView({
+    block: "center",
+    behavior: "smooth",
+  });
+}
+
+function pageScroll() {
+  window.scrollBy(0, PIXEL_PER_SCROLL);
+}
+
 export const AutoScrollWrapper = ({ children }: { children: React.ReactNode }) => {
-  const { preferences, setPreferences } = usePreferenceStore();
+  const { preferences } = usePreferenceStore();
+
+  const playing = usePlaybackControl((state) => state.playbackControl.playing);
 
   const { isScrolling, scrollSpeed, scrollType } = preferences;
-
-  const { inView, ref: bottomRef } = useInView({
-    threshold: 0.1,
-  });
-
-  useEffect(() => {
-    if (inView && isScrolling) {
-      setPreferences({
-        ...preferences,
-        isScrolling: false,
-      });
-    }
-  }, [inView]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
-    const scroll = () => {
-      window.scrollBy(0, PIXEL_PER_SCROLL);
-    };
-
-    if (isScrolling && scrollType === "page" && INTERVAL_SPEED[scrollSpeed]) {
-      intervalId = setInterval(scroll, INTERVAL_SPEED[scrollSpeed]);
+    if (isScrolling) {
+      if (scrollType === "page" && INTERVAL_SPEED[scrollSpeed]) {
+        intervalId = setInterval(pageScroll, INTERVAL_SPEED[scrollSpeed]);
+      } else if (scrollType === "smart" && playing) {
+        intervalId = setInterval(smartScroll, 500);
+      }
     }
 
     return () => {
@@ -66,14 +70,7 @@ export const AutoScrollWrapper = ({ children }: { children: React.ReactNode }) =
         clearInterval(intervalId);
       }
     };
-  }, [isScrolling, scrollType, scrollSpeed]);
-  return (
-    <div className="relative">
-      {children}
-      <div
-        ref={bottomRef}
-        className="absolute -bottom-[200px]"
-      />
-    </div>
-  );
+  }, [isScrolling, scrollType, scrollSpeed, playing]);
+
+  return <>{children}</>;
 };

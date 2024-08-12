@@ -24,6 +24,8 @@ import Image from "next/image";
 export const StepThree = () => {
   const { song } = useSongCreate();
   const router = useRouter();
+
+  console.log(song);
   useEffect(() => {
     if (!song.title) {
       router.replace("?step=1");

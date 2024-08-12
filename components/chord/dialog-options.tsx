@@ -13,16 +13,26 @@ export const DialogOptions = () => {
     usePreferenceStore();
   return (
     <>
-      {state.isOpen && (
-        <Draggable
-          defaultPosition={{
-            x: 0,
-            y: 0,
-          }}
-          handle="h5"
-          bounds="body"
+      <Draggable
+        defaultPosition={{
+          x: 0,
+          y: 0,
+        }}
+        handle="h5"
+        bounds="body"
+      >
+        <div
+          className={cn(
+            "fixed right-[20%] bottom-0 w-[230px] h-max z-[99] backdrop-blur-md bg-white/70  dark:bg-[#1f1f1f]/50 shadow-sm rounded-lg p-4 border-muted border-[1.5px]",
+            state.isOpen ? "visible" : "invisible"
+          )}
         >
-          <div className="fixed right-[20%] bottom-0 w-[230px] h-max z-[99] backdrop-blur-md bg-white/70  dark:bg-[#1f1f1f]/50 shadow-sm rounded-lg p-4 border-muted border-[1.5px]">
+          <div
+            className={cn(
+              "transition-all ease-in-out duration-300",
+              state.isOpen ? " opacity-100" : "opacity-0"
+            )}
+          >
             <h5 className="flex gap-3 items-center text-lg font-extrabold mb-5 cursor-move">
               <FaGear className="size-5" /> Options
             </h5>
@@ -95,8 +105,8 @@ export const DialogOptions = () => {
               </div>
             </div>
           </div>
-        </Draggable>
-      )}
+        </div>
+      </Draggable>
     </>
   );
 };

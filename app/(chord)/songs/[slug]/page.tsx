@@ -4,8 +4,9 @@ export interface Root {
   coverImage: string;
   genre: string;
   youtubeUrl: string;
-  key: string;
+  key: string[];
   publisher: string;
+  album: string;
   releaseYear: string;
   sections: Section[];
 }
@@ -24,6 +25,7 @@ export interface Section {
 
 import { GiMusicalScore } from "react-icons/gi";
 import { promises as fs } from "fs";
+import Image from "next/image";
 
 import { Separator } from "@/components/ui/separator";
 import { ChordPage } from "@/components/chord-page";
@@ -31,9 +33,9 @@ import { PlayerController } from "./player-controller";
 import { CardWrapper } from "@/components/card/card-wrapper";
 import { CardSong } from "@/components/card/card-song";
 import { TextHeader } from "@/components/text-header";
-import Image from "next/image";
 import { AutoScrollWrapper } from "@/components/chord/auto-scroll-provider";
 import { ChordWrapper } from "@/components/chord/chord-wrapper";
+import React from "react";
 
 export default async function SongsPage({ params }: { params: { slug: string } }) {
   const file = await fs.readFile(process.cwd() + "/dummy.json", "utf8");
@@ -47,39 +49,54 @@ export default async function SongsPage({ params }: { params: { slug: string } }
               <Image
                 fill
                 priority={true}
-                src="https://lh3.googleusercontent.com/UjAeIeYzL_DS7cMO3_ZS7s4H86Ddl4R2YP4SqnVKHqVdYf_qxeGiziK-6DP4izfY6uJNBWPNOBkz99g"
+                src={data.coverImage}
                 alt=""
                 className="rounded-xl shadow-md w-full"
               />
             </div>
             <div className="my-3">
-              <p className="text-sm text-muted-foreground">Dirilis pada 2021</p>
-              <p className="text-sm text-muted-foreground uppercase">℗ Universal Music Indonesia</p>
+              <p className="text-sm text-muted-foreground">Dirilis pada {data.releaseYear}</p>
+              <p className="text-sm text-muted-foreground uppercase">℗ {data.publisher}</p>
             </div>
             <div className="my-3">
               <p className="text-sm text-muted-foreground font-bold">Album</p>
-              <p className="text-sm text-muted-foreground">ArTi</p>
+              <p className="text-sm text-muted-foreground">{data.album}</p>
             </div>
             <div className="my-3 w-full">
               <p className="text-sm text-muted-foreground font-bold mb-2">Video Music</p>
-              <PlayerController />
+              <PlayerController youtubeUrl={data.youtubeUrl} />
             </div>
           </aside>
         </div>
         <div className="col-span-12 md:col-span-9 h-full">
           <ChordWrapper>
             <article className="bg-white dark:bg-black/40 p-5 shadow-lg rounded-lg h-full">
-              <h1 className="text-3xl font-bold my-2">Cintanya Aku</h1>
+              <h1 className="text-3xl font-bold my-2">{data.title}</h1>
               <div className="flex justify-between">
-                <p>Arsy Widianto, Tiara Andini</p>
-                <p>
-                  Key&nbsp;:&nbsp;
-                  <span
-                    data-origin="Bb"
-                    className="c"
-                  >
-                    Bb
-                  </span>
+                <p className="w-1/2">
+                  {data.artists.map((artist, index) => {
+                    return artist.label + (index !== data.artists.length - 1 ? ", " : "");
+                  })}
+                </p>
+
+                <p
+                  className="w-1/2 text-end"
+                  id="key"
+                >
+                  Key{data.key.length > 1 && <b>&apos;s</b>}&nbsp;:&nbsp;
+                  {data.key.map((key, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <span
+                          data-origin={key}
+                          className="c"
+                        >
+                          {key}
+                        </span>
+                        {index !== data.key.length - 1 && ","}&nbsp;
+                      </React.Fragment>
+                    );
+                  })}
                 </p>
               </div>
               <div className="flex items-center w-full h-[40px] mt-2">

@@ -5,7 +5,6 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { transpose as transposeFunc } from "@/constants/chord-index";
 import { useTransposeState } from "@/hooks/use-tranpose-state";
 import { usePreferenceStore } from "@/store/dialog-options-store";
-import { Loader } from "lucide-react";
 
 export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -20,9 +19,8 @@ export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
   useLayoutEffect(() => {
     const cordsDom = document.querySelectorAll("span.c");
     cordsDom.forEach((chord) => {
-      chord.removeAttribute("chord");
       const originalChord = chord.getAttribute("data-origin")!;
-      const transposedChord = transposeFunc(originalChord, 0, "sharp");
+      const transposedChord = transposeFunc(originalChord, 0, "flat");
       chord.setAttribute("data-origin", transposedChord);
       chord.textContent = transposedChord;
     });

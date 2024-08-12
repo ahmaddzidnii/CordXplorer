@@ -2,15 +2,19 @@
 
 import { ControlPlayer } from "@/components/embed/control-player";
 import { YtEmbed } from "@/components/embed/yt-embed";
+
 import { useRef } from "react";
 import ReactPlayer from "react-player";
 
-export const PlayerController = () => {
+export const PlayerController = ({ youtubeUrl }: { youtubeUrl: string }) => {
   const playerRef = useRef<ReactPlayer>(null);
 
   return (
     <>
-      <YtEmbed playerRef={playerRef} />
+      <YtEmbed
+        playerRef={playerRef}
+        youtubeUrl={youtubeUrl}
+      />
       <ControlPlayer playerRef={playerRef} />
     </>
   );
