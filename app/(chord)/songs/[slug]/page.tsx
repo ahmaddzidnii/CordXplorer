@@ -18,7 +18,7 @@ export default async function SongsPage({
 }: {
   params: { slug: string };
 }) {
-  const response = await fetch("http://localhost:3000/api/v1/songs");
+  const response = await fetch(`${process.env.BASE_URL}/api/v1/songs`);
   const data: Song = await response.json();
   return (
     <div className="min-h-screen space-y-5">
