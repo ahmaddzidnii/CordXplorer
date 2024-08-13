@@ -3,6 +3,7 @@ import { handle } from "hono/vercel";
 import { initAuthConfig, verifyAuth } from "@hono/auth-js";
 
 import authConfig from "@/auth.config";
+import { Song, song } from "@/data";
 
 const app = new Hono().basePath("/api/v1/");
 
@@ -27,8 +28,22 @@ app.get("/verify", verifyAuth(), async (c) => {
   }
 });
 
-app.get("/hello", async (c) => {
-  return c.json({ message: "Hello World" });
+app.get("/songs", async (c) => {
+  const fetchToDb = new Promise<Song>((resolve) => {
+    setTimeout(() => {
+      resolve(song);
+    }, 10000);
+  });
+
+  try {
+    const data = await fetchToDb;
+    return c.json(data);
+  } catch (error) {
+    console.log(error);
+    return c.json({
+      message: "Error",
+    });
+  }
 });
 
 export const GET = handle(app);

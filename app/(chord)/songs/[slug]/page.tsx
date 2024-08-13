@@ -1,30 +1,4 @@
-export interface Root {
-  title: string;
-  artists: Artist[];
-  coverImage: string;
-  genre: string;
-  youtubeUrl: string;
-  key: string[];
-  publisher: string;
-  album: string;
-  releaseYear: string;
-  sections: Section[];
-}
-
-export interface Artist {
-  value: string;
-  label: string;
-}
-
-export interface Section {
-  nameSection: string;
-  startTime: number;
-  endTime: number;
-  content: string;
-}
-
 import { GiMusicalScore } from "react-icons/gi";
-import { promises as fs } from "fs";
 import Image from "next/image";
 import { Fragment } from "react";
 
@@ -37,16 +11,15 @@ import { TextHeader } from "@/components/text-header";
 import { AutoScrollWrapper } from "@/components/chord/auto-scroll-provider";
 import { ChordWrapper } from "@/components/chord/chord-wrapper";
 
+import { Song } from "@/data";
+
 export default async function SongsPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const file = await fs.readFile(
-    process.cwd() + "/app/data/dummy.json",
-    "utf8",
-  );
-  const data: Root = JSON.parse(file);
+  const response = await fetch("http://localhost:3000/api/v1/songs");
+  const data: Song = await response.json();
   return (
     <div className="min-h-screen space-y-5">
       <section className="grid h-full grid-cols-12 gap-5 pt-4">

@@ -2,11 +2,11 @@
 
 import parse from "html-react-parser";
 
-import { Root } from "@/app/(chord)/songs/[slug]/page";
 import { useMediaPlayer } from "@/hooks/chord/use-media-player";
 import { cn } from "@/lib/utils";
+import { Song } from "@/data";
 
-export const ChordPage = ({ data }: { data: Root }) => {
+export const ChordPage = ({ data }: { data: Song }) => {
   const { state } = useMediaPlayer();
 
   const isCurrentActive = (
