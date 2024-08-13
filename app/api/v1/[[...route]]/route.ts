@@ -5,6 +5,8 @@ import { initAuthConfig, verifyAuth } from "@hono/auth-js";
 import authConfig from "@/auth.config";
 import { Song, song } from "@/data";
 
+export const maxDuration = 25;
+
 const app = new Hono().basePath("/api/v1/");
 
 app.use(
@@ -32,7 +34,7 @@ app.get("/songs", async (c) => {
   const fetchToDb = new Promise<Song>((resolve) => {
     setTimeout(() => {
       resolve(song);
-    }, 10000);
+    }, 2000);
   });
 
   try {
