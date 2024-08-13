@@ -47,7 +47,11 @@ function pageScroll() {
   window.scrollBy(0, PIXEL_PER_SCROLL);
 }
 
-export const AutoScrollWrapper = ({ children }: { children: React.ReactNode }) => {
+export const AutoScrollWrapper = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const { preferences } = usePreferenceStore();
 
   const playing = usePlaybackControl((state) => state.playbackControl.playing);

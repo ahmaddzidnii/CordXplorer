@@ -21,12 +21,8 @@ const NavItem = () => {
   const encodedCallbackUrl = encodeURIComponent(pathname);
 
   return (
-    <div
-      className="flex iCordXplorer
-
-tems-center gap-3"
-    >
-      <FaGithub className="w-8 h-8 text-neutral-800 dark:text-neutral-100" />
+    <div className="iCordXplorer tems-center flex gap-3">
+      <FaGithub className="h-8 w-8 text-neutral-800 dark:text-neutral-100" />
       <ToogleTheme />
       {session.status === "authenticated" ? (
         <UserProfile
@@ -48,19 +44,16 @@ tems-center gap-3"
 export const Navbar = () => {
   const { onOpen } = useNavbar();
   return (
-    <header className="max-w-screen h-[72px] z-[100] bg-background fixed top-0  w-full p-6 border-b shadow-xl backdrop-blur-2xl supports-[backdrop-filter]:bg-background/90 dark:supports-[backdrop-filter]:bg-background/60">
-      <nav className="container-navbar h-full  flex items-center ">
+    <header className="max-w-screen fixed top-0 z-[100] h-[72px] w-full border-b bg-background p-6 shadow-xl backdrop-blur-2xl supports-[backdrop-filter]:bg-background/90 dark:supports-[backdrop-filter]:bg-background/60">
+      <nav className="container-navbar flex h-full items-center">
         <Logo />
-        <div className="mx-auto w-[310px] hidden md:block">
+        <div className="mx-auto hidden w-[310px] md:block">
           <InputComponent />
         </div>
-        <div
-          className="ms-auto md:hidden"
-          onClick={() => onOpen()}
-        >
-          <Menu className="w-7 h-7 md:w-10 md:h-10 text-primary cursor-pointer" />
+        <div className="ms-auto md:hidden" onClick={() => onOpen()}>
+          <Menu className="h-7 w-7 cursor-pointer text-primary md:h-10 md:w-10" />
         </div>
-        <div className="hidden md:block ms-auto">
+        <div className="ms-auto hidden md:block">
           <NavItem />
         </div>
       </nav>

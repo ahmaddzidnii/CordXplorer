@@ -16,11 +16,11 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
   return (
     <aside
       className={cn(
-        "w-56 pt-5 px-4 sticky top-0  max-h-screen shadow-sm shadow-primary flex-col items-center justify-between",
-        className
+        "sticky top-0 max-h-screen w-56 flex-col items-center justify-between px-4 pt-5 shadow-sm shadow-primary",
+        className,
       )}
     >
-      <div className="space-y-4 flex flex-col items-center">
+      <div className="flex flex-col items-center space-y-4">
         <div>
           <Logo />
         </div>
@@ -29,7 +29,7 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
             key={id}
             className={cn(
               "flex w-full rounded-lg",
-              isActive(item.href, pathname) && "sidebar-admin-active"
+              isActive(item.href, pathname) && "sidebar-admin-active",
             )}
           >
             <Button
@@ -45,7 +45,7 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
           </div>
         ))}
       </div>
-      <div className="space-y-4 pb-5 w-full">
+      <div className="w-full space-y-4 pb-5">
         <div className="flex items-center gap-x-4">
           <ToogleTheme />
           <p className="font-semibold">Theme mode</p>

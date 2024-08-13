@@ -29,7 +29,8 @@ const TestPage = () => {
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "outline-none border-2 border-gray-300 rounded-lg p-3 min-h-[300px]",
+        class:
+          "outline-none border-2 border-gray-300 rounded-lg p-3 min-h-[300px]",
       },
       handlePaste(view, event) {
         event.preventDefault();
@@ -62,9 +63,12 @@ const TestPage = () => {
 
   const handleAddChord = () => {
     if (!isValidChord(chord.trim())) {
-      toast.error("Invalid chord make sure it's in the format of A, Am, A7, A#m7, etc.", {
-        duration: 5000,
-      });
+      toast.error(
+        "Invalid chord make sure it's in the format of A, Am, A7, A#m7, etc.",
+        {
+          duration: 5000,
+        },
+      );
       return;
     } else {
       editor?.chain().focus().addChord({ chord }).run();
@@ -78,18 +82,12 @@ const TestPage = () => {
   }
 
   return (
-    <div className="flex w-screen h-screen justify-center items-center">
+    <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-[400px]">
-        <div className="h-10 w-max rounded-lg mb-5">
-          <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-          >
+        <div className="mb-5 h-10 w-max rounded-lg">
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-              <Button
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-              >
+              <Button type="button" onClick={() => setIsOpen(!isOpen)}>
                 Add Chord
               </Button>
             </DialogTrigger>
@@ -107,20 +105,14 @@ const TestPage = () => {
                 </DialogDescription>
               </DialogHeader>
               <div>
-                <Button
-                  type="button"
-                  onClick={handleAddChord}
-                >
+                <Button type="button" onClick={handleAddChord}>
                   Add Chord
                 </Button>
               </div>
             </DialogContent>
           </Dialog>
         </div>
-        <EditorContent
-          className={cn("w-full ")}
-          editor={editor}
-        />
+        <EditorContent className={cn("w-full")} editor={editor} />
       </div>
     </div>
   );

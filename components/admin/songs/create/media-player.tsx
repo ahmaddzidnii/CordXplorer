@@ -29,45 +29,46 @@ export const mediaPlayerAdminState = create<StateHook>((set) => ({
     set(
       produce((draft: { state: State }) => {
         Object.assign(draft.state, newState);
-      })
+      }),
     ),
 }));
 interface MediaPlayerAdminProps {
   link: string;
 }
-const MediaPlayerCreateSongComponent = forwardRef<ReactPlayer, MediaPlayerAdminProps>(
-  ({ link }, ref) => {
-    const { state, setState } = mediaPlayerAdminState();
+const MediaPlayerCreateSongComponent = forwardRef<
+  ReactPlayer,
+  MediaPlayerAdminProps
+>(({ link }, ref) => {
+  const { state, setState } = mediaPlayerAdminState();
 
-    const handleDuration = (duration: number) => {
-      setState({ duration });
-    };
+  const handleDuration = (duration: number) => {
+    setState({ duration });
+  };
 
-    const handleProgress = (progress: { playedSeconds: number }) => {
-      setState({ progress: Math.floor(progress.playedSeconds) });
-    };
+  const handleProgress = (progress: { playedSeconds: number }) => {
+    setState({ progress: Math.floor(progress.playedSeconds) });
+  };
 
-    return (
-      <div className="space-y-5">
-        <div className="relative aspect-video shadow-primary shadow-[0_3px_10px] rounded-sm overflow-hidden">
-          <ReactPlayer
-            ref={ref}
-            className="react-player"
-            playing={state.playing}
-            url={link}
-            controls
-            width="100%"
-            height="100%"
-            onDuration={handleDuration}
-            onProgress={handleProgress}
-            onPlay={() => setState({ playing: true })}
-            onPause={() => setState({ playing: false })}
-          />
-        </div>
+  return (
+    <div className="space-y-5">
+      <div className="relative aspect-video overflow-hidden rounded-sm shadow-[0_3px_10px] shadow-primary">
+        <ReactPlayer
+          ref={ref}
+          className="react-player"
+          playing={state.playing}
+          url={link}
+          controls
+          width="100%"
+          height="100%"
+          onDuration={handleDuration}
+          onProgress={handleProgress}
+          onPlay={() => setState({ playing: true })}
+          onPause={() => setState({ playing: false })}
+        />
       </div>
-    );
-  }
-);
+    </div>
+  );
+});
 
 // Tambahkan displayName untuk debugging
 MediaPlayerCreateSongComponent.displayName = "MediaPlayerCreateSong";

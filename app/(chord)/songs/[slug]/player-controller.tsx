@@ -11,10 +11,7 @@ export const PlayerController = ({ youtubeUrl }: { youtubeUrl: string }) => {
 
   return (
     <>
-      <YtEmbed
-        playerRef={playerRef}
-        youtubeUrl={youtubeUrl}
-      />
+      <YtEmbed playerRef={playerRef} youtubeUrl={youtubeUrl} />
       <ControlPlayer playerRef={playerRef} />
     </>
   );

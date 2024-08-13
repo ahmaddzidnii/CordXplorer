@@ -2,7 +2,11 @@
 
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
-export const TopLoaderBarProvider = ({ children }: { children: React.ReactNode }) => {
+export const TopLoaderBarProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return (
     <div>
       <ProgressBar

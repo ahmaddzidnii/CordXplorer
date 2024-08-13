@@ -26,7 +26,7 @@ export const useMediaPlayer = create<MediaPlayerHook>((set) => ({
     set(
       produce((draft: { state: State }) => {
         Object.assign(draft.state, newState);
-      })
+      }),
     ),
 }));
 
@@ -51,6 +51,6 @@ export const usePlaybackControl = create<PlaybackControlState>((set) => ({
     set(
       produce((draft) => {
         Object.assign(draft.playbackControl, newState);
-      })
+      }),
     ),
 }));

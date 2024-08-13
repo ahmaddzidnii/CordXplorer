@@ -1,0 +1,8 @@
+node_modules
+.next
+out
+public
+.env
+.env.local
+generated
+*.log

@@ -13,14 +13,14 @@ export const H1 = forwardRef<HTMLHeadingElement, H1Props>(
         ref={ref}
         className={cn(
           "text-2xl font-extrabold leading-none tracking-tight md:text-3xl lg:text-4xl",
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </h1>
     );
-  }
+  },
 );
 
 H1.displayName = "H1";

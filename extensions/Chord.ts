@@ -53,7 +53,7 @@ export const Chord = Node.create({
           const { from, to } = state.selection;
           return commands.insertContentAt(
             { from, to },
-            `<span class="c" data-chord="${attributes.chord}">${attributes.chord}</span>`
+            `<span class="c" data-chord="${attributes.chord}">${attributes.chord}</span>`,
           );
         },
     };

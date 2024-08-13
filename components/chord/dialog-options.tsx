@@ -3,14 +3,20 @@ import { Minus, Plus, X } from "lucide-react";
 import Draggable from "react-draggable";
 import { FaGear } from "react-icons/fa6";
 import { SwitchValue } from "../switch/switch-value";
-import { dialogOptionsStore, usePreferenceStore } from "@/store/dialog-options-store";
+import {
+  dialogOptionsStore,
+  usePreferenceStore,
+} from "@/store/dialog-options-store";
 import { cn } from "@/lib/utils";
-import { Badge } from "../ui/badge";
 
 export const DialogOptions = () => {
   const state = dialogOptionsStore();
-  const { preferences, setPreferences, incrementScrollSpeed, decrementScrollSpeed } =
-    usePreferenceStore();
+  const {
+    preferences,
+    setPreferences,
+    incrementScrollSpeed,
+    decrementScrollSpeed,
+  } = usePreferenceStore();
   return (
     <>
       <Draggable
@@ -23,29 +29,29 @@ export const DialogOptions = () => {
       >
         <div
           className={cn(
-            "fixed right-[20%] bottom-0 w-[230px] h-max z-[99] backdrop-blur-md bg-white/70  dark:bg-[#1f1f1f]/50 shadow-sm rounded-lg p-4 border-muted border-[1.5px]",
-            state.isOpen ? "visible" : "invisible"
+            "fixed bottom-0 right-[20%] z-[99] h-max w-[230px] rounded-lg border-[1.5px] border-muted bg-white/70 p-4 shadow-sm backdrop-blur-md dark:bg-[#1f1f1f]/50",
+            state.isOpen ? "visible" : "invisible",
           )}
         >
           <div
             className={cn(
-              "transition-all ease-in-out duration-300",
-              state.isOpen ? " opacity-100" : "opacity-0"
+              "transition-all duration-300 ease-in-out",
+              state.isOpen ? "opacity-100" : "opacity-0",
             )}
           >
-            <h5 className="flex gap-3 items-center text-lg font-extrabold mb-5 cursor-move">
+            <h5 className="mb-5 flex cursor-move items-center gap-3 text-lg font-extrabold">
               <FaGear className="size-5" /> Options
             </h5>
             <button
               onClick={() => {
                 state.setIsOpen(false);
               }}
-              className="ms-auto cursor-pointer absolute top-4 right-4"
+              className="absolute right-4 top-4 ms-auto cursor-pointer"
             >
               <X />
             </button>
             <div className="flex flex-col font-bold">
-              <div className="flex justify-between mb-3 ">
+              <div className="mb-3 flex justify-between">
                 <span>Scroll type</span>
                 <SwitchValue
                   id="ScrollType"
@@ -61,29 +67,39 @@ export const DialogOptions = () => {
                   <span className="type on">Page</span>
                 </SwitchValue>
               </div>
-              <div className="flex justify-between mb-3">
+              <div className="mb-3 flex justify-between">
                 <span>Scroll speed</span>
-                <div className="flex gap-2 w-24 justify-center ">
+                <div className="flex w-24 justify-center gap-2">
                   <button
                     onClick={() => {
                       decrementScrollSpeed();
                     }}
-                    disabled={preferences.scrollSpeed === 0.1 || preferences.scrollType !== "page"}
-                    className="bg-primary h-6 aspect-square rounded-md disabled:opacity-35"
+                    disabled={
+                      preferences.scrollSpeed === 0.1 ||
+                      preferences.scrollType !== "page"
+                    }
+                    className="aspect-square h-6 rounded-md bg-primary disabled:opacity-35"
                   >
-                    <Minus className="text-background size-6" />
+                    <Minus className="size-6 text-background" />
                   </button>
-                  <div className={cn(preferences.scrollType === "smart" && "opacity-35")}>
+                  <div
+                    className={cn(
+                      preferences.scrollType === "smart" && "opacity-35",
+                    )}
+                  >
                     {preferences.scrollSpeed.toFixed(1)}
                   </div>
                   <button
                     onClick={() => {
                       incrementScrollSpeed();
                     }}
-                    disabled={preferences.scrollSpeed === 2.0 || preferences.scrollType !== "page"}
-                    className="bg-primary  h-6 aspect-square rounded-md disabled:opacity-35"
+                    disabled={
+                      preferences.scrollSpeed === 2.0 ||
+                      preferences.scrollType !== "page"
+                    }
+                    className="aspect-square h-6 rounded-md bg-primary disabled:opacity-35"
                   >
-                    <Plus className="text-background size-6" />
+                    <Plus className="size-6 text-background" />
                   </button>
                 </div>
               </div>

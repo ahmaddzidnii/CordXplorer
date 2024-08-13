@@ -12,7 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { convertTimeToMilitary } from "@/lib/format/format-second";
 
-export const MediaController = ({ playerRef }: { playerRef: RefObject<ReactPlayer> }) => {
+export const MediaController = ({
+  playerRef,
+}: {
+  playerRef: RefObject<ReactPlayer>;
+}) => {
   const { state, setState } = mediaPlayerAdminState();
 
   const [isMounted, setIsMounted] = useState(false);
@@ -45,17 +49,17 @@ export const MediaController = ({ playerRef }: { playerRef: RefObject<ReactPlaye
   if (!isMounted) return null;
 
   return (
-    <div className="border-2 rounded-md p-3 space-y-5 h-max">
-      <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-center mb-3">
+    <div className="h-max space-y-5 rounded-md border-2 p-3">
+      <h1 className="mb-3 text-center text-lg font-bold md:text-xl lg:text-2xl">
         Youtube Controller
       </h1>
       <div className="flex flex-col gap-3">
         <div>
-          <div className="flex justify-between my-3">
-            <span className="text-muted-foreground font-semibold text-sm md:text-lg">
+          <div className="my-3 flex justify-between">
+            <span className="text-sm font-semibold text-muted-foreground md:text-lg">
               {convertTimeToMilitary(state.progress!)}
             </span>
-            <span className=" text-muted-foreground font-semibold text-sm md:text-lg">
+            <span className="text-sm font-semibold text-muted-foreground md:text-lg">
               {convertTimeToMilitary(state.duration!)}
             </span>
           </div>
@@ -68,21 +72,21 @@ export const MediaController = ({ playerRef }: { playerRef: RefObject<ReactPlaye
             onValueCommit={onValueChangeCommit}
           />
         </div>
-        <div className="flex gap-x-5 justify-center">
+        <div className="flex justify-center gap-x-5">
           <Button
-            className="rounded-full aspect-square p-0"
+            className="aspect-square rounded-full p-0"
             onClick={handleSkipBack}
           >
             <IoPlaySkipBackSharp />
           </Button>
           <Button
-            className="rounded-full aspect-square p-0"
+            className="aspect-square rounded-full p-0"
             onClick={handlePlayPause}
           >
             {state.playing ? <FaPause /> : <FaPlay />}
           </Button>
           <Button
-            className="rounded-full aspect-square p-0"
+            className="aspect-square rounded-full p-0"
             onClick={handleSkipForward}
           >
             <IoPlaySkipForward />
@@ -90,7 +94,7 @@ export const MediaController = ({ playerRef }: { playerRef: RefObject<ReactPlaye
         </div>
       </div>
       <div>
-        <p className="text-muted-foreground text-sm font-semibold">
+        <p className="text-sm font-semibold text-muted-foreground">
           Current time: {state.progress}
         </p>
       </div>

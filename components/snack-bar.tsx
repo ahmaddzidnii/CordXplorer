@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { useTransposeState } from "@/hooks/use-tranpose-state";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
 
 // Debounce function to limit the rate of updates
 const useDebounce = (value: number, delay: number) => {
@@ -43,8 +44,8 @@ export const SnackBar = () => {
   return (
     <div
       className={cn(
-        "transition-all ease-in-out duration-100 fixed left-1/2 shadow-sm -translate-x-1/2 -top-20 bg-muted rounded-md backdrop-blur-sm min-w-[200px] text-center font-semibold p-2",
-        isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        "fixed -top-20 left-1/2 z-[99] min-w-[200px] -translate-x-1/2 rounded-md border-[1.5px] border-muted bg-white bg-white/70 p-2 text-center font-semibold shadow-lg backdrop-blur-sm transition-all duration-100 ease-in-out dark:bg-[#1f1f1f]/70",
+        isOpen ? "visible opacity-100" : "invisible opacity-0",
       )}
     >
       {key}

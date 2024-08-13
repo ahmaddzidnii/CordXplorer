@@ -40,21 +40,24 @@ export const StepThree = () => {
     <div className="space-y-5">
       <div>
         <H1 className="lg:text-3xl">Confirmation</H1>
-        <P>Please review the information below and confirm the details before proceeding.</P>
+        <P>
+          Please review the information below and confirm the details before
+          proceeding.
+        </P>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
-        <div className="flex justify-center relative w-full lg:w-[350px] h-[350px] ">
+      <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
+        <div className="relative flex h-[350px] w-full justify-center lg:w-[350px]">
           <Image
             fill
             src={song.coverImage as string}
             alt="Cover"
-            className=" aspect-square object-cover rounded-sm shadow-primary"
+            className="aspect-square rounded-sm object-cover shadow-primary"
           />
         </div>
         <MediaPlayerCreateSong link={song.youtubeUrl} />
       </div>
       <div>
-        <h1 className="font-bold text-lg mb-5">General Information :</h1>
+        <h1 className="mb-5 text-lg font-bold">General Information :</h1>
         <Table>
           <TableHeader>
             <TableRow>
@@ -73,7 +76,9 @@ export const StepThree = () => {
             </TableRow>
             <TableRow>
               <TableCell className="font-medium">Artist</TableCell>
-              <TableCell>{song.artists.map((artist) => artist.label).join(", ")}</TableCell>
+              <TableCell>
+                {song.artists.map((artist) => artist.label).join(", ")}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell className="font-medium">Genre</TableCell>
@@ -95,13 +100,13 @@ export const StepThree = () => {
         </Table>
       </div>
       <div>
-        <h1 className="font-bold text-lg mb-5">Section :</h1>
+        <h1 className="mb-5 text-lg font-bold">Section :</h1>
         <ul className="space-y-5">
           {song.sections.map((section, index) => (
             <li key={index}>
               <Card>
                 <CardHeader>
-                  <h1 className="font-bold text-lg">{section.nameSection}</h1>
+                  <h1 className="text-lg font-bold">{section.nameSection}</h1>
                   Seconds to {section.startTime} until {section.endTime}
                 </CardHeader>
                 <div

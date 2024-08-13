@@ -34,7 +34,7 @@ function transposeChord(chord: string, semitones: number): string {
   const rootNoteIndex: number = intervals[chordParts[0]];
   const newRootNoteIndex: number = (rootNoteIndex + semitones) % 12;
   const newRootNote: string = Object.keys(intervals).find(
-    (key) => intervals[key] === newRootNoteIndex
+    (key) => intervals[key] === newRootNoteIndex,
   )!;
 
   const transposedChord: string = newRootNote + chord.slice(1);

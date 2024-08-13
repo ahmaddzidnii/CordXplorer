@@ -7,16 +7,16 @@ import Image from "next/image";
 
 export default function SongsAdminPage() {
   return (
-    <div className="flex-col flex w-full">
+    <div className="flex w-full flex-col">
       <div className="flex-1 space-y-4 pt-6">
-        <div className=" space-y-2">
+        <div className="space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">List Music</h2>
           <p className="text-muted-foreground">
             A list of music that has been searched for chords.
           </p>
         </div>
-        <Separator className="bg-primary h-[2px]" />
-        <div className="w-full flex justify-end">
+        <Separator className="h-[2px] bg-primary" />
+        <div className="flex w-full justify-end">
           <AddMusic />
         </div>
         <div className="space-y-5">
@@ -26,14 +26,14 @@ export default function SongsAdminPage() {
               <Link
                 href={`/admin/songs/${index}`}
                 key={index}
-                className="bg-background rounded-lg  flex items-center hover:border-secondary-foreground hover:border"
+                className="flex items-center rounded-lg bg-background hover:border hover:border-secondary-foreground"
               >
                 <div className="flex items-center space-x-4 p-4">
                   <Image
                     width={64}
                     height={64}
                     alt="music"
-                    className="flex-shrink-0 aspect-square rounded-lg"
+                    className="aspect-square flex-shrink-0 rounded-lg"
                     src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
                   />
 
@@ -56,9 +56,9 @@ export default function SongsAdminPage() {
 
 const ListMusicSkeleton = () => {
   return (
-    <div className="bg-background p-4 rounded-lg  flex items-center w-full">
-      <div className="flex items-center space-x-4 w-full">
-        <Skeleton className="flex-shrink-0 w-16 h-16 aspect-square rounded-lg" />
+    <div className="flex w-full items-center rounded-lg bg-background p-4">
+      <div className="flex w-full items-center space-x-4">
+        <Skeleton className="aspect-square h-16 w-16 flex-shrink-0 rounded-lg" />
         <div className="w-full space-y-2">
           <Skeleton className="h-6 w-full" />
           <Skeleton className="h-5 w-1/2" />

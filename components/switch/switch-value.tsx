@@ -20,12 +20,9 @@ export const SwitchValue = ({
         onChange={(e) => {
           onValueChange?.(e.target.checked);
         }}
-        className="hidden checkbox-options"
+        className="checkbox-options hidden"
       />
-      <label
-        htmlFor={id}
-        className="switch"
-      >
+      <label htmlFor={id} className="switch">
         {children}
       </label>
     </div>

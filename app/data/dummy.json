@@ -22,7 +22,7 @@
       "nameSection": "INTRO",
       "startTime": 0,
       "endTime": 8,
-      "content": "<p>|&nbsp;<span class=\"c\" chord=\"C\" data-origin=\"C\">C</span>&nbsp;<span class=\"c\" chord=\"G/B\" data-origin=\"G/B\">G/B</span>&nbsp;<span class=\"c\" chord=\"Am7\" data-origin=\"Am7\">Am7</span>&nbsp;|</p>"
+      "content": "<p> |&nbsp;<span class=\"c\" data-origin=\"C\">C</span>  <span class=\"c\" data-origin=\"G/B\">G/B</span> <span class=\"c\" data-origin=\"Am7\">Am7</span>&nbsp;|</p>"
     },
     {
       "nameSection": "VERSE 1",

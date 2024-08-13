@@ -26,8 +26,8 @@ interface UserProfileProps {
 const SkeletonLoader = ({ showEmail, showName }: UserProfileProps) => {
   return (
     <div className="flex items-center space-x-4">
-      <Skeleton className="size-10 aspect-square rounded-full" />
-      {showName && <Skeleton className="h-8 flex-1 " />}
+      <Skeleton className="aspect-square size-10 rounded-full" />
+      {showName && <Skeleton className="h-8 flex-1" />}
     </div>
   );
 };
@@ -47,12 +47,7 @@ export const UserProfile = ({
   };
 
   if (session.status === "loading") {
-    return (
-      <SkeletonLoader
-        showEmail={showEmail}
-        showName={showName}
-      />
-    );
+    return <SkeletonLoader showEmail={showEmail} showName={showName} />;
   }
 
   const user = session.data?.user;
@@ -60,29 +55,38 @@ export const UserProfile = ({
   return (
     <DropdownMenu modal={modal}>
       <DropdownMenuTrigger>
-        <div className={cn("flex items-center w-full gap-x-4", className)}>
+        <div className={cn("flex w-full items-center gap-x-4", className)}>
           <Avatar className="size-10 border-[4px] border-muted">
             <AvatarImage src={user?.image || "https://github.com/shadcn.png"} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          {showName && <p className="font-semibold truncate">{user?.name || "John Doe"}</p>}
+          {showName && (
+            <p className="truncate font-semibold">{user?.name || "John Doe"}</p>
+          )}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         side={side}
-        className={cn("shadow-primary shadow-sm px-0 w-[300px] z-[101]", popoverClassName)}
+        className={cn(
+          "z-[101] w-[300px] px-0 shadow-sm shadow-primary",
+          popoverClassName,
+        )}
       >
         <div className="flex flex-col space-y-2">
-          <div className="p-5 flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 p-5">
             <Avatar className="size-10 border-[4px] border-muted">
-              <AvatarImage src={user?.image || "https://github.com/shadcn.png"} />
+              <AvatarImage
+                src={user?.image || "https://github.com/shadcn.png"}
+              />
               <AvatarFallback>
-                <Skeleton className="size-10 aspect-square rounded-full" />
+                <Skeleton className="aspect-square size-10 rounded-full" />
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-lg font-bold text-balance line-clamp-1">{user?.name}</p>
-              <p className="text-sm font-semibold text-balance truncate text-muted-foreground">
+              <p className="line-clamp-1 text-balance text-lg font-bold">
+                {user?.name}
+              </p>
+              <p className="truncate text-balance text-sm font-semibold text-muted-foreground">
                 {user?.email}
               </p>
             </div>
@@ -96,7 +100,7 @@ export const UserProfile = ({
               variant="ghost"
               onClick={onSignOut}
             >
-              <IoIosLogOut className="w-6 h-6 mr-3" />
+              <IoIosLogOut className="mr-3 h-6 w-6" />
               Sign Out
             </Button>
           </div>

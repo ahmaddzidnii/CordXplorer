@@ -47,7 +47,9 @@ export const usePreferenceStore = create<PreferencesStore>()(
             return {
               preferences: {
                 ...state.preferences,
-                scrollSpeed: Number((state.preferences.scrollSpeed + 0.1).toFixed(1)),
+                scrollSpeed: Number(
+                  (state.preferences.scrollSpeed + 0.1).toFixed(1),
+                ),
               },
             };
           });
@@ -61,13 +63,15 @@ export const usePreferenceStore = create<PreferencesStore>()(
             return {
               preferences: {
                 ...state.preferences,
-                scrollSpeed: Number((state.preferences.scrollSpeed - 0.1).toFixed(1)),
+                scrollSpeed: Number(
+                  (state.preferences.scrollSpeed - 0.1).toFixed(1),
+                ),
               },
             };
           });
         },
       }),
-      { name: "preference" }
-    )
-  )
+      { name: "preference" },
+    ),
+  ),
 );

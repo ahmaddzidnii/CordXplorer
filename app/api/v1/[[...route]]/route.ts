@@ -10,7 +10,7 @@ app.use(
   "*",
   initAuthConfig(() => {
     return authConfig;
-  })
+  }),
 );
 
 // app.use("*", verifyAuth());

@@ -10,7 +10,12 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 import { useNavbar } from "@/hooks/use-navbar";
 
-import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { InputComponent } from "@/components/input";
 import { ToogleTheme } from "@/components/navbar/toogle-theme";
 import { Separator } from "@/components/ui/separator";
@@ -31,10 +36,7 @@ export const MobileNavbar = () => {
   }, [width, onClose]);
 
   return (
-    <Sheet
-      open={isOpen}
-      onOpenChange={onClose}
-    >
+    <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetTitle>
         <VisuallyHidden.Root>Mobile Navbar</VisuallyHidden.Root>
       </SheetTitle>
@@ -49,16 +51,10 @@ export const MobileNavbar = () => {
             <InputComponent />
           </div>
           <Separator className="my-5 bg-violet-600" />
-          <div className="flex flex-col my-5 gap-y-5 items-center">
-            <Button
-              asChild
-              variant="ghost"
-            >
-              <Link
-                target="_blank"
-                href="https://github.com/ahmaddzidnii"
-              >
-                <FaGithub className="w-7 h-7" />
+          <div className="my-5 flex flex-col items-center gap-y-5">
+            <Button asChild variant="ghost">
+              <Link target="_blank" href="https://github.com/ahmaddzidnii">
+                <FaGithub className="h-7 w-7" />
               </Link>
             </Button>
             <ToogleTheme />

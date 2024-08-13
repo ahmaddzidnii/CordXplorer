@@ -15,7 +15,7 @@ export const AddMusic = () => {
         router.push("/admin/songs/create?step=1");
       }}
     >
-      <Plus className="w-5 h-5 mr-2" /> Add Music
+      <Plus className="mr-2 h-5 w-5" /> Add Music
     </Button>
   );
 };

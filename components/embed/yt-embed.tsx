@@ -6,12 +6,21 @@ import throttle from "lodash.throttle";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { OnProgressProps } from "react-player/base";
-import { useMediaPlayer, usePlaybackControl } from "@/hooks/chord/use-media-player";
+import {
+  useMediaPlayer,
+  usePlaybackControl,
+} from "@/hooks/chord/use-media-player";
 
 const YtEmbedSkeleton = () => {
-  return <Skeleton className="w-full h-[190px] bg-neutral-300" />;
+  return <Skeleton className="h-[190px] w-full bg-neutral-300" />;
 };
-export const YtEmbed = ({ playerRef, youtubeUrl }: { playerRef: any; youtubeUrl: string }) => {
+export const YtEmbed = ({
+  playerRef,
+  youtubeUrl,
+}: {
+  playerRef: any;
+  youtubeUrl: string;
+}) => {
   const [mounted, setMounted] = useState(false);
 
   const { setState } = useMediaPlayer();
@@ -54,7 +63,7 @@ export const YtEmbed = ({ playerRef, youtubeUrl }: { playerRef: any; youtubeUrl:
 
   return (
     <>
-      <div className="aspect-video rounded-sm overflow-hidden shadow-sm shadow-primary">
+      <div className="aspect-video overflow-hidden rounded-sm shadow-sm shadow-primary">
         <ReactPlayer
           ref={playerRef}
           controls

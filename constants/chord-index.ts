@@ -62,7 +62,7 @@ export const flatChords: { [key: number]: string } = {
 export function transpose(
   chord: string,
   step: number,
-  enharmonicPreference: "sharp" | "flat"
+  enharmonicPreference: "sharp" | "flat",
 ): string {
   // Extract the chord name and modifier, including slash chords
   const chordParts = chord?.split("/");
@@ -72,20 +72,26 @@ export function transpose(
   }
   const mainChord = mainChordMatch[0];
   const mainChordModifier = chordParts[0].slice(mainChord.length);
-  const bassChordMatch = chordParts[1] ? chordParts[1].match(/([A-G][#b]?)/) : null;
+  const bassChordMatch = chordParts[1]
+    ? chordParts[1].match(/([A-G][#b]?)/)
+    : null;
   const bassChord = bassChordMatch ? bassChordMatch[0] : null;
 
   // Calculate the transposed index for main chord and bass chord if present
   const mainChordIndex = (chords[mainChord] + step + 12) % 12;
   const transposedMainChordName =
-    enharmonicPreference === "sharp" ? sharpChords[mainChordIndex] : flatChords[mainChordIndex];
+    enharmonicPreference === "sharp"
+      ? sharpChords[mainChordIndex]
+      : flatChords[mainChordIndex];
 
   let transposedChord = transposedMainChordName + mainChordModifier;
 
   if (bassChord) {
     const bassChordIndex = (chords[bassChord] + step + 12) % 12;
     const transposedBassChordName =
-      enharmonicPreference === "sharp" ? sharpChords[bassChordIndex] : flatChords[bassChordIndex];
+      enharmonicPreference === "sharp"
+        ? sharpChords[bassChordIndex]
+        : flatChords[bassChordIndex];
     transposedChord += "/" + transposedBassChordName;
   }
 

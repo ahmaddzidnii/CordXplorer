@@ -76,7 +76,10 @@ export const StepOne = () => {
   const [link, setLink] = useState("");
   const [imageLink, setImageLink] = useState("");
   const { song, setSong } = useSongCreate();
-  const imageLinkArray = useMemo(() => (imageLink ? [imageLink] : []), [imageLink]);
+  const imageLinkArray = useMemo(
+    () => (imageLink ? [imageLink] : []),
+    [imageLink],
+  );
 
   const defaultValues: Partial<Form1Type> = {
     title: song.title,
@@ -102,7 +105,8 @@ export const StepOne = () => {
   }
 
   const handleLoadImage = () => {
-    const regex = /^(https:\/\/)?(www\.)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\/.*)?$/;
+    const regex =
+      /^(https:\/\/)?(www\.)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\/.*)?$/;
     const urlImage = previewImageRef.current?.value;
 
     if (regex.test(urlImage as string)) {
@@ -131,15 +135,17 @@ export const StepOne = () => {
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-2xl font-bold tracking-tight">Add Information About Song</h3>
-        <p className="text-muted-foreground"> Please enter the information about the song.</p>
+        <h3 className="text-2xl font-bold tracking-tight">
+          Add Information About Song
+        </h3>
+        <p className="text-muted-foreground">
+          {" "}
+          Please enter the information about the song.
+        </p>
       </div>
       <div className="space-y-6">
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="title"
@@ -147,10 +153,7 @@ export const StepOne = () => {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Song title"
-                      {...field}
-                    />
+                    <Input placeholder="Song title" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -176,15 +179,15 @@ export const StepOne = () => {
                           field.ref(e);
                         }}
                       />
-                      <Button
-                        onClick={handleLoadImage}
-                        type="button"
-                      >
+                      <Button onClick={handleLoadImage} type="button">
                         Load
                       </Button>
                     </div>
                   </FormControl>
-                  <FormDescription> Now only supported image via URL </FormDescription>
+                  <FormDescription>
+                    {" "}
+                    Now only supported image via URL{" "}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -236,15 +239,12 @@ export const StepOne = () => {
                 <FormItem>
                   <FormLabel>Key</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Key"
-                      {...field}
-                    />
+                    <Input placeholder="Key" {...field} />
                   </FormControl>
                   <FormMessage />
                   <FormDescription>
-                    If more than one or there is modulation in the song, then separate them with a
-                    comma &#40;for example A,B&#41;.
+                    If more than one or there is modulation in the song, then
+                    separate them with a comma &#40;for example A,B&#41;.
                   </FormDescription>
                 </FormItem>
               )}
@@ -256,13 +256,12 @@ export const StepOne = () => {
                 <FormItem>
                   <FormLabel>Release year</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="ex 2021"
-                      {...field}
-                    />
+                    <Input placeholder="ex 2021" {...field} />
                   </FormControl>
                   <FormMessage />
-                  <FormDescription>Year of release of the music.</FormDescription>
+                  <FormDescription>
+                    Year of release of the music.
+                  </FormDescription>
                 </FormItem>
               )}
             />
@@ -273,14 +272,12 @@ export const StepOne = () => {
                 <FormItem>
                   <FormLabel>Publisher</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Song publisher"
-                      {...field}
-                    />
+                    <Input placeholder="Song publisher" {...field} />
                   </FormControl>
                   <FormMessage />
                   <FormDescription>
-                    The label that published the music and please list it correctly.
+                    The label that published the music and please list it
+                    correctly.
                   </FormDescription>
                 </FormItem>
               )}
@@ -290,12 +287,12 @@ export const StepOne = () => {
               name="youtubeUrl"
               render={({ field }) => (
                 <FormItem>
-                  <div className="max-w-lg mb-5">
+                  <div className="mb-5 max-w-lg">
                     <MediaPlayerCreateSong link={link} />
                   </div>
                   <FormLabel>Youtube url</FormLabel>
                   <FormControl>
-                    <div className="flex gap-x-3 max-w-xl">
+                    <div className="flex max-w-xl gap-x-3">
                       <Input
                         placeholder="ex: https://youtu.be/QhubX_VQogk"
                         {...field}
@@ -304,10 +301,7 @@ export const StepOne = () => {
                           field.ref(e);
                         }}
                       />
-                      <Button
-                        onClick={handleLoadButtonClick}
-                        type="button"
-                      >
+                      <Button onClick={handleLoadButtonClick} type="button">
                         Load
                       </Button>
                     </div>
@@ -316,10 +310,7 @@ export const StepOne = () => {
                 </FormItem>
               )}
             />
-            <Button
-              className="w-[100px]"
-              type="submit"
-            >
+            <Button className="w-[100px]" type="submit">
               Next
             </Button>
           </form>

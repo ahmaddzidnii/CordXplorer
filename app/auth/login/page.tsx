@@ -14,11 +14,13 @@ export default function AdminLoginPage({
 }) {
   const callbackUrl = searchParams.redirect_back;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-screen w-full">
-      <div className="w-full h-full flex items-center justify-center">
-        <Card className="text-center w-[calc(100%-60px)] md:w-[350px] lg:[500px]">
+    <div className="grid h-screen w-full grid-cols-1 md:grid-cols-2">
+      <div className="flex h-full w-full items-center justify-center">
+        <Card className="lg:[500px] w-[calc(100%-60px)] text-center md:w-[350px]">
           <CardHeader>
-            <h1 className="text-lg md:text-2xl text-balance font-semibold">Welcome Back to</h1>
+            <h1 className="text-balance text-lg font-semibold md:text-2xl">
+              Welcome Back to
+            </h1>
             <Logo />
           </CardHeader>
           <CardContent>
@@ -32,9 +34,9 @@ export default function AdminLoginPage({
             >
               <button
                 type="submit"
-                className="group h-10 md:h-12 px-6 border-2 border-gray-300 rounded-full transition duration-100 hover:border-blue-400 "
+                className="group h-10 rounded-full border-2 border-gray-300 px-6 transition duration-100 hover:border-blue-400 md:h-12"
               >
-                <div className=" flex items-center space-x-4 justify-center">
+                <div className="flex items-center justify-center space-x-4">
                   <Image
                     src="https://www.svgrepo.com/show/475656/google-color.svg"
                     className="aspect-square"
@@ -42,7 +44,7 @@ export default function AdminLoginPage({
                     width={20}
                     height={20}
                   />
-                  <span className="block  w-max font-semibold tracking-wide text-gray-700 dark:text-white text-sm transition duration-100 group-hover:text-blue-600 sm:text-base">
+                  <span className="block w-max text-sm font-semibold tracking-wide text-gray-700 transition duration-100 group-hover:text-blue-600 dark:text-white sm:text-base">
                     Continue with Google
                   </span>
                 </div>
@@ -51,20 +53,12 @@ export default function AdminLoginPage({
           </CardContent>
         </Card>
       </div>
-      <div className="bg-muted-foreground/5 p-5 hidden md:flex items-center justify-center ">
-        <div className="relative w-full h-full hidden dark:flex items-center ">
-          <Image
-            fill
-            src="/svg-ui/svg-login-dark.svg"
-            alt="svg-login"
-          />
+      <div className="hidden items-center justify-center bg-muted-foreground/5 p-5 md:flex">
+        <div className="relative hidden h-full w-full items-center dark:flex">
+          <Image fill src="/svg-ui/svg-login-dark.svg" alt="svg-login" />
         </div>
-        <div className="relative w-full h-full dark:hidden flex items-center">
-          <Image
-            fill
-            src="/svg-ui/svg-login-light.svg"
-            alt="svg-login"
-          />
+        <div className="relative flex h-full w-full items-center dark:hidden">
+          <Image fill src="/svg-ui/svg-login-light.svg" alt="svg-login" />
         </div>
       </div>
     </div>

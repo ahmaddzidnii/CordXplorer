@@ -17,7 +17,7 @@ export const P = forwardRef<HTMLParagraphElement, H1Props>(
         {children}
       </p>
     );
-  }
+  },
 );
 
 P.displayName = "P";

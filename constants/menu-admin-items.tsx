@@ -6,22 +6,22 @@ import { FaMicrophoneLines } from "react-icons/fa6";
 export const menuItems = [
   {
     title: "Dashboard",
-    icon: <MdDashboard className="w-7 h-7 " />,
+    icon: <MdDashboard className="h-7 w-7" />,
     href: "/admin",
   },
   {
     title: "Manage music",
-    icon: <IoMusicalNoteSharp className="w-7 h-7" />,
+    icon: <IoMusicalNoteSharp className="h-7 w-7" />,
     href: "/admin/songs",
   },
   {
     title: "Manage artist",
-    icon: <FaMicrophoneLines className="w-7 h-7" />,
+    icon: <FaMicrophoneLines className="h-7 w-7" />,
     href: "/admin/artists",
   },
   {
     title: "Manage category",
-    icon: <BiSolidCategoryAlt className="w-7 h-7" />,
+    icon: <BiSolidCategoryAlt className="h-7 w-7" />,
     href: "/admin/categories",
   },
 ];

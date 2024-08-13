@@ -3,7 +3,12 @@ import NextAuth from "next-auth";
 
 import { NextResponse } from "next/server";
 
-import { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, privateRoutes, authRoutes } from "@/routes";
+import {
+  DEFAULT_LOGIN_REDIRECT,
+  apiAuthPrefix,
+  privateRoutes,
+  authRoutes,
+} from "@/routes";
 
 const { auth } = NextAuth(authConfig);
 
@@ -42,7 +47,9 @@ export default auth((req) => {
 
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
-    return Response.redirect(new URL(`/auth/login?redirect_back=${encodedCallbackUrl}`, nextUrl));
+    return Response.redirect(
+      new URL(`/auth/login?redirect_back=${encodedCallbackUrl}`, nextUrl),
+    );
   }
 
   return NextResponse.next();

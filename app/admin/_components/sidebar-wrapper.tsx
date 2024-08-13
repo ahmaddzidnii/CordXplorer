@@ -19,7 +19,9 @@ export const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
       <div className="flex">
         <SidebarMobile className="md:hidden" />
         <SidebarDekstop className="hidden md:flex" />
-        <div className="mx-3 w-full min-h-screen max-w-7xl 2xl:mx-auto">{children}</div>
+        <div className="mx-3 min-h-screen w-full max-w-7xl 2xl:mx-auto">
+          {children}
+        </div>
       </div>
     </div>
   );

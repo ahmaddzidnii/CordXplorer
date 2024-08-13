@@ -7,5 +7,6 @@ interface UseTransposeSwitcher {
 
 export const useTransposeSwitcher = create<UseTransposeSwitcher>((set) => ({
   isTranpose: false,
-  toggleTransposeSwitcher: () => set((state) => ({ isTranpose: !state.isTranpose })),
+  toggleTransposeSwitcher: () =>
+    set((state) => ({ isTranpose: !state.isTranpose })),
 }));

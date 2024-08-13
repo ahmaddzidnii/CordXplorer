@@ -16,7 +16,12 @@ import { RichTextEditor } from "@/components/admin/songs/create/rich-text-editor
 import { Button } from "@/components/ui/button";
 import { MediaPlayerCreateSong } from "@/components/admin/songs/create/media-player";
 import { useSongCreate } from "@/hooks/admin/songs/create";
-import { Form, FormControl, FormField, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormMessage,
+} from "@/components/ui/form";
 import { form2Schema, Form2Type } from "@/components/admin/songs/create/schema";
 import { MediaController } from "./media-controller";
 
@@ -64,28 +69,25 @@ export const StepTwo = () => {
   }
 
   return (
-    <div className="flex-col flex w-full">
+    <div className="flex w-full flex-col">
       <h3 className="text-2xl font-bold tracking-tight">Add Section Song</h3>
       <p className="text-muted-foreground">Add a new section to the song.</p>
       <div className="my-5 space-y-5">
-        <h1 className="font-bold text-lg">Preview Youtube :</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-5">
-          <MediaPlayerCreateSong
-            link={song.youtubeUrl}
-            ref={playerRef}
-          />
+        <h1 className="text-lg font-bold">Preview Youtube :</h1>
+        <div className="grid grid-cols-1 gap-8 md:gap-5 lg:grid-cols-2">
+          <MediaPlayerCreateSong link={song.youtubeUrl} ref={playerRef} />
           <MediaController playerRef={playerRef} />
         </div>
         <p className="text-xl font-bold">Sections</p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="space-y-5 mt-5">
+            <div className="mt-5 space-y-5">
               {fields.length > 0 ? (
                 fields.map((field, index) => (
                   <Card key={field.id}>
-                    <CardContent className="space-y-5 p-5 relative">
+                    <CardContent className="relative space-y-5 p-5">
                       <div
-                        className="top-0 right-0 absolute p-3 "
+                        className="absolute right-0 top-0 p-3"
                         role="button"
                         onClick={() => {
                           remove(index);
@@ -102,14 +104,16 @@ export const StepTwo = () => {
                             <FormControl>
                               <Input
                                 placeholder="ex: Chorus"
-                                {...form.register(`sections.${index}.nameSection`)}
+                                {...form.register(
+                                  `sections.${index}.nameSection`,
+                                )}
                               />
                             </FormControl>
                             <FormMessage />
                           </div>
                         )}
                       />
-                      <div className="flex gap-x-5 ">
+                      <div className="flex gap-x-5">
                         <FormField
                           control={form.control}
                           name={`sections.${index}.startTime`}
@@ -120,9 +124,12 @@ export const StepTwo = () => {
                                 <Input
                                   placeholder="ex: 0"
                                   type="number"
-                                  {...form.register(`sections.${index}.startTime`, {
-                                    valueAsNumber: true,
-                                  })}
+                                  {...form.register(
+                                    `sections.${index}.startTime`,
+                                    {
+                                      valueAsNumber: true,
+                                    },
+                                  )}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -139,9 +146,12 @@ export const StepTwo = () => {
                                 <Input
                                   placeholder="ex: 10"
                                   type="number"
-                                  {...form.register(`sections.${index}.endTime`, {
-                                    valueAsNumber: true,
-                                  })}
+                                  {...form.register(
+                                    `sections.${index}.endTime`,
+                                    {
+                                      valueAsNumber: true,
+                                    },
+                                  )}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -161,7 +171,7 @@ export const StepTwo = () => {
                                 onChange={(v) => {
                                   form.setValue(`sections.${index}.content`, v);
                                 }}
-                                className="border-border border-2 dark:bg-input py-5 px-3 min-h-[10rem] rounded-2xl "
+                                className="min-h-[10rem] rounded-2xl border-2 border-border px-3 py-5 dark:bg-input"
                               />
                             </FormControl>
                             <FormMessage />
@@ -175,7 +185,7 @@ export const StepTwo = () => {
                 <EmptyUI />
               )}
             </div>
-            <div className="flex flex-col mt-5">
+            <div className="mt-5 flex flex-col">
               <Button
                 type="button"
                 variant="default"
@@ -188,12 +198,9 @@ export const StepTwo = () => {
                   });
                 }}
               >
-                <Plus className="w-6 h-6 mr-2" /> Add Section
+                <Plus className="mr-2 h-6 w-6" /> Add Section
               </Button>
-              <Button
-                type="submit"
-                className="mt-5 w-[100px]"
-              >
+              <Button type="submit" className="mt-5 w-[100px]">
                 Next
               </Button>
             </div>
@@ -208,7 +215,7 @@ function EmptyUI() {
   return (
     <div className="flex h-[450px] shrink-0 items-center justify-center">
       <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
-        <IoMusicalNoteSharp className="w-12 h-12 fill-primary" />
+        <IoMusicalNoteSharp className="h-12 w-12 fill-primary" />
         <h3 className="mt-4 text-lg font-semibold">No section added</h3>
         <p className="mb-4 mt-2 text-sm text-muted-foreground">
           You have not added any section. Add below.

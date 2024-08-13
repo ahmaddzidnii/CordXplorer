@@ -19,7 +19,7 @@ export const SongsCreateDtoSchema = z.object({
       z.object({
         value: z.string(),
         label: z.string(),
-      })
+      }),
     )
     .refine(
       (value) => {
@@ -27,13 +27,14 @@ export const SongsCreateDtoSchema = z.object({
       },
       {
         message: "Artist is required.",
-      }
+      },
     ),
   coverImage: z
     .string()
     .refine(
       (value) => {
-        const regex = /^(https:\/\/)?(www\.)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\/.*)?$/; // regex for url
+        const regex =
+          /^(https:\/\/)?(www\.)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}(\/.*)?$/; // regex for url
 
         if (value === "") {
           return true;
@@ -41,7 +42,7 @@ export const SongsCreateDtoSchema = z.object({
 
         return regex.test(value);
       },
-      { message: "URl must be over HTTPS." }
+      { message: "URl must be over HTTPS." },
     )
     .optional(),
   genre: z.string({
@@ -57,7 +58,7 @@ export const SongsCreateDtoSchema = z.object({
       },
       {
         message: "Invalid Youtube URL.",
-      }
+      },
     ),
   key: z
     .string({
@@ -70,7 +71,7 @@ export const SongsCreateDtoSchema = z.object({
       },
       {
         message: "Invalid key format.",
-      }
+      },
     ),
   publisher: z
     .string({
@@ -90,7 +91,7 @@ export const SongsCreateDtoSchema = z.object({
       },
       {
         message: "Invalid year format.",
-      }
+      },
     ),
   sections: z.array(
     z.object({
@@ -110,7 +111,7 @@ export const SongsCreateDtoSchema = z.object({
         })
         .min(0, "Please enter a valid number."),
       content: z.string({ required_error: "Please enter a content." }),
-    })
+    }),
   ),
 });
 

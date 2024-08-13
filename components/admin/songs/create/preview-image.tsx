@@ -24,7 +24,9 @@ const PreviewImage = React.memo(({ images, onError }: PreviewImageProps) => {
     setIsViewerOpen(false);
   };
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleImageError = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>,
+  ) => {
     setIsError(true);
     onError && onError(e);
   };
@@ -42,7 +44,7 @@ const PreviewImage = React.memo(({ images, onError }: PreviewImageProps) => {
             width={144}
             height={144}
             onClick={() => !isError && openImageViewer(index)}
-            className="aspect-square rounded-lg cursor-pointer"
+            className="aspect-square cursor-pointer rounded-lg"
             key={index}
             alt={`Image ${index}`}
           />
@@ -65,7 +67,7 @@ const PreviewImage = React.memo(({ images, onError }: PreviewImageProps) => {
 });
 
 function FallbackImage() {
-  return <Skeleton className="animate-none aspect-square rounded-lg size-36" />;
+  return <Skeleton className="aspect-square size-36 animate-none rounded-lg" />;
 }
 
 export { PreviewImage };

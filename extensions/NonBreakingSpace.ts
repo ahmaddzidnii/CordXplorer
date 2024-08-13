@@ -13,7 +13,8 @@ export const NonBreakingSpace = Node.create({
 
   addKeyboardShortcuts() {
     return {
-      Space: () => this.editor.commands.insertContent({ type: "text", text: "\u00A0" }),
+      Space: () =>
+        this.editor.commands.insertContent({ type: "text", text: "\u00A0" }),
     };
   },
 });

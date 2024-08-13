@@ -33,22 +33,21 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
   return (
     <>
       {/* Sheet Sidebar */}
-      <Sheet
-        open={isOpen}
-        onOpenChange={onClose}
-      >
-        <SheetContent side="left">{/* TODO: add navbar in sheet */}</SheetContent>
+      <Sheet open={isOpen} onOpenChange={onClose}>
+        <SheetContent side="left">
+          {/* TODO: add navbar in sheet */}
+        </SheetContent>
       </Sheet>
 
       {/* Sheet Sidebar */}
 
       <aside
         className={cn(
-          "w-16 pt-5 shadow-sm shadow-primary sticky top-0 max-h-screen flex flex-col items-center justify-between",
-          className
+          "sticky top-0 flex max-h-screen w-16 flex-col items-center justify-between pt-5 shadow-sm shadow-primary",
+          className,
         )}
       >
-        <div className="space-y-4 flex flex-col items-center">
+        <div className="flex flex-col items-center space-y-4">
           <div>
             <Button
               variant="ghost"
@@ -56,7 +55,7 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
                 onOpen();
               }}
             >
-              <IoIosArrowDropright className="w-7 h-7" />
+              <IoIosArrowDropright className="h-7 w-7" />
             </Button>
           </div>
           <div>
@@ -71,7 +70,10 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
           {menuItems.map((item, id) => (
             <div
               key={id}
-              className={cn("flex w-full", isActive(item.href, pathname) && "sidebar-admin-active")}
+              className={cn(
+                "flex w-full",
+                isActive(item.href, pathname) && "sidebar-admin-active",
+              )}
             >
               <Button
                 className="items-center justify-center hover:bg-transparent"
@@ -87,10 +89,7 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
         </div>
         <div className="space-y-4 pb-5">
           <ToogleTheme />
-          <UserProfile
-            showName={false}
-            popoverClassName="ml-5"
-          />
+          <UserProfile showName={false} popoverClassName="ml-5" />
         </div>
       </aside>
     </>

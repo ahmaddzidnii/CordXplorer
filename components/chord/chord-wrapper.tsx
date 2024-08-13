@@ -31,13 +31,19 @@ export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
     chordElements.forEach((chordElement) => {
       const originalChord = chordElement.getAttribute("data-origin");
 
-      const transposedChord = transposeFunc(originalChord!, tranpose, preferences.enharmonic);
+      const transposedChord = transposeFunc(
+        originalChord!,
+        tranpose,
+        preferences.enharmonic,
+      );
       chordElement.textContent = transposedChord;
     });
   }, [preferences.enharmonic, tranpose]);
 
   if (!isMounted) {
-    return <div className="min h-screen bg-muted animate-pulse rounded-md"></div>;
+    return (
+      <div className="min h-screen animate-pulse rounded-md bg-muted"></div>
+    );
   }
   return <>{children}</>;
 };

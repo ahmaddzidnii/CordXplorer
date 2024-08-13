@@ -9,7 +9,11 @@ import { cn } from "@/lib/utils";
 export const ChordPage = ({ data }: { data: Root }) => {
   const { state } = useMediaPlayer();
 
-  const isCurrentActive = (currentTime: number, startTime: number, endTime: number) => {
+  const isCurrentActive = (
+    currentTime: number,
+    startTime: number,
+    endTime: number,
+  ) => {
     const tolerance = 0.5;
 
     const adjustedStartTime = startTime - tolerance;
@@ -21,13 +25,20 @@ export const ChordPage = ({ data }: { data: Root }) => {
   return (
     <>
       {data.sections.map((section, index) => {
-        const isActived = isCurrentActive(state.progress!, section.startTime, section.endTime);
+        const isActived = isCurrentActive(
+          state.progress!,
+          section.startTime,
+          section.endTime,
+        );
         return (
           <div
             key={index}
-            className={cn("px-2 py-3 whitespace-pre text-nowrap my-3", isActived && "focus")}
+            className={cn(
+              "my-3 whitespace-pre text-nowrap px-2 py-3",
+              isActived && "focus",
+            )}
           >
-            <p className=" mb-3">
+            <p className="mb-3">
               <b>{section.nameSection}</b>
             </p>
             {parse(section.content)}
