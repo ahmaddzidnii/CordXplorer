@@ -77,7 +77,7 @@ export default async function SongsPage({
 
             <ChordWrapper>
               <article className="h-full rounded-lg bg-white p-5 shadow-lg dark:bg-black/40">
-                <div className="mt-2 flex h-[40px] w-full items-center">
+                <div className="mt-2 flex h-[40px] items-center">
                   <div className="w-[40%]">
                     <Separator className="bg-[#1f1f1f]/50 dark:bg-white/50" />
                   </div>

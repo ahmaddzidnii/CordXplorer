@@ -78,7 +78,7 @@ export const ControlPlayer = ({ playerRef }: PlayerRefProps) => {
       {/* Desktop */}
 
       {/* Device */}
-      <div className="fixed bottom-0 left-0 z-[97] h-28 w-[100vw] rounded-t-lg bg-white/70 shadow-lg ring-1 ring-foreground/25 backdrop-blur-md dark:bg-[#1f1f1f]/50 md:hidden">
+      <div className="fixed bottom-0 left-0 z-[97] h-28 w-full max-w-[inherit] rounded-t-lg bg-white/70 shadow-lg ring-1 ring-foreground/25 backdrop-blur-md dark:bg-[#1f1f1f]/50 md:hidden">
         <ButtonWrapper playerRef={playerRef} />
         <ButtonSwitcherTranpose />
         <SnackBar />

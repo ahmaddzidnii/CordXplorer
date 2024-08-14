@@ -44,7 +44,7 @@ const NavItem = () => {
 export const Navbar = () => {
   const { onOpen } = useNavbar();
   return (
-    <header className="max-w-screen fixed top-0 z-[100] h-[72px] w-full border-b bg-background p-6 shadow-xl backdrop-blur-2xl supports-[backdrop-filter]:bg-background/90 dark:supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 z-[100] h-[72px] w-full border-b bg-background p-6 shadow-xl backdrop-blur-2xl supports-[backdrop-filter]:bg-background/90 dark:supports-[backdrop-filter]:bg-background/60">
       <nav className="container-navbar flex h-full items-center">
         <Logo />
         <div className="mx-auto hidden w-[310px] md:block">

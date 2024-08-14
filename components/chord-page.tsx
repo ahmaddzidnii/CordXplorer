@@ -34,14 +34,14 @@ export const ChordPage = ({ data }: { data: Song }) => {
           <div
             key={index}
             className={cn(
-              "my-3 whitespace-pre text-nowrap px-2 py-3",
+              "my-3 whitespace-pre px-2 py-3",
               isActived && "focus",
             )}
           >
             <p className="mb-3">
               <b>{section.nameSection}</b>
             </p>
-            {parse(section.content)}
+            <div className="overflow-hidden">{parse(section.content)}</div>
           </div>
         );
       })}
