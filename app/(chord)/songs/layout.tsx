@@ -13,7 +13,7 @@ export default function SongsLayout({
       <Navbar />
       <MobileNavbar />
       <DialogOptions />
-      <main className="container pt-20">{children}</main>
+      <main className="min-h-[100dvh] pt-20">{children}</main>
       <Footer />
     </>
   );
