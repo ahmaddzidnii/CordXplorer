@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback, useRef } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
 
 import { usePreferenceStore } from "@/store/dialog-options-store";
 import { usePlaybackControl } from "@/hooks/chord/use-media-player";
 
-const INTERVAL_SPEED: {
-  [key: number]: number;
-} = {
+const INTERVAL_SPEED: Record<number, number> = {
   0.1: 200,
   0.2: 190,
   0.3: 181,
@@ -36,46 +35,43 @@ function isElementInViewport(el: HTMLElement) {
   const rect = el.getBoundingClientRect();
   const windowHeight =
     window.innerHeight || document.documentElement.clientHeight;
-  const vertInView =
-    rect.top <= windowHeight / 2 && rect.top + rect.height >= windowHeight / 2;
-  return vertInView;
-}
-
-let lastFocusedElement: Element | null = null;
-
-function smartScroll() {
-  const element = document.querySelector(".focus");
-
-  if (!element) {
-    return;
-  }
-
-  if (
-    element !== lastFocusedElement ||
-    !isElementInViewport(element as HTMLElement)
-  ) {
-    console.log("Perlu scroll!");
-    element.scrollIntoView({
-      block: "center",
-      behavior: "smooth",
-    });
-    lastFocusedElement = element;
-  }
+  return (
+    rect.top <= windowHeight / 2 && rect.top + rect.height >= windowHeight / 2
+  );
 }
 
 function pageScroll() {
   window.scrollBy(0, PIXEL_PER_SCROLL);
 }
 
-export const AutoScrollWrapper = ({
+export const AutoScrollWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
-}: {
-  children: React.ReactNode;
 }) => {
+  const windowWidth = useWindowWidth();
+  const isMobile = windowWidth < 768;
+  const lastFocusedElementRef = useRef<Element | null>(null);
+
+  const smartScroll = useCallback(() => {
+    const elements = document.querySelectorAll(".focus");
+    const element = elements[isMobile ? 0 : 1] as HTMLElement;
+
+    if (!element) return;
+
+    if (
+      element !== lastFocusedElementRef.current ||
+      !isElementInViewport(element)
+    ) {
+      console.log("scrolling");
+      element.scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
+      lastFocusedElementRef.current = element;
+    }
+  }, [isMobile]);
+
   const { preferences } = usePreferenceStore();
-
   const playing = usePlaybackControl((state) => state.playbackControl.playing);
-
   const { isScrolling, scrollSpeed, scrollType } = preferences;
 
   useEffect(() => {
@@ -94,7 +90,7 @@ export const AutoScrollWrapper = ({
         clearInterval(intervalId);
       }
     };
-  }, [isScrolling, scrollType, scrollSpeed, playing]);
+  }, [isScrolling, scrollType, scrollSpeed, playing, smartScroll]);
 
   return <>{children}</>;
 };

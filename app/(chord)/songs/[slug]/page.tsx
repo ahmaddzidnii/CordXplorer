@@ -13,8 +13,7 @@ import { AutoScrollWrapper } from "@/components/chord/auto-scroll-provider";
 import { ChordWrapper } from "@/components/chord/chord-wrapper";
 
 import { Song } from "@/data";
-import { ChordPageDekstop } from "@/components/chord/chord-page-dekstop";
-import { ChordPageMobile } from "@/components/chord/chord-page-mobile";
+import { ChordPage } from "@/components/chord-page";
 
 export default async function SongsPage({
   params,
@@ -25,76 +24,78 @@ export default async function SongsPage({
   const data: Song = await response.json();
   return (
     <AutoScrollWrapper>
-      <section className="main-page">
-        <aside className="col-span-12 md:col-span-3">
-          <>
-            <div className="is-dekstop relative aspect-square">
-              <Image
-                fill
-                priority={true}
-                src={data.coverImage}
-                alt=""
-                className="w-full rounded-xl shadow-md"
-              />
-            </div>
-            <div className="is-mobile fixed left-0 top-[72px] z-0 mb-0 h-0 w-full pb-[100%]">
-              <Image
-                height={0}
-                width={0}
-                sizes="100vw"
-                className="absolute left-1/2 top-1/2 z-[-1] h-full w-full -translate-x-1/2 -translate-y-1/2 overflow-clip object-cover sepia-0"
-                src={data.coverImage}
-                alt=""
-              />
-            </div>
-            <div className="content">
-              <p className="is-mobile text-2xl font-bold leading-5">
-                {data.title}
-              </p>
-              <p className="is-mobile">
-                by &nbsp;
-                {data.artists.map((artist, index) => {
-                  return (
-                    artist.label +
-                    (index !== data.artists.length - 1 ? ", " : "")
-                  );
-                })}
-              </p>
-              <div className="my-3">
-                <p className="text-sm text-muted-foreground">
-                  Dirilis pada {data.releaseYear}
-                </p>
-                <p className="text-sm uppercase text-muted-foreground">
-                  ℗ {data.publisher}
-                </p>
+      <ChordWrapper>
+        <section className="main-page">
+          <aside className="col-span-12 md:col-span-3">
+            <>
+              <div className="is-dekstop relative aspect-square">
+                <Image
+                  fill
+                  priority={true}
+                  src={data.coverImage}
+                  alt=""
+                  className="w-full rounded-xl shadow-md"
+                />
               </div>
-              <div className="my-3">
-                <p className="text-sm font-bold text-muted-foreground">Album</p>
-                <p className="text-sm text-muted-foreground">{data.album}</p>
+              <div className="is-mobile fixed left-0 top-[72px] z-0 mb-0 h-0 w-full pb-[100%]">
+                <Image
+                  height={0}
+                  width={0}
+                  sizes="100vw"
+                  className="absolute left-1/2 top-1/2 z-[-1] h-full w-full -translate-x-1/2 -translate-y-1/2 overflow-clip object-cover sepia-0"
+                  src={data.coverImage}
+                  alt=""
+                />
               </div>
-              <h3 className="is-mobile text-lg font-bold leading-5">
-                Song key{data.key.length > 1 && <b>&apos;s</b>}&nbsp;
-              </h3>
-              <p>
-                {data.key.map((key, index) => {
-                  return (
-                    <Fragment key={index}>
-                      <span data-origin={key} className="c">
-                        {key}
-                      </span>
-                      {index !== data.key.length - 1 && ","}&nbsp;
-                    </Fragment>
-                  );
-                })}
-              </p>
-              <div className="my-3">
-                <p className="mb-2 text-sm font-bold text-muted-foreground">
-                  Video Music
+              <div className="content">
+                <p className="is-mobile text-2xl font-bold leading-5">
+                  {data.title}
                 </p>
-                <PlayerController youtubeUrl={data.youtubeUrl} />
-              </div>
+                <p className="is-mobile">
+                  by &nbsp;
+                  {data.artists.map((artist, index) => {
+                    return (
+                      artist.label +
+                      (index !== data.artists.length - 1 ? ", " : "")
+                    );
+                  })}
+                </p>
+                <div className="my-3">
+                  <p className="text-sm text-muted-foreground">
+                    Dirilis pada {data.releaseYear}
+                  </p>
+                  <p className="text-sm uppercase text-muted-foreground">
+                    ℗ {data.publisher}
+                  </p>
+                </div>
+                <div className="my-3">
+                  <p className="text-sm font-bold text-muted-foreground">
+                    Album
+                  </p>
+                  <p className="text-sm text-muted-foreground">{data.album}</p>
+                </div>
+                <h3 className="is-mobile text-lg font-bold leading-5">
+                  Song key{data.key.length > 1 && <b>&apos;s</b>}&nbsp;
+                </h3>
+                <p>
+                  {data.key.map((key, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <span data-origin={key} className="c">
+                          {key}
+                        </span>
+                        {index !== data.key.length - 1 && ","}&nbsp;
+                      </Fragment>
+                    );
+                  })}
+                </p>
+                <div className="my-3">
+                  <p className="mb-2 text-sm font-bold text-muted-foreground">
+                    Video Music
+                  </p>
+                  <PlayerController youtubeUrl={data.youtubeUrl} />
+                </div>
 
-              <ChordWrapper>
                 <article className="is-mobile h-full rounded-lg bg-white p-3 shadow-lg dark:bg-black/40">
                   <div className="mt-2 flex h-[40px] w-full items-center">
                     <div className="w-[40%]">
@@ -109,14 +110,12 @@ export default async function SongsPage({
                     </div>
                   </div>
 
-                  <ChordPageMobile data={data} />
+                  <ChordPage data={data} />
                 </article>
-              </ChordWrapper>
-            </div>
-          </>
-        </aside>
-        <div className="is-dekstop h-full md:col-span-9">
-          <ChordWrapper>
+              </div>
+            </>
+          </aside>
+          <div className="is-dekstop h-full md:col-span-9">
             <article className="h-full rounded-lg bg-white p-5 shadow-lg dark:bg-black/40">
               <h1 className="my-2 text-3xl font-bold">{data.title}</h1>
               <div className="flex justify-between">
@@ -156,11 +155,11 @@ export default async function SongsPage({
                 </div>
               </div>
 
-              <ChordPageDekstop data={data} />
+              <ChordPage data={data} />
             </article>
-          </ChordWrapper>
-        </div>
-      </section>
+          </div>
+        </section>
+      </ChordWrapper>
 
       <section className="is-dekstop container pt-5">
         <TextHeader title="Related Song" />
