@@ -34,7 +34,7 @@ export const ChordPage = ({ data }: { data: Song }) => {
           <div
             key={index}
             className={cn(
-              "my-3 whitespace-pre px-2 py-3",
+              "chord-body my-3 whitespace-pre px-2 py-3",
               isActived && "focus",
             )}
           >

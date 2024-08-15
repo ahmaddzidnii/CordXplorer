@@ -16,6 +16,7 @@ const config = {
         "2xl": "1400px",
       },
     },
+
     extend: {
       backgroundImage: {
         "background-liniar": `linear-gradient(

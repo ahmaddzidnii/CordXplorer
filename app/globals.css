@@ -2,21 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.c {
-  @apply font-semibold text-primary;
-}
-
-.focus {
-  @apply rounded-lg bg-background dark:bg-slate-700/60;
-}
-
-.sidebar-admin-active {
-  @apply bg-fuchsia-300;
-}
-
-.react-player {
-  @apply bg-muted;
-}
 body {
   @apply bg-background-liniar;
 }

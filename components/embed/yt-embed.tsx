@@ -12,7 +12,7 @@ import {
 } from "@/hooks/chord/use-media-player";
 
 const YtEmbedSkeleton = () => {
-  return <Skeleton className="h-[190px] w-full bg-neutral-300" />;
+  return <Skeleton className="h-[190px] w-full bg-muted" />;
 };
 export const YtEmbed = ({
   playerRef,

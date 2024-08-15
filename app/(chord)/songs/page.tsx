@@ -4,7 +4,7 @@ import { TextHeader } from "@/components/text-header";
 
 function SongsPage() {
   return (
-    <div className="space-y-10">
+    <div className="container space-y-10">
       <section>
         <TextHeader title="Japanese Song" />
         <CardWrapper>

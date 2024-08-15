@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
 
 import { usePreferenceStore } from "@/store/dialog-options-store";
 import { usePlaybackControl } from "@/hooks/chord/use-media-player";
@@ -33,14 +32,35 @@ const INTERVAL_SPEED: {
 
 const PIXEL_PER_SCROLL = 1;
 
+function isElementInViewport(el: HTMLElement) {
+  const rect = el.getBoundingClientRect();
+  const windowHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  const vertInView =
+    rect.top <= windowHeight / 2 && rect.top + rect.height >= windowHeight / 2;
+  return vertInView;
+}
+
+let lastFocusedElement: Element | null = null;
+
 function smartScroll() {
-  console.log("harus scroll!!");
   const element = document.querySelector(".focus");
 
-  element?.scrollIntoView({
-    block: "center",
-    behavior: "smooth",
-  });
+  if (!element) {
+    return;
+  }
+
+  if (
+    element !== lastFocusedElement ||
+    !isElementInViewport(element as HTMLElement)
+  ) {
+    console.log("Perlu scroll!");
+    element.scrollIntoView({
+      block: "center",
+      behavior: "smooth",
+    });
+    lastFocusedElement = element;
+  }
 }
 
 function pageScroll() {
@@ -65,7 +85,7 @@ export const AutoScrollWrapper = ({
       if (scrollType === "page" && INTERVAL_SPEED[scrollSpeed]) {
         intervalId = setInterval(pageScroll, INTERVAL_SPEED[scrollSpeed]);
       } else if (scrollType === "smart" && playing) {
-        intervalId = setInterval(smartScroll, 500);
+        intervalId = setInterval(smartScroll, 1000);
       }
     }
 

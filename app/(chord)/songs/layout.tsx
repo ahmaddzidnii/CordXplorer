@@ -14,7 +14,6 @@ export default function SongsLayout({
       <MobileNavbar />
       <DialogOptions />
       <main className="min-h-[100dvh] pt-20">{children}</main>
-      <Footer />
     </>
   );
 }

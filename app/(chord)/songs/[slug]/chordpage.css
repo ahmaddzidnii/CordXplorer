@@ -1,0 +1,44 @@
+.c {
+  @apply font-semibold text-primary;
+}
+
+.focus {
+  @apply rounded-lg bg-background dark:bg-slate-700/60;
+}
+
+.sidebar-admin-active {
+  @apply bg-fuchsia-300;
+}
+
+.react-player {
+  @apply bg-muted;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    @apply relative left-0 z-[1] mt-[calc(100vw-3.75rem)] min-h-screen w-full rounded-t-xl bg-background p-3 sm:p-6;
+  }
+  .is-mobile {
+    @apply block;
+  }
+  .is-dekstop {
+    @apply hidden;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .is-mobile {
+    @apply hidden;
+  }
+  .is-dekstop {
+    @apply block;
+  }
+
+  .main-page {
+    @apply md:container md:grid md:h-full md:grid-cols-12 md:gap-5 md:pt-4;
+  }
+}
+
+.chord-body p {
+  @apply text-xs sm:text-base;
+}
