@@ -4,6 +4,8 @@ import { GiMusicalScore } from "react-icons/gi";
 import Image from "next/image";
 import { Fragment } from "react";
 
+import axios from "axios";
+
 import { Separator } from "@/components/ui/separator";
 import { PlayerController } from "./player-controller";
 import { CardWrapper } from "@/components/card/card-wrapper";
@@ -20,8 +22,10 @@ export default async function SongsPage({
 }: {
   params: { slug: string };
 }) {
-  const response = await fetch(`${process.env.BASE_URL}/api/v1/songs`, {});
-  const data: Song = await response.json();
+  const { data } = await axios.get<Song>(
+    `${process.env.BASE_URL}/api/v1/songs`,
+  );
+
   return (
     <AutoScrollWrapper>
       <ChordWrapper>
@@ -32,7 +36,7 @@ export default async function SongsPage({
                 <Image
                   fill
                   priority={true}
-                  src={data.coverImage}
+                  src={data?.coverImage}
                   alt=""
                   className="w-full rounded-xl shadow-md"
                 />
@@ -41,43 +45,44 @@ export default async function SongsPage({
                 <Image
                   height={0}
                   width={0}
+                  priority
                   sizes="100vw"
                   className="absolute left-1/2 top-1/2 z-[-1] h-full w-full -translate-x-1/2 -translate-y-1/2 overflow-clip object-cover sepia-0"
-                  src={data.coverImage}
+                  src={data?.coverImage}
                   alt=""
                 />
               </div>
               <div className="content">
                 <p className="is-mobile text-2xl font-bold leading-5">
-                  {data.title}
+                  {data?.title}
                 </p>
                 <p className="is-mobile">
                   by &nbsp;
-                  {data.artists.map((artist, index) => {
+                  {data?.artists.map((artist, index) => {
                     return (
                       artist.label +
-                      (index !== data.artists.length - 1 ? ", " : "")
+                      (index !== data?.artists.length - 1 ? ", " : "")
                     );
                   })}
                 </p>
                 <div className="my-3">
                   <p className="text-sm text-muted-foreground">
-                    Dirilis pada {data.releaseYear}
+                    Dirilis pada {data?.releaseYear}
                   </p>
                   <p className="text-sm uppercase text-muted-foreground">
-                    ℗ {data.publisher}
+                    ℗ {data?.publisher}
                   </p>
                 </div>
                 <div className="my-3">
                   <p className="text-sm font-bold text-muted-foreground">
                     Album
                   </p>
-                  <p className="text-sm text-muted-foreground">{data.album}</p>
+                  <p className="text-sm text-muted-foreground">{data?.album}</p>
                 </div>
                 <h3 className="is-mobile text-lg font-bold leading-5">
                   Song key{data.key.length > 1 && <b>&apos;s</b>}&nbsp;
                 </h3>
-                <p>
+                <p className="is-mobile">
                   {data.key.map((key, index) => {
                     return (
                       <Fragment key={index}>
@@ -112,6 +117,24 @@ export default async function SongsPage({
 
                   <ChordPage data={data} />
                 </article>
+
+                <section className="is-mobile pt-5">
+                  <TextHeader title="Related Song" />
+                  <CardWrapper>
+                    {Array.from({ length: 4 }).map((_, index) => (
+                      <CardSong
+                        key={index}
+                        imageSrc="https://www.kawaiikakkoiisugoi.com/wp-content/uploads/2020/07/YOASOBI-Tabun-620x620.jpg"
+                        artist="Yoasobi"
+                        realeaseDate="2020"
+                        songTitle="Probably"
+                        youtubeName="Ayase"
+                        href="/songs/probably-yoasobi"
+                      />
+                    ))}
+                    <div className="mb-16" />
+                  </CardWrapper>
+                </section>
               </div>
             </>
           </aside>
@@ -179,12 +202,12 @@ export default async function SongsPage({
         </CardWrapper>
       </section>
 
-      <section>
+      {/* <section>
         <blockquote className="mt-6 border-l-2 pl-6 italic">
           Learning is attained by chance, it must be sought for with ardor and
           diligence.
         </blockquote>
-      </section>
+      </section> */}
     </AutoScrollWrapper>
   );
 }

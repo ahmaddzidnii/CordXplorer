@@ -34,17 +34,30 @@ app.get("/songs", async (c) => {
   const fetchToDb = new Promise<Song>((resolve) => {
     setTimeout(() => {
       resolve(song);
-    }, 2000);
+    }, 1000);
   });
 
   try {
+    const isAuth = true;
+
+    if (!isAuth) {
+      return c.json(
+        {
+          message: "Unauthorized",
+        },
+        401,
+      );
+    }
     const data = await fetchToDb;
     return c.json(data);
   } catch (error) {
-    console.log(error);
-    return c.json({
-      message: "Error",
-    });
+    // console.log(error);
+    return c.json(
+      {
+        message: "Internal Server Error",
+      },
+      500,
+    );
   }
 });
 

@@ -51,7 +51,7 @@ const MediaPlayerCreateSongComponent = forwardRef<
 
   return (
     <div className="space-y-5">
-      <div className="relative aspect-video overflow-hidden rounded-sm shadow-[0_3px_10px] shadow-primary">
+      <div className="relative aspect-video overflow-hidden rounded-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         <ReactPlayer
           ref={ref}
           className="react-player"
@@ -70,10 +70,8 @@ const MediaPlayerCreateSongComponent = forwardRef<
   );
 });
 
-// Tambahkan displayName untuk debugging
 MediaPlayerCreateSongComponent.displayName = "MediaPlayerCreateSong";
 
-// Bungkus dengan React.memo
 const MediaPlayerCreateSong = React.memo(MediaPlayerCreateSongComponent);
 
 export { MediaPlayerCreateSong };

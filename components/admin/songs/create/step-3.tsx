@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next-nprogress-bar";
 
+import parse from "html-react-parser";
+
 import { H1 } from "@/components/typography/h1";
 import { P } from "@/components/typography/p";
 import { useSongCreate } from "@/hooks/admin/songs/create";
@@ -20,6 +22,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
+import { Quicksand } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const quicksand = Quicksand({
+  weight: ["300", "400", "700", "500", "600"],
+  subsets: ["latin"],
+});
 
 export const StepThree = () => {
   const { song } = useSongCreate();
@@ -109,12 +118,9 @@ export const StepThree = () => {
                   <h1 className="text-lg font-bold">{section.nameSection}</h1>
                   Seconds to {section.startTime} until {section.endTime}
                 </CardHeader>
-                <div
-                  className="p-6"
-                  dangerouslySetInnerHTML={{
-                    __html: section.content,
-                  }}
-                ></div>
+                <pre className={cn("p-6", quicksand.className)}>
+                  {parse(section.content)}
+                </pre>
               </Card>
             </li>
           ))}

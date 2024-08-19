@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { EditorContent, useEditor } from "@tiptap/react";
-import PlaceHolder from "@tiptap/extension-placeholder";
 import StarterKit from "@tiptap/starter-kit";
 
 import {
@@ -11,14 +10,14 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { NonBreakingSpace } from "@/extensions/NonBreakingSpace";
-import { Chord } from "@/extensions/Chord";
+import { BlockChord, InlineChord } from "@/extensions/Chord";
 import { CHORD_REGEX } from "@/constants/chord-index";
+import { Plus } from "lucide-react";
 
 const isValidChord = (chord: string): boolean => {
   return CHORD_REGEX.test(chord);
@@ -27,10 +26,11 @@ const isValidChord = (chord: string): boolean => {
 const TestPage = () => {
   const editor = useEditor({
     immediatelyRender: false,
+
     editorProps: {
       attributes: {
         class:
-          "outline-none border-2 border-gray-300 rounded-lg p-3 min-h-[300px]",
+          "outline-none border-2 border-gray-300 rounded-lg p-3 py-8 min-h-[300px]",
       },
       handlePaste(view, event) {
         event.preventDefault();
@@ -45,11 +45,9 @@ const TestPage = () => {
         italic: false,
         bold: false,
       }),
-      Chord,
+      InlineChord,
       NonBreakingSpace,
-      PlaceHolder.configure({
-        placeholder: "Type lyrics and chord here...",
-      }),
+      BlockChord,
     ],
     onUpdate: ({ editor }) => {
       console.log({
@@ -59,7 +57,10 @@ const TestPage = () => {
   });
 
   const [chord, setChord] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [state, setState] = useState<{
+    isOpen: boolean;
+    type: "block" | "inline" | undefined;
+  }>({ isOpen: false, type: undefined });
 
   const handleAddChord = () => {
     if (!isValidChord(chord.trim())) {
@@ -70,11 +71,18 @@ const TestPage = () => {
         },
       );
       return;
-    } else {
-      editor?.chain().focus().addChord({ chord }).run();
-      setChord("");
-      setIsOpen(false);
     }
+    if (state.type === "inline") {
+      editor?.chain().focus().addChord({ "data-origin": chord }).run();
+    } else {
+      editor?.chain().focus().addBlockChord({ "data-origin": chord }).run();
+    }
+    setChord("");
+    setState({ type: undefined, isOpen: false });
+  };
+
+  const openDialog = (type: "block" | "inline") => {
+    setState({ isOpen: true, type });
   };
 
   if (!editor) {
@@ -85,15 +93,26 @@ const TestPage = () => {
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-[400px]">
         <div className="mb-5 h-10 w-max rounded-lg">
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-              <Button type="button" onClick={() => setIsOpen(!isOpen)}>
-                Add Chord
-              </Button>
-            </DialogTrigger>
+          <div className="flex gap-x-5">
+            <Button type="button" onClick={() => openDialog("block")}>
+              <Plus className="mr-3 size-8" /> Block Chord
+            </Button>
+            <Button type="button" onClick={() => openDialog("inline")}>
+              <Plus className="mr-3 size-8" /> Inline Chord
+            </Button>
+          </div>
+
+          <Dialog
+            open={state.isOpen}
+            onOpenChange={(open) => {
+              setState({ ...state, isOpen: open });
+            }}
+          >
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add Chord</DialogTitle>
+                <DialogTitle className="mb-5">
+                  Add {state.type === "block" ? "Block" : "Inline"} Chord
+                </DialogTitle>
                 <DialogDescription>
                   <Input
                     placeholder="Am"
@@ -106,7 +125,7 @@ const TestPage = () => {
               </DialogHeader>
               <div>
                 <Button type="button" onClick={handleAddChord}>
-                  Add Chord
+                  Add
                 </Button>
               </div>
             </DialogContent>

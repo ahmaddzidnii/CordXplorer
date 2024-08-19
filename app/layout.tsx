@@ -7,6 +7,7 @@ import { TopLoaderBarProvider } from "@/providers/toploaderbar-provider";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const quicksand = Quicksand({
   weight: ["300", "400", "700", "500", "600"],
@@ -47,7 +48,10 @@ export default function RootLayout({
                 className: "border-primary",
               }}
             />
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+              <ModalProvider />
+              {children}
+            </SessionProvider>
           </TopLoaderBarProvider>
         </ThemeProvider>
       </body>

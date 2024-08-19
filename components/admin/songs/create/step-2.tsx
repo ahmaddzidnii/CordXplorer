@@ -32,7 +32,7 @@ export const StepTwo = () => {
   const playerRef = useRef<ReactPlayer>(null);
   useEffect(() => {
     if (!song.title) {
-      router.replace("?step=1");
+      // router.replace("?step=1");
     }
   }, [song.title, router]);
 
@@ -123,7 +123,8 @@ export const StepTwo = () => {
                               <FormControl>
                                 <Input
                                   placeholder="ex: 0"
-                                  type="number"
+                                  type="text"
+                                  inputMode="numeric"
                                   {...form.register(
                                     `sections.${index}.startTime`,
                                     {
@@ -145,7 +146,8 @@ export const StepTwo = () => {
                               <FormControl>
                                 <Input
                                   placeholder="ex: 10"
-                                  type="number"
+                                  type="text"
+                                  inputMode="numeric"
                                   {...form.register(
                                     `sections.${index}.endTime`,
                                     {

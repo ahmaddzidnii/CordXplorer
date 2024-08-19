@@ -12,21 +12,27 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
+import HardBreak from "@tiptap/extension-hard-break";
 
-import { Chord } from "@/extensions/Chord";
+import { InlineChord, BlockChord } from "@/extensions/Chord";
 import { NonBreakingSpace } from "@/extensions/NonBreakingSpace";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useState } from "react";
 import { CHORD_REGEX } from "@/constants/chord-index";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
+import { Plus } from "lucide-react";
 
 interface RichTextEditorProps {
   className?: string;
   content?: string;
   onChange?: (content: string) => void;
+}
+
+interface State {
+  isOpen: boolean;
+  type: "block" | "inline" | undefined;
 }
 
 const isValidChord = (chord: string): boolean => {
@@ -54,8 +60,15 @@ export const RichTextEditor = ({
       StarterKit.configure({
         italic: false,
         bold: false,
+        hardBreak: false,
       }),
-      Chord,
+      HardBreak.configure({
+        HTMLAttributes: {
+          class: "ProseMirror-trailingBreak",
+        },
+      }),
+      InlineChord,
+      BlockChord,
       NonBreakingSpace,
       Placeholder.configure({
         placeholder: "Type lyrics and chord here...",
@@ -67,7 +80,7 @@ export const RichTextEditor = ({
   });
 
   const [chord, setChord] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [state, setState] = useState<State>({ isOpen: false, type: undefined });
 
   const handleAddChord = () => {
     if (!isValidChord(chord.trim())) {
@@ -78,11 +91,18 @@ export const RichTextEditor = ({
         },
       );
       return;
-    } else {
-      editor?.chain().focus().addChord({ chord }).run();
-      setChord("");
-      setIsOpen(false);
     }
+    if (state.type === "inline") {
+      editor?.chain().focus().addChord({ "data-origin": chord }).run();
+    } else {
+      editor?.chain().focus().addBlockChord({ "data-origin": chord }).run();
+    }
+    setChord("");
+    setState({ type: undefined, isOpen: false });
+  };
+
+  const openDialog = (type: "block" | "inline") => {
+    setState({ isOpen: true, type });
   };
 
   if (!editor) {
@@ -92,15 +112,33 @@ export const RichTextEditor = ({
   return (
     <div className="space-y-3">
       <div className="mb-5 h-10 w-max rounded-lg">
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button type="button" onClick={() => setIsOpen(!isOpen)}>
-              Add Chord
-            </Button>
-          </DialogTrigger>
+        <div className="flex gap-x-5">
+          <Button type="button" onClick={() => openDialog("block")}>
+            <Plus className="mr-3 size-8" /> Block Chord
+          </Button>
+          <Button type="button" onClick={() => openDialog("inline")}>
+            <Plus className="mr-3 size-8" /> Inline Chord
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              editor.chain().focus().setHardBreak().run();
+            }}
+          >
+            <Plus className="mr-3 size-8" /> Break
+          </Button>
+        </div>
+        <Dialog
+          open={state.isOpen}
+          onOpenChange={(open) => {
+            setState({ ...state, isOpen: open });
+          }}
+        >
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add Chord</DialogTitle>
+              <DialogTitle className="mb-5">
+                Add {state.type === "block" ? "Block" : "Inline"} Chord
+              </DialogTitle>
               <DialogDescription>
                 <Input
                   placeholder="Am"

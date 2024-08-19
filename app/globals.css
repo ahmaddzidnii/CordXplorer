@@ -6,6 +6,19 @@ body {
   @apply bg-background-liniar;
 }
 
+.c {
+  @apply font-semibold text-primary;
+}
+
+span.chord-wrap {
+  position: relative;
+}
+
+span.chord-wrap > span.c {
+  position: absolute;
+  bottom: 100%;
+}
+
 * {
   -webkit-user-select: none;
   -khtml-user-select: none;
