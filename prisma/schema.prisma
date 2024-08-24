@@ -14,9 +14,17 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
+  role          UserRole          @default(USER)
+
+  songs         Songs[]         @relation("UserSongs")
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
  
 model Account {
@@ -39,12 +47,69 @@ model Account {
  
   @@unique([provider, providerAccountId])
 }
- 
- 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@id([identifier, token])
+
+
+model Songs {
+  id            String @id @default(cuid())
+  slug          String
+  songs_title   String
+  cover_image   String
+  youtube_url   String
+  release_year  Int
+  songs_key     String
+  album         String
+  genre         String
+  publisher     String
+  added_by      String
+
+  sections Section[]
+  artists SongsToArtists[]
+
+  user User @relation(fields: [added_by], references: [id],name: "UserSongs")
+
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@unique([slug])
+}
+
+model Section {
+  id              String @id @default(cuid())
+  section_name    String
+  start_time      Int
+  end_time        Int
+  section_content String @db.Text
+  section_index   Int
+
+  songs_id String
+  song Songs @relation(fields: [songs_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([section_index, songs_id])
+}
+
+model Artist {
+  id           String @id @default(cuid())
+  artist_name  String
+  artist_image String
+  artist_bio   String? @db.Text
+
+  songs SongsToArtists[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([artist_name])
+}
+
+model SongsToArtists {
+  song_id   String
+  artist_id String
+
+  song   Songs  @relation(fields: [song_id], references: [id])
+  artist Artist @relation(fields: [artist_id], references: [id])
+
+  @@id([song_id, artist_id])
 }
