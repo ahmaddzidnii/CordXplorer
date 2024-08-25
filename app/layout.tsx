@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/providers/modal-provider";
+import TanstackProvider from "@/providers/tanstack-provider";
 
 const quicksand = Quicksand({
   weight: ["300", "400", "700", "500", "600"],
@@ -49,8 +50,10 @@ export default function RootLayout({
               }}
             />
             <SessionProvider>
-              <ModalProvider />
-              {children}
+              <TanstackProvider>
+                <ModalProvider />
+                {children}
+              </TanstackProvider>
             </SessionProvider>
           </TopLoaderBarProvider>
         </ThemeProvider>
