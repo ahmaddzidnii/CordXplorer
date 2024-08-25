@@ -1,9 +1,10 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { initAuthConfig, verifyAuth } from "@hono/auth-js";
-
 import authConfig from "@/auth.config";
-import { Song, song } from "@/data";
+
+import songs from "./songs";
+import artists from "./artists";
 
 export const maxDuration = 25;
 
@@ -30,36 +31,8 @@ app.get("/verify", verifyAuth(), async (c) => {
   }
 });
 
-app.get("/songs", async (c) => {
-  const fetchToDb = new Promise<Song>((resolve) => {
-    setTimeout(() => {
-      resolve(song);
-    }, 1000);
-  });
-
-  try {
-    const isAuth = true;
-
-    if (!isAuth) {
-      return c.json(
-        {
-          message: "Unauthorized",
-        },
-        401,
-      );
-    }
-    const data = await fetchToDb;
-    return c.json(data);
-  } catch (error) {
-    // console.log(error);
-    return c.json(
-      {
-        message: "Internal Server Error",
-      },
-      500,
-    );
-  }
-});
+app.route("/songs", songs);
+app.route("/artists", artists);
 
 export const GET = handle(app);
 export const POST = handle(app);
