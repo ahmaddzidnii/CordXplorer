@@ -43,7 +43,7 @@ export const SidebarMobile = ({ className }: { className?: string }) => {
 
       <aside
         className={cn(
-          "sticky top-0 flex max-h-screen w-16 flex-col items-center justify-between pt-5 shadow-sm shadow-primary",
+          "sticky top-0 flex max-h-screen w-16 flex-col items-center justify-between border-e pt-5",
           className,
         )}
       >

@@ -3,11 +3,8 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { menuItems } from "@/constants/menu-admin-items";
-import { ToogleTheme } from "@/components/navbar/toogle-theme";
-import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { isActive } from "@/app/admin/_components/is-active";
-import { UserProfile } from "@/components/auth/user-profile";
 
 export const SidebarDekstop = ({ className }: { className?: string }) => {
   const router = useRouter();
@@ -16,7 +13,7 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
   return (
     <aside
       className={cn(
-        "sticky top-0 max-h-screen w-56 flex-col items-center justify-between px-4 pt-5 shadow-sm shadow-primary",
+        "sticky top-0 max-h-screen w-64 flex-col items-center border bg-primary-foreground px-4 pt-5",
         className,
       )}
     >
@@ -29,28 +26,20 @@ export const SidebarDekstop = ({ className }: { className?: string }) => {
             key={id}
             className={cn(
               "flex w-full rounded-lg",
-              isActive(item.href, pathname) && "sidebar-admin-active",
+              isActive(item.href, pathname) && "bg-secondary",
             )}
           >
-            <Button
-              variant="ghost"
-              className="hover:bg-transparent"
+            <div
+              className="flex w-full cursor-pointer items-center rounded-lg p-3"
               onClick={() => {
                 router.push(item.href);
               }}
             >
               {item.icon}
               <span className="ml-3">{item.title}</span>
-            </Button>
+            </div>
           </div>
         ))}
-      </div>
-      <div className="w-full space-y-4 pb-5">
-        <div className="flex items-center gap-x-4">
-          <ToogleTheme />
-          <p className="font-semibold">Theme mode</p>
-        </div>
-        <UserProfile popoverClassName="ml-5" />
       </div>
     </aside>
   );

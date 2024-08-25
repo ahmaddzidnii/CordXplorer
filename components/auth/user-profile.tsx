@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 interface UserProfileProps {
   showName?: boolean;
@@ -92,7 +93,11 @@ export const UserProfile = ({
             </div>
           </div>
           <DropdownMenuSeparator />
-          <div className="px-3">TODO: ADD MENU</div>
+          <div className="px-3">
+            {session.data?.user.role === "ADMIN" && (
+              <Link href="/admin">Dashboard Admin</Link>
+            )}
+          </div>
           <DropdownMenuSeparator />
           <div className="px-1.5">
             <Button
