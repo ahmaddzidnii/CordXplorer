@@ -10,7 +10,7 @@ import { IoPlaySkipBackSharp, IoPlaySkipForward } from "react-icons/io5";
 import { mediaPlayerAdminState } from "./media-player";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { convertTimeToMilitary } from "@/lib/format/format-second";
+import { convertTimeToMilitary } from "@/lib/format-second";
 
 export const MediaController = ({
   playerRef,

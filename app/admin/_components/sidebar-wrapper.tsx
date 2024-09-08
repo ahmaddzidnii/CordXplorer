@@ -1,20 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 import { SidebarMobile } from "./sidebar-mobile";
 import { SidebarDekstop } from "./sidebar-dekstop";
 import { menuItems } from "@/constants/menu-admin-items";
-import { usePathname } from "next/navigation";
 import { ToogleTheme } from "@/components/navbar/toogle-theme";
 import { UserProfile } from "@/components/auth/user-profile";
+import { isActive } from "./is-active";
 
 export const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const pathname = usePathname();
 
-  const tab = menuItems.find((item) => item.href === pathname);
+  const tab = menuItems.find((item) => isActive(item.href, pathname) && item);
 
   useEffect(() => {
     setIsMounted(true);
@@ -34,7 +35,7 @@ export const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
             <UserProfile showName={false} />
           </div>
         </header>
-        <main className="mx-3">{children}</main>
+        <main className="h-full px-3">{children}</main>
       </div>
     </div>
   );

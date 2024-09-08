@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* body {
   @apply bg-background-liniar;
+} */
+
+html,
+body,
+:root {
+  height: 100%;
 }
 
 .c {
@@ -169,8 +175,8 @@ span.chord-wrap > span.c {
     --muted: 0, 0%, 22%;
     --muted-foreground: 0 0% 63.9%;
 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    /* --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%; */
 
     --destructive: 350, 89%, 60%;
     --destructive-foreground: 0 0% 98%;

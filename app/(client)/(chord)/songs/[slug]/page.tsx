@@ -1,4 +1,4 @@
-import "@/app/(chord)/songs/[slug]/chordpage.css";
+import "@/app/(client)/(chord)/songs/[slug]/chordpage.css";
 
 import { GiMusicalScore } from "react-icons/gi";
 import Image from "next/image";

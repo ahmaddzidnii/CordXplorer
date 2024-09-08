@@ -1,12 +1,25 @@
-export default function SongsAdminPage() {
-  return (
-    <div className="flex w-full flex-col">
-      <div className="flex-1 space-y-4 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Artist</h2>
-        </div>
-        <div>Artist Category</div>
-      </div>
-    </div>
-  );
+"use client";
+
+import { useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
+
+import { useGetArtists } from "@/features/admin/artists/api/use-get-artists";
+
+export default function ArtistAdminPage() {
+  const router = useRouter();
+
+  const { data, isLoading, isError } = useGetArtists();
+
+  const artistsId = useMemo(() => data?.data[0].id, [data]);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (artistsId) {
+      router.push(`/admin/artists/${artistsId}`);
+    } else {
+      // TODO: Open a modal to create a new artist
+    }
+  }, [isError, router, artistsId, isLoading]);
+  return <></>;
 }

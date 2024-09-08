@@ -4,7 +4,7 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 
 import { cn } from "@/lib/utils";
-import { convertTimeToMilitary } from "@/lib/format/format-second";
+import { convertTimeToMilitary } from "@/lib/format-second";
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,

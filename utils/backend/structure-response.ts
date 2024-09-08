@@ -19,10 +19,9 @@ export class ApiResponse<T> {
   public static success<T>(
     status: StatusCode,
     data: T,
-    errors?: any,
     pagination?: Pagination,
   ) {
-    return new ApiResponse<T>(status, data, errors, pagination);
+    return new ApiResponse<T>(status, data, undefined, pagination);
   }
 
   public static error<T>(status: StatusCode, errors?: T[]) {

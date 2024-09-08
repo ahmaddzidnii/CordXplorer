@@ -1,23 +1,29 @@
-import { ApiResponse } from "@/utils/backend/structure-response";
-import { zValidator } from "@hono/zod-validator";
-import { Hono } from "hono";
 import { z } from "zod";
+import { Hono } from "hono";
+import { zValidator } from "@hono/zod-validator";
+
+import { ApiResponse } from "@/utils/backend/structure-response";
 
 const app = new Hono();
 
 app.get("/", async (c) => {
   try {
     const artists = await prisma?.artist.findMany({
-      include: {
-        songs: {
-          select: {
-            song: true,
-          },
-        },
+      orderBy: {
+        created_at: "asc",
       },
     });
 
-    return c.json(ApiResponse.success(200, artists), 200);
+    return c.json(
+      ApiResponse.success(200, artists, {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 2,
+        hasNextPage: false,
+        itemsPerPage: 1,
+      }),
+      200,
+    );
   } catch (error) {
     console.log(error);
     return c.json(ApiResponse.error(500, ["Internal Server Error"]), 500);

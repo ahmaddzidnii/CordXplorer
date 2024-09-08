@@ -6,85 +6,111 @@ import { ApiResponse } from "@/utils/backend/structure-response";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 
+import { prisma } from "@/utils/prisma";
+import { song } from "@/data";
+
 const app = new Hono();
 
 app.get("/", async (c) => {
-  // const fetchToDb = new Promise<Song>((resolve) => {
-  //   setTimeout(() => {
-  //     resolve(song);
-  //   }, 1000);
-  // });
-
   try {
-    const songs = await prisma?.songs.findMany({
-      include: {
-        sections: {
-          select: {
-            id: true,
-            section_index: true,
-            section_name: true,
-            section_content: true,
-            start_time: true,
-            end_time: true,
-          },
-        },
-        artists: {
-          select: {
-            artist: {
-              select: {
-                id: true,
-                artist_name: true,
-                artist_image: true,
-              },
-            },
-          },
-        },
-      },
-    });
+    return c.json(song);
+    // const countSong = await prisma?.songs.count();
+    // const songs = await prisma?.songs.findMany({
+    //   include: {
+    //     sections: {
+    //       select: {
+    //         id: true,
+    //         section_index: true,
+    //         section_name: true,
+    //         section_content: true,
+    //         start_time: true,
+    //         end_time: true,
+    //       },
+    //     },
+    //     artists: {
+    //       select: {
+    //         artist: {
+    //           select: {
+    //             id: true,
+    //             artist_name: true,
+    //             artist_image: true,
+    //           },
+    //         },
+    //       },
+    //     },
+    //     genres: {
+    //       select: {
+    //         genre: {
+    //           select: {
+    //             id: true,
+    //             genre_slug: true,
+    //             genre_name: true,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
 
-    if (!songs) {
-      return c.json(
-        {
-          message: "No songs found",
-        },
-        404,
-      );
-    }
+    // if (!songs) {
+    //   return c.json(
+    //     {
+    //       message: "No songs found",
+    //     },
+    //     404,
+    //   );
+    // }
 
-    const data = songs.map((song) => {
-      return {
-        id: song.id,
-        title: song.songs_title,
-        slug: song.slug,
-        artists: song.artists.map((artist) => {
-          return {
-            id: artist.artist.id,
-            name: artist.artist.artist_name,
-            image: artist.artist.artist_image,
-          };
-        }),
-        coverImage: song.cover_image,
-        genre: song.genre.trim().split(","),
-        youtubeUrl: song.youtube_url,
-        key: song.songs_key.trim().split(","),
-        publisher: song.publisher.toUpperCase(),
-        album: song.album,
-        releaseYear: 2021,
-        sections: song.sections.map((section) => {
-          return {
-            id: section.id,
-            sectionIndex: section.section_index,
-            sectionName: section.section_name,
-            content: section.section_content,
-            startTime: section.start_time,
-            endTime: section.end_time,
-          };
-        }),
-      };
-    });
+    // const data = songs.map((song) => {
+    //   return {
+    //     id: song.id,
+    //     title: song.songs_title,
+    //     slug: song.slug,
+    //     artists: song.artists.map((artist) => {
+    //       return {
+    //         id: artist.artist.id,
+    //         name: artist.artist.artist_name,
+    //         image: artist.artist.artist_image,
+    //       };
+    //     }),
+    //     coverImage: song.cover_image,
+    //     genre: song.genres.map((genre) => {
+    //       return {
+    //         id: genre.genre.id,
+    //         slug: genre.genre.genre_slug,
+    //         name: genre.genre.genre_name,
+    //       };
+    //     }),
+    //     youtubeUrl: song.youtube_url,
+    //     key: song.songs_key.trim().split(","),
+    //     publisher: song.publisher.toUpperCase(),
+    //     album: song.album,
+    //     releaseYear: 2021,
+    //     sections: song.sections.map((section) => {
+    //       return {
+    //         id: section.id,
+    //         sectionIndex: section.section_index,
+    //         sectionName: section.section_name,
+    //         content: section.section_content,
+    //         startTime: section.start_time,
+    //         endTime: section.end_time,
+    //       };
+    //     }),
+    //     createdAt: song.created_at,
+    //     updatedAt: song.updated_at,
+    //   };
+    // });
 
-    console.log(c.req.url);
-    return c.json(ApiResponse.success(200, data), 200);
+    // return c.json(
+    //   ApiResponse.success(200, data, {
+    //     currentPage: 1,
+    //     totalPages: 1,
+    //     totalItems: countSong,
+    //     itemsPerPage: data.length,
+    //     hasNextPage: false,
+    //   }),
+    //   200,
+    // );
   } catch (error) {
     console.log(error);
     return c.json(ApiResponse.error(500, ["Internal Server Error"]), 500);

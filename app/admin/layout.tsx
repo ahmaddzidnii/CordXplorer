@@ -1,22 +1,36 @@
-import { Suspense } from "react";
-import { SidebarWrapper } from "./_components/sidebar-wrapper";
-import { auth } from "@/auth";
+"use client";
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await auth();
+import { useSession } from "next-auth/react";
+import { SidebarAdmin } from "./sidebar";
+import { Loader } from "@/components/loader";
 
-  if (session?.user.role === "USER") {
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const session = useSession();
+
+  if (session.status === "loading") {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!session?.data) {
+    throw new Error("You need to be authenticated");
+  }
+
+  if (session?.data.user.role === "USER") {
     throw new Error("Forbidden to access this page");
   }
   return (
-    <Suspense fallback={null}>
-      <div className="mx-auto max-w-[1920px]">
-        <SidebarWrapper>{children}</SidebarWrapper>
+    <>
+      <div className="flex h-screen">
+        <SidebarAdmin />
+        <div className="w-full overflow-auto">{children}</div>
       </div>
-    </Suspense>
+      {/* <div className="mx-auto max-w-[1920px]">
+        <SidebarWrapper>{children}</SidebarWrapper>
+      </div> */}
+    </>
   );
 }

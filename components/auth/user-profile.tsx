@@ -58,12 +58,12 @@ export const UserProfile = ({
       <DropdownMenuTrigger>
         <div className={cn("flex w-full items-center gap-x-4", className)}>
           <Avatar className="size-10 border-[4px] border-muted">
-            <AvatarImage src={user?.image || "https://github.com/shadcn.png"} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={user?.image as string} />
+            <AvatarFallback className="font-bold">
+              {user?.name?.charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
-          {showName && (
-            <p className="truncate font-semibold">{user?.name || "John Doe"}</p>
-          )}
+          {showName && <p className="truncate font-semibold">{user?.name}</p>}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -76,11 +76,9 @@ export const UserProfile = ({
         <div className="flex flex-col space-y-2">
           <div className="flex items-center gap-x-2 p-5">
             <Avatar className="size-10 border-[4px] border-muted">
-              <AvatarImage
-                src={user?.image || "https://github.com/shadcn.png"}
-              />
-              <AvatarFallback>
-                <Skeleton className="aspect-square size-10 rounded-full" />
+              <AvatarImage src={user?.image as string} />
+              <AvatarFallback className="font-bold">
+                {user?.name?.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div>

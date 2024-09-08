@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
-import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
+import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { TopLoaderBarProvider } from "@/providers/toploaderbar-provider";
-import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
-import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/providers/modal-provider";
 import TanstackProvider from "@/providers/tanstack-provider";
 
@@ -34,7 +33,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className="min-w-[300px] subpixel-antialiased"
     >
-      <body className={cn("bg-background-liniar", quicksand.className)}>
+      <body className={quicksand.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
