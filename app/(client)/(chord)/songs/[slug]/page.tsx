@@ -23,7 +23,7 @@ export default async function SongsPage({
   params: { slug: string };
 }) {
   const { data } = await axios.get<Song>(
-    `${process.env.BASE_URL}/api/v1/songs`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/songs`,
   );
 
   return (

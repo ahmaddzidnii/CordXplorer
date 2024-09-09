@@ -11,7 +11,7 @@ const artistItemVariants = cva(
     variants: {
       variant: {
         default: "text-[#f9edffcc]",
-        active: "text-[#481439] bg-white/90 hover:bg-white/90",
+        active: "text-[#481439] bg-white/50 hover:bg-white/50",
       },
     },
     defaultVariants: {
@@ -48,7 +48,9 @@ export const ArtistsItems = ({
             {avatarFallback}
           </AvatarFallback>
         </Avatar>
-        <span className="truncate text-sm">{label}</span>
+        <span className="truncate text-sm font-semibold text-foreground">
+          {label}
+        </span>
       </Link>
     </Button>
   );

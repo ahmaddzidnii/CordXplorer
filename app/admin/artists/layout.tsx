@@ -25,7 +25,9 @@ export default function ArtistLayout({
         <ArtistsSidebar />
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel defaultValue={75}>{children}</ResizablePanel>
+      <ResizablePanel defaultValue={75} className="m-3.5 min-w-[400px]">
+        {children}
+      </ResizablePanel>
     </ResizablePanelGroup>
   );
 }

@@ -25,7 +25,7 @@ export const ArtistsSection = ({
       <div className="group flex items-center px-3.5">
         <Button
           onClick={toggle}
-          className="size-6 shrink-0 p-0.5 text-sm text-[#f9edffcc]"
+          className="size-6 shrink-0 p-0.5 text-sm text-foreground"
           variant="transparant"
         >
           <FaCaretDown
@@ -35,7 +35,7 @@ export const ArtistsSection = ({
         <Button
           variant="transparant"
           size="sm"
-          className="group h-[28px] justify-start overflow-hidden px-1.5 text-sm text-[#f9edffcc]"
+          className="group h-[28px] justify-start overflow-hidden px-1.5 text-sm text-foreground"
         >
           <span className="truncate">{label}</span>
         </Button>
@@ -44,7 +44,7 @@ export const ArtistsSection = ({
             <Button
               onClick={onNew}
               variant="transparant"
-              className="ml-auto size-6 shrink-0 p-0.5 text-sm text-[#f9edffcc] opacity-0 transition-opacity group-hover:opacity-100"
+              className="ml-auto size-6 shrink-0 p-0.5 text-sm text-foreground opacity-0 transition-opacity group-hover:opacity-100"
               size="iconSm"
             >
               <PlusIcon className="size-5" />
