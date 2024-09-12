@@ -48,7 +48,7 @@ export const ArtistDescription = ({ description }: { description: string }) => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (bio === description) {
+    if (bio.trim() === description) {
       return;
     }
 
@@ -79,7 +79,7 @@ export const ArtistDescription = ({ description }: { description: string }) => {
           <Textarea
             disabled={isPending}
             ref={textAreaRef}
-            className="w-full resize-none bg-transparent p-0 scrollbar-none"
+            className="w-full resize-none bg-transparent p-0 scrollbar-none focus-visible:ring-0 focus-visible:ring-offset-0"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
           />

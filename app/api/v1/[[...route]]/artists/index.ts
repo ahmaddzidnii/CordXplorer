@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { Hono } from "hono";
+import { UserRole } from "@prisma/client";
+import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 
 import { ApiResponse } from "@/utils/backend/structure-response";
-import { verifyAuth } from "@hono/auth-js";
-import { UserRole } from "@prisma/client";
 
 const app = new Hono();
 
@@ -44,6 +44,9 @@ app.get("/:id", async (c) => {
       where: {
         id,
       },
+      include: {
+        _count: true,
+      },
     });
 
     if (!artist) {
@@ -56,6 +59,70 @@ app.get("/:id", async (c) => {
     return c.json(ApiResponse.error(500, ["Internal Server Error"]), 500);
   }
 });
+
+app.post(
+  "/",
+  verifyAuth(),
+  zValidator(
+    "json",
+    z.object({
+      artistName: z.string().min(2),
+      artistImage: z.string().min(1),
+      artistBio: z.string().optional(),
+    }),
+    (result, c) => {
+      if (!result.success) {
+        return c.json(ApiResponse.error(400, result.error.issues), 400);
+      }
+    },
+  ),
+  async (c) => {
+    try {
+      const { artistName, artistImage, artistBio } = c.req.valid("json");
+
+      const auth = c.get("authUser");
+
+      const role = auth?.token?.role as UserRole;
+
+      console.log({ auth, role });
+
+      if (!auth?.session || role !== "ADMIN") {
+        return c.json(ApiResponse.error(401, ["Unauthorized"]), 401);
+      }
+
+      const existingArtist = await prisma?.artist.findUnique({
+        where: {
+          artist_name: artistName,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (existingArtist) {
+        return c.json(ApiResponse.error(409, ["Artist already exists"]), 409);
+      }
+
+      const data = await prisma?.artist.create({
+        data: {
+          artist_name: artistName,
+          artist_image: artistImage,
+          artist_bio: artistBio,
+        },
+      });
+
+      return c.json(
+        ApiResponse.success(201, {
+          id: data?.id,
+        }),
+        201,
+      );
+    } catch (error) {
+      console.log(error);
+      return c.json(ApiResponse.error(500, ["Internal Server Error"]), 500);
+    }
+  },
+);
 
 app.patch(
   "/",
@@ -129,27 +196,56 @@ app.patch(
   },
 );
 
-app.post(
+app.delete(
   "/",
-  zValidator("query", z.object({ name: z.string() }), (result, c) => {
-    if (!result.success) {
-      return c.json(ApiResponse.error(400, result.error.issues), 400);
-    }
-  }),
+  verifyAuth(),
   zValidator(
     "json",
     z.object({
-      name: z.string(),
-      age: z.number(),
+      artistId: z.string(),
     }),
-    (result, c) => {
-      if (!result.success) {
-        return c.json(ApiResponse.error(400, result.error.issues), 400);
-      }
-    },
   ),
-  (c) => {
-    return c.json({ message: "Success" });
+  async (c) => {
+    try {
+      const auth = c.get("authUser");
+
+      const role = auth.token?.role as UserRole;
+
+      if (!auth.session || role !== "ADMIN") {
+        return c.json(ApiResponse.error(401, ["Unauthorized"]), 401);
+      }
+
+      const { artistId } = c.req.valid("json");
+
+      const existingArtist = await prisma?.artist.findUnique({
+        where: {
+          id: artistId,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (!existingArtist) {
+        return c.json(ApiResponse.error(404, ["Artist not found"]), 404);
+      }
+
+      await prisma?.artist.delete({
+        where: {
+          id: existingArtist.id,
+        },
+      });
+
+      return c.json(
+        ApiResponse.success(200, {
+          artistId: existingArtist.id,
+        }),
+        200,
+      );
+    } catch (error) {
+      console.log(error);
+      return c.json(ApiResponse.error(500, ["Internal Server Error"]), 500);
+    }
   },
 );
 

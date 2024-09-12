@@ -42,12 +42,7 @@ export default function RootLayout({
           storageKey="theme"
         >
           <TopLoaderBarProvider>
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                className: "border-primary",
-              }}
-            />
+            <Toaster position="top-right" duration={2000} />
             <SessionProvider>
               <TanstackProvider>
                 <ModalProvider />

@@ -37,7 +37,7 @@ export const ArtistsItems = ({
   return (
     <Button
       variant="transparant"
-      className={cn(artistItemVariants({ variant }))}
+      className={cn(artistItemVariants({ variant }), "group")}
       size="sm"
       asChild
     >

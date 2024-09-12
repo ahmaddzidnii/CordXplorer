@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
  
@@ -97,7 +97,7 @@ model Section {
 model Artist {
   id           String @id @default(cuid())
   artist_name  String
-  artist_image String
+  artist_image String @db.Text
   artist_bio   String? @db.Text
 
   songs SongsToArtists[]

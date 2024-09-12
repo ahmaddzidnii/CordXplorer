@@ -50,7 +50,7 @@ export const ArtistName = ({ initialName }: { initialName: string }) => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (name === initialName) {
+    if (name.trim() === initialName) {
       return;
     }
 
@@ -58,12 +58,14 @@ export const ArtistName = ({ initialName }: { initialName: string }) => {
       { artistName: name },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ["artists", artistId],
-          });
-          queryClient.invalidateQueries({
-            queryKey: ["artists"],
-          });
+          Promise.all([
+            queryClient.invalidateQueries({
+              queryKey: ["artists", artistId],
+            }),
+            queryClient.invalidateQueries({
+              queryKey: ["artists"],
+            }),
+          ]);
           toast.success("Name updated successfully");
           setIsEditing(false);
         },
@@ -79,7 +81,7 @@ export const ArtistName = ({ initialName }: { initialName: string }) => {
   useEventListener("keydown", handleKeyDown);
 
   return (
-    <div className="w-max text-4xl font-bold">
+    <div className="text-4xl font-bold">
       {isEditing ? (
         <form ref={formRef} onSubmit={onSubmit}>
           <Input
