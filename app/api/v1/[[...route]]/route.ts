@@ -1,10 +1,12 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { initAuthConfig, verifyAuth } from "@hono/auth-js";
+
 import authConfig from "@/auth.config";
 
 import songs from "./songs";
 import artists from "./artists";
+import genres from "./genres";
 
 export const maxDuration = 25;
 
@@ -16,8 +18,6 @@ app.use(
     return authConfig;
   }),
 );
-
-// app.use("*", verifyAuth());
 
 app.get("/verify", verifyAuth(), async (c) => {
   try {
@@ -33,6 +33,7 @@ app.get("/verify", verifyAuth(), async (c) => {
 
 app.route("/songs", songs);
 app.route("/artists", artists);
+app.route("/genres", genres);
 
 export const GET = handle(app);
 export const POST = handle(app);

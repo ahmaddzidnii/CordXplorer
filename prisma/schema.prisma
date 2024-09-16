@@ -68,7 +68,7 @@ model Songs {
   artists SongsToArtists[]
   genres  SongsToGenres[]
 
-  user User @relation(fields: [added_by], references: [id],name: "UserSongs")
+  user User @relation(fields: [added_by], references: [id],name: "UserSongs",onDelete: Cascade)
 
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -86,7 +86,7 @@ model Section {
 
   songs_id String
 
-  song Songs @relation(fields: [songs_id], references: [id])
+  song Songs @relation(fields: [songs_id], references: [id],onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -109,24 +109,24 @@ model Artist {
 }
 
 model Genres {
-  id         String @id @default(cuid())
+  genre_id         String @id @default(cuid())
   genre_name String
-  genre_slug String
+  genre_description String? @db.Text
 
   songs SongsToGenres[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@unique([genre_name, genre_slug])
+  @@unique([genre_name])
 }
 
 model SongsToArtists {
   song_id   String
   artist_id String
 
-  song   Songs  @relation(fields: [song_id], references: [id])
-  artist Artist @relation(fields: [artist_id], references: [id])
+  song   Songs  @relation(fields: [song_id], references: [id],onDelete: Cascade)
+  artist Artist @relation(fields: [artist_id], references: [id],onDelete: Cascade)
 
   @@id([song_id, artist_id])
 }
@@ -136,8 +136,8 @@ model SongsToGenres {
   song_id  String
   genre_id String
 
-  song  Songs  @relation(fields: [song_id], references: [id])
-  genre Genres @relation(fields: [genre_id], references: [id])
+  song  Songs  @relation(fields: [song_id], references: [id],onDelete: Cascade)
+  genre Genres @relation(fields: [genre_id], references: [genre_id],onDelete: Cascade)
 
   @@id([song_id, genre_id])
 }
