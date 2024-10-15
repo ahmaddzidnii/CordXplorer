@@ -15,24 +15,25 @@ export default function ArtistLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ResizablePanelGroup direction="horizontal" autoSaveId="ce-ahmad">
-      <ResizablePanel
-        maxSize={20}
-        minSize={15}
-        className="min-w-[150px] max-w-[300px]"
-        defaultSize={15}
-        defaultValue={15}
-      >
-        <ArtistsSidebar />
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel
-        defaultSize={75}
-        defaultValue={75}
-        className="m-3.5 min-w-[400px]"
-      >
-        {children}
-      </ResizablePanel>
-    </ResizablePanelGroup>
+    // <ResizablePanelGroup direction="horizontal" autoSaveId="ce-ahmad">
+    //   <ResizablePanel
+    //     maxSize={20}
+    //     minSize={15}
+    //     className="min-w-[150px] max-w-[300px]"
+    //     defaultSize={15}
+    //     defaultValue={15}
+    //   >
+    //     <ArtistsSidebar />
+    //   </ResizablePanel>
+    //   <ResizableHandle withHandle />
+    //   <ResizablePanel
+    //     defaultSize={75}
+    //     defaultValue={75}
+    //     className="m-3.5 min-w-[400px]"
+    //   >
+    //     {children}
+    //   </ResizablePanel>
+    // </ResizablePanelGroup>
+    <div className="h-full">{children}</div>
   );
 }

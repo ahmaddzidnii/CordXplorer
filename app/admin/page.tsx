@@ -1,8 +1,11 @@
-import { Dashboard } from "./_components/dashboard";
-export const metadata = {
-  title: "Admin Page",
-  description: "Admin Page",
-};
-export default async function AdminPage() {
-  return <Dashboard />;
+"use client";
+
+import { Dashboard } from "@/features/admin/dashboard/components/dashboard";
+
+export default function AdminPage() {
+  return (
+    <div className="mx-5">
+      <Dashboard />
+    </div>
+  );
 }

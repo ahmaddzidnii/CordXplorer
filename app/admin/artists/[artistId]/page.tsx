@@ -74,7 +74,7 @@ export default function ArtistIdPage() {
     return (
       <div className="flex h-full flex-col items-center justify-center">
         <Triangle />
-        <p className="text-xs">{error?.response?.data.errors.map((e) => e)}</p>
+        <p className="text-xs">{error?.message}</p>
       </div>
     );
   }
@@ -96,11 +96,11 @@ export default function ArtistIdPage() {
           <div>
             <Avatar className="size-48">
               <AvatarImage
-                src={data.data.artist_image}
-                alt={data.data.artist_name}
+                src={data.data?.artist_image}
+                alt={data.data?.artist_name}
               />
               <AvatarFallback className="bg-sky-500 text-6xl font-bold text-white">
-                {data.data.artist_name.charAt(0).toUpperCase()}
+                {data.data?.artist_name.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div className="flex w-full items-center justify-center gap-x-2.5">
@@ -118,14 +118,14 @@ export default function ArtistIdPage() {
             </div>
           </div>
           <div className="flex flex-col gap-y-2">
-            <ArtistName initialName={data.data.artist_name} />
-            <ArtistDescription description={data?.data.artist_bio} />
+            <ArtistName initialName={data.data!!.artist_name} />
+            <ArtistDescription description={data.data?.artist_bio as string} />
           </div>
         </div>
 
         <div>
           <h1 className="text-4xl font-bold">
-            {data.data.artist_name} Chordified music
+            {data.data?.artist_name} Chordified music
             <span>&#40;{sampleSongs.length}&#41;</span>
           </h1>
 

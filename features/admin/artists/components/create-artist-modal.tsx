@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 
 import { useCreateArtistModal } from "@/features/admin/artists/store/use-create-artist-modal";
 import { useCreateArtist } from "@/features/admin/artists/api/use-create-artists";
-import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 
 export const CreateArtistModal = () => {
@@ -24,8 +23,6 @@ export const CreateArtistModal = () => {
   const [image, setImage] = useState("");
 
   const { mutate, isPending } = useCreateArtist();
-
-  const router = useRouter();
 
   const { open, setOpen } = useCreateArtistModal();
 
@@ -36,25 +33,27 @@ export const CreateArtistModal = () => {
 
     mutate(
       {
-        artistName: name,
-        artistBio: bio,
-        artistImage: image,
+        json: {
+          artistName: name,
+          artistBio: bio,
+          artistImage: image,
+        },
       },
       {
         onSuccess: (data) => {
-          router.replace(data.data.data.id);
+          toast.success(data.msg);
+          // router.replace(data.data.data.id);
           queryClient.invalidateQueries({
             queryKey: ["artists"],
           });
-          toast.success("Artist created successfully");
           setName("");
           setBio("");
           setImage("");
 
           setOpen(false);
         },
-        onError: () => {
-          toast.error("Failed to create artist");
+        onError: (error) => {
+          toast.error(error.message);
         },
       },
     );
