@@ -1,8 +1,9 @@
-import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
-import { verifyAuth } from "@hono/auth-js";
+import { Hono } from "hono";
 import { UserRole } from "@prisma/client";
+import { verifyAuth } from "@hono/auth-js";
+import { zValidator } from "@hono/zod-validator";
+
 import { ApiResponse } from "@/lib/response-api";
 
 const app = new Hono()
@@ -109,6 +110,98 @@ const app = new Hono()
         return c.json(
           ApiResponse.success(artist, "Artist fetched successfully"),
         );
+      } catch (error) {
+        console.log(error);
+        return c.json(ApiResponse.error("Internal server error"), 500);
+      }
+    },
+  )
+  .patch(
+    "/",
+    verifyAuth(),
+    zValidator(
+      "json",
+      z.object({
+        artistId: z.string(),
+        artistName: z.string().optional(),
+        artistBio: z.string().optional(),
+        artistImage: z.string().optional(),
+      }),
+    ),
+    async (c) => {
+      try {
+        const auth = c.get("authUser");
+
+        if (!auth.session) {
+          return c.json(ApiResponse.error("Unauthorized"), 401);
+        }
+
+        const { artistId, artistName, artistBio, artistImage } =
+          c.req.valid("json");
+        const artist = await prisma?.artist.findUnique({
+          where: {
+            id: artistId,
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        if (!artist) {
+          return c.json(ApiResponse.error("Artist not found"), 404);
+        }
+
+        await prisma?.artist.update({
+          where: {
+            id: artist.id,
+          },
+          data: {
+            artist_name: artistName,
+            artist_bio: artistBio,
+            artist_image: artistImage,
+          },
+        });
+
+        return c.json(ApiResponse.success(null, "Artist updated successfully"));
+      } catch (error) {
+        console.log(error);
+        return c.json(ApiResponse.error("Internal server error"), 500);
+      }
+    },
+  )
+  .delete(
+    "/",
+    verifyAuth(),
+    zValidator(
+      "json",
+      z.object({
+        artistId: z.string(),
+      }),
+    ),
+    async (c) => {
+      try {
+        const { artistId } = c.req.valid("json");
+
+        const artist = await prisma?.artist.findUnique({
+          where: {
+            id: artistId,
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        if (!artist) {
+          return c.json(ApiResponse.error("Artist not found"), 404);
+        }
+
+        await prisma?.artist.delete({
+          where: {
+            id: artist.id,
+          },
+        });
+
+        return c.json(ApiResponse.success(null, "Artist deleted successfully"));
       } catch (error) {
         console.log(error);
         return c.json(ApiResponse.error("Internal server error"), 500);

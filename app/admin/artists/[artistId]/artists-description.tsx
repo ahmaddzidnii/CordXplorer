@@ -15,7 +15,7 @@ export const ArtistDescription = ({ description }: { description: string }) => {
   const [bio, setBio] = useState(description);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { mutate, isPending } = useUpdateArtists({ artistId });
+  const { mutate, isPending } = useUpdateArtists();
 
   const queryClient = useQueryClient();
 
@@ -53,17 +53,22 @@ export const ArtistDescription = ({ description }: { description: string }) => {
     }
 
     mutate(
-      { artistBio: bio },
       {
-        onSuccess: () => {
+        json: {
+          artistId,
+          artistBio: bio,
+        },
+      },
+      {
+        onSuccess: ({ msg }) => {
           queryClient.invalidateQueries({
             queryKey: ["artists", artistId],
           });
-          toast.success("Bio updated successfully");
+          toast.success(msg);
           setIsEditing(false);
         },
-        onError: () => {
-          toast.error("Failed to update bio");
+        onError: ({ message }) => {
+          toast.error(message);
         },
       },
     );

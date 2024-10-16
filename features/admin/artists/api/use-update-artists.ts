@@ -1,27 +1,29 @@
-import { axiosInstance } from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
+import { InferRequestType, InferResponseType } from "hono";
 
-interface UseUpdateArtists {
-  artistId: string;
-}
+import { client } from "@/lib/rpc";
 
-type RequestType = {
-  artistName?: string;
-  artistBio?: string;
-  artistImage?: string;
-};
+type RequestType = InferRequestType<(typeof client.api.v1.artists)["$patch"]>;
+type ResponseType = InferResponseType<(typeof client.api.v1.artists)["$patch"]>;
 
-export const useUpdateArtists = ({ artistId }: UseUpdateArtists) => {
-  const query = useMutation({
-    mutationFn: async (data: RequestType) => {
-      return await axiosInstance.patch(`/artists`, {
-        artistId: artistId,
-        artistName: data.artistName,
-        artistImage: data.artistImage,
-        artistBio: data.artistBio,
+export const useUpdateArtists = () => {
+  const mutation = useMutation<ResponseType, Error, RequestType>({
+    mutationFn: async ({ json }) => {
+      const response = await client.api.v1.artists["$patch"]({
+        json,
       });
+
+      const jsonResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          `Error code ${response.status} with reason: ${jsonResponse.msg}`,
+        );
+      }
+
+      return jsonResponse;
     },
   });
 
-  return query;
+  return mutation;
 };

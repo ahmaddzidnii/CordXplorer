@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { toast } from "sonner";
 import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
-import { Hint } from "@/components/hint";
 import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import { Triangle } from "@/components/triangle";
@@ -16,9 +18,6 @@ import { useArtistsId } from "@/hooks/use-artists-id";
 import { ArtistDescription } from "./artists-description";
 import { ArtistName } from "./artists-name";
 import { useConfirm } from "@/hooks/use-confirm";
-import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 export default function ArtistIdPage() {
   const artistId = useArtistsId();
@@ -44,17 +43,17 @@ export default function ArtistIdPage() {
     }
 
     deleteArtist(
-      { artistId },
+      { json: { artistId } },
       {
-        onSuccess: () => {
+        onSuccess: ({ msg }) => {
           queryClient.invalidateQueries({
             queryKey: ["artists"],
           });
-          toast.success("Artist deleted successfully");
+          toast.success(msg);
           router.replace("/admin/artists");
         },
-        onError: () => {
-          toast.error("Failed to delete artist");
+        onError: ({ message }) => {
+          toast.error(message);
         },
       },
     );

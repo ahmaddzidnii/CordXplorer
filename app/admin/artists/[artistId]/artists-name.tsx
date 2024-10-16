@@ -17,7 +17,7 @@ export const ArtistName = ({ initialName }: { initialName: string }) => {
   const [name, setName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { mutate, isPending } = useUpdateArtists({ artistId });
+  const { mutate, isPending } = useUpdateArtists();
 
   const queryClient = useQueryClient();
 
@@ -55,9 +55,9 @@ export const ArtistName = ({ initialName }: { initialName: string }) => {
     }
 
     mutate(
-      { artistName: name },
+      { json: { artistId, artistName: name } },
       {
-        onSuccess: () => {
+        onSuccess: ({ msg }) => {
           Promise.all([
             queryClient.invalidateQueries({
               queryKey: ["artists", artistId],
@@ -66,11 +66,11 @@ export const ArtistName = ({ initialName }: { initialName: string }) => {
               queryKey: ["artists"],
             }),
           ]);
-          toast.success("Name updated successfully");
+          toast.success(msg);
           setIsEditing(false);
         },
-        onError: () => {
-          toast.error("Failed to update name");
+        onError: ({ message }) => {
+          toast.error(message);
           setName(initialName);
         },
       },
