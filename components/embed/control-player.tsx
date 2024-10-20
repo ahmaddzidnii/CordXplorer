@@ -21,18 +21,17 @@ import {
 
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import {
   useMediaPlayer,
   usePlaybackControl,
 } from "@/hooks/chord/use-media-player";
-import { useTransposeSwitcher } from "@/hooks/use-transpose-switcher";
-import { useTransposeState } from "@/hooks/use-tranpose-state";
+import { useTransposeSwitcher } from "@/features/client/transpose/store/use-transpose-switcher";
+import { useTransposeState } from "@/features/client/transpose/store/use-tranpose-state";
 import {
   dialogOptionsStore,
   usePreferenceStore,
-} from "@/store/dialog-options-store";
+} from "@/features/client/preferences/store/dialog-options-store";
 import { SnackBar } from "../snack-bar";
 
 interface PlayerRefProps {

@@ -3,7 +3,7 @@
 import { useEffect, useCallback, useRef } from "react";
 import { useWindowWidth } from "@react-hook/window-size";
 
-import { usePreferenceStore } from "@/store/dialog-options-store";
+import { usePreferenceStore } from "@/features/client/preferences/store/dialog-options-store";
 import { usePlaybackControl } from "@/hooks/chord/use-media-player";
 
 const INTERVAL_SPEED: Record<number, number> = {

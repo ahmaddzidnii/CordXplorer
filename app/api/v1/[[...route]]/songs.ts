@@ -6,7 +6,7 @@ import { ApiResponse } from "@/utils/backend/structure-response";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 
-import { prisma } from "@/utils/prisma";
+import { prisma } from "@/lib/prisma";
 import { song } from "@/data";
 
 const app = new Hono();

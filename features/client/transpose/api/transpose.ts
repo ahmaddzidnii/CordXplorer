@@ -40,9 +40,3 @@ function transposeChord(chord: string, semitones: number): string {
   const transposedChord: string = newRootNote + chord.slice(1);
   return transposedChord;
 }
-
-// Contoh penggunaan:
-const chord: string = "Cmaj7";
-const semitones: number = 2;
-const transposedChord: string = transposeChord(chord, semitones);
-console.log(transposedChord); // Output: 'Dmaj7'

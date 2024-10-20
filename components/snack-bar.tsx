@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { useTransposeState } from "@/hooks/use-tranpose-state";
+import { useTransposeState } from "@/features/client/transpose/store/use-tranpose-state";
 import { cn } from "@/lib/utils";
 
 // Debounce function to limit the rate of updates

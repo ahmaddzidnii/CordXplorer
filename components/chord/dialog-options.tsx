@@ -6,7 +6,7 @@ import { SwitchValue } from "../switch/switch-value";
 import {
   dialogOptionsStore,
   usePreferenceStore,
-} from "@/store/dialog-options-store";
+} from "@/features/client/preferences/store/dialog-options-store";
 import { cn } from "@/lib/utils";
 
 export const DialogOptions = () => {
