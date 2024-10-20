@@ -43,7 +43,7 @@ export const columns: ColumnDef<ResponseType>[] = [
     cell: ({ row }) => {
       return (
         <div className="overflow-hidden truncate">
-          {row.getValue("artist_bio")}
+          {row.getValue("artist_bio") ? row.getValue("artist_bio") : "-"}
         </div>
       );
     },

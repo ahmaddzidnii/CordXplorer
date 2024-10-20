@@ -2,11 +2,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Overview } from "./overview";
 import { RecentActivity } from "./recent-activity";
 import { useGetArtists } from "../../artists/api/use-get-artists";
-import { useGetGenres } from "../../genres/api/use-get-genres";
 
 export const Dashboard = () => {
   const { data: artist, isLoading: isLoadingArtist } = useGetArtists();
-  const { data: genres, isLoading: isLoadingGenres } = useGetGenres();
 
   return (
     <div className="flex w-full flex-col">
@@ -32,7 +30,7 @@ export const Dashboard = () => {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{genres?.data.length}</div>
+                <div className="text-2xl font-bold">4</div>
               </CardContent>
             </Card>
             <Card>
@@ -56,7 +54,7 @@ export const Dashboard = () => {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{artist?.data.length}</div>
+                <div className="text-2xl font-bold">3</div>
               </CardContent>
             </Card>
             <Card>
