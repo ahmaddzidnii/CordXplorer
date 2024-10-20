@@ -1,10 +1,8 @@
 import "@/app/(client)/(chord)/songs/[slug]/chordpage.css";
 
-import { GiMusicalScore } from "react-icons/gi";
 import Image from "next/image";
 import { Fragment } from "react";
-
-import axios from "axios";
+import { GiMusicalScore } from "react-icons/gi";
 
 import { Separator } from "@/components/ui/separator";
 import { PlayerController } from "./player-controller";
@@ -14,7 +12,6 @@ import { TextHeader } from "@/components/text-header";
 import { AutoScrollWrapper } from "@/components/chord/auto-scroll-provider";
 import { ChordWrapper } from "@/components/chord/chord-wrapper";
 
-import { Song } from "@/data";
 import { ChordPage } from "@/components/chord-page";
 
 export default async function SongsPage({
@@ -22,9 +19,23 @@ export default async function SongsPage({
 }: {
   params: { slug: string };
 }) {
-  const { data } = await axios.get<Song>(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/songs`,
-  );
+  const data = {
+    title: "Tabun",
+    artists: [
+      {
+        label: "Yoasobi",
+        href: "/artists/yoasobi",
+      },
+    ],
+    releaseYear: "2020",
+    publisher: "Sony Music Entertainment",
+    album: "The Book",
+    sections: [],
+    key: ["G", "D"],
+    youtubeUrl: "https://youtu.be/lvUHkfgrUTM",
+    coverImage:
+      "https://www.kawaiikakkoiisugoi.com/wp-content/uploads/2020/07/YOASOBI-Tabun-620x620.jpg",
+  };
 
   return (
     <AutoScrollWrapper>

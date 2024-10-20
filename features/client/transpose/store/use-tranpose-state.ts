@@ -1,4 +1,4 @@
-import { MAX_CHORDS_INDEX } from "@/constants/chord-index";
+import { MAX_CHORDS_INDEX } from "@/features/client/transpose/constants/chord-index";
 import { create } from "zustand";
 
 interface UseTransposeState {

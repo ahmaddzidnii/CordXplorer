@@ -15,11 +15,14 @@ import {
 } from "@/components/ui/dialog";
 import HardBreak from "@tiptap/extension-hard-break";
 
-import { InlineChord, BlockChord } from "@/extensions/Chord";
-import { NonBreakingSpace } from "@/extensions/NonBreakingSpace";
+import {
+  InlineChord,
+  BlockChord,
+} from "@/features/client/tiptap/extensions/Chord";
+import { NonBreakingSpace } from "@/features/client/tiptap/extensions/NonBreakingSpace";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useState } from "react";
-import { CHORD_REGEX } from "@/constants/chord-index";
+import { CHORD_REGEX } from "@/features/client/transpose/constants/chord-index";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";

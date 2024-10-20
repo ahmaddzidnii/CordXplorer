@@ -4,9 +4,6 @@ import { initAuthConfig } from "@hono/auth-js";
 
 import authConfig from "@/auth.config";
 
-import songs from "./songs";
-import genres from "./genres";
-
 import artists from "@/features/admin/artists/server/route";
 
 export const maxDuration = 25;

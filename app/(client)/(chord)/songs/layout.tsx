@@ -1,6 +1,5 @@
-import { DialogOptions } from "@/components/chord/dialog-options";
-import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { DialogOptions } from "@/components/chord/dialog-options";
 import { MobileNavbar } from "@/components/navbar/mobile-navbar";
 
 export default function SongsLayout({

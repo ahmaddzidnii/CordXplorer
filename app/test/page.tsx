@@ -14,9 +14,12 @@ import {
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { NonBreakingSpace } from "@/extensions/NonBreakingSpace";
-import { BlockChord, InlineChord } from "@/extensions/Chord";
-import { CHORD_REGEX } from "@/constants/chord-index";
+import { NonBreakingSpace } from "@/features/client/tiptap/extensions/NonBreakingSpace";
+import {
+  BlockChord,
+  InlineChord,
+} from "@/features/client/tiptap/extensions/Chord";
+import { CHORD_REGEX } from "@/features/client/transpose/constants/chord-index";
 import { Plus } from "lucide-react";
 
 const isValidChord = (chord: string): boolean => {

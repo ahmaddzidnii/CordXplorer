@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useState } from "react";
 
-import { transpose as transposeFunc } from "@/constants/chord-index";
+import { transpose as transposeFunc } from "@/features/client/transpose/constants/chord-index";
 import { useTransposeState } from "@/features/client/transpose/store/use-tranpose-state";
 import { usePreferenceStore } from "@/features/client/preferences/store/dialog-options-store";
 

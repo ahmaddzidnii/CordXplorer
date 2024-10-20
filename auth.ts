@@ -1,9 +1,10 @@
-import NextAuth, { type DefaultSession } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import NextAuth, { type DefaultSession } from "next-auth";
 
+import { getUserById } from "@/features/auth/api/user";
 import authConfig from "@/auth.config";
+
 import { prisma } from "@/lib/prisma";
-import { getUserById } from "./data/user";
 
 type UserRole = "ADMIN" | "USER";
 
