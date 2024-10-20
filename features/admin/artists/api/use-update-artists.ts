@@ -16,9 +16,7 @@ export const useUpdateArtists = () => {
       const jsonResponse = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          `Error code ${response.status} with reason: ${jsonResponse.msg}`,
-        );
+        throw new Error(jsonResponse.msg);
       }
 
       return jsonResponse;

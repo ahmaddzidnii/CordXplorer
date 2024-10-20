@@ -1,14 +1,13 @@
+import Image from "next/image";
 import { MdDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import { FaMicrophoneLines } from "react-icons/fa6";
-import { BiSolidCategoryAlt } from "react-icons/bi";
 import { IoMusicalNoteSharp } from "react-icons/io5";
 
 import { SidebarButton } from "./sidebar-button";
 import { UserProfile } from "@/components/auth/user-profile";
 import { ToogleTheme } from "@/components/navbar/toogle-theme";
 import { isActive } from "./_components/is-active";
-import Image from "next/image";
 
 export const SidebarAdmin = () => {
   const pathname = usePathname();
@@ -29,12 +28,6 @@ export const SidebarAdmin = () => {
           label="Music"
           href="/admin/songs"
           isActive={isActive("/admin/songs", pathname)}
-        />
-        <SidebarButton
-          icon={BiSolidCategoryAlt}
-          label="Genres"
-          href="/admin/genres"
-          isActive={isActive("/admin/genres", pathname)}
         />
         <SidebarButton
           icon={FaMicrophoneLines}

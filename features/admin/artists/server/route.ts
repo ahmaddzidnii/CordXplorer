@@ -86,6 +86,18 @@ const app = new Hono()
       return c.json(ApiResponse.error("Internal server error"), 500);
     }
   })
+  .get("/count", async (c) => {
+    try {
+      const artists = await prisma?.artist.count();
+
+      return c.json(
+        ApiResponse.success(artists, "Artists fetched successfully"),
+      );
+    } catch (error) {
+      console.log(error);
+      return c.json(ApiResponse.error("Internal server error"), 500);
+    }
+  })
   .get(
     "/:artistId",
     zValidator(

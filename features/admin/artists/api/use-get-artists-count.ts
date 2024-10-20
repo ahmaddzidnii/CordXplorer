@@ -3,13 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 
 import { client } from "@/lib/rpc";
 
-type ResponseType = InferResponseType<(typeof client.api.v1.artists)["$get"]>;
+type ResponseType = InferResponseType<
+  (typeof client.api.v1.artists.count)["$get"]
+>;
 
-export const useGetArtists = () => {
+export const useGetArtistsCount = () => {
   return useQuery<ResponseType, Error>({
-    queryKey: ["artists"],
+    queryKey: ["artists", "count"],
     queryFn: async () => {
-      const response = await client.api.v1.artists["$get"]();
+      const response = await client.api.v1.artists.count["$get"]();
 
       const jsonResponse = await response.json();
 

@@ -16,17 +16,18 @@ import { Input } from "@/components/ui/input";
 import { useCreateArtistModal } from "@/features/admin/artists/store/use-create-artist-modal";
 import { useCreateArtist } from "@/features/admin/artists/api/use-create-artists";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
 
 export const CreateArtistModal = () => {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [image, setImage] = useState("");
 
-  const { mutate, isPending } = useCreateArtist();
-
-  const { open, setOpen } = useCreateArtistModal();
-
+  const router = useRouter();
   const queryClient = useQueryClient();
+  const { mutate, isPending } = useCreateArtist();
+  const { open, setOpen } = useCreateArtistModal();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +43,7 @@ export const CreateArtistModal = () => {
       {
         onSuccess: (data) => {
           toast.success(data.msg);
-          // router.replace(data.data.data.id);
+          router.replace(`/admin/artists/${data.data?.id!!}`);
           queryClient.invalidateQueries({
             queryKey: ["artists"],
           });
@@ -81,7 +82,7 @@ export const CreateArtistModal = () => {
             </div>
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="picture">Artist Bio</Label>
-              <Input
+              <Textarea
                 id="bio"
                 disabled={isPending}
                 value={bio}

@@ -32,13 +32,13 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
+  token_type        String? @db.Text
+  scope             String? @db.Text
+  id_token          String? @db.Text
+  session_state     String? @db.Text
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -66,7 +66,6 @@ model Songs {
 
   sections Section[]
   artists SongsToArtists[]
-  genres  SongsToGenres[]
 
   user User @relation(fields: [added_by], references: [id],name: "UserSongs",onDelete: Cascade)
 
@@ -108,18 +107,6 @@ model Artist {
   @@unique([artist_name])
 }
 
-model Genres {
-  genre_id         String @id @default(cuid())
-  genre_name String
-  genre_description String? @db.Text
-
-  songs SongsToGenres[]
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@unique([genre_name])
-}
 
 model SongsToArtists {
   song_id   String
@@ -129,15 +116,4 @@ model SongsToArtists {
   artist Artist @relation(fields: [artist_id], references: [id],onDelete: Cascade)
 
   @@id([song_id, artist_id])
-}
-
-
-model SongsToGenres {
-  song_id  String
-  genre_id String
-
-  song  Songs  @relation(fields: [song_id], references: [id],onDelete: Cascade)
-  genre Genres @relation(fields: [genre_id], references: [genre_id],onDelete: Cascade)
-
-  @@id([song_id, genre_id])
 }
