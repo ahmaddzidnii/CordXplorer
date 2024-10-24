@@ -6,7 +6,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { TopLoaderBarProvider } from "@/providers/toploaderbar-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { ModalProvider } from "@/providers/modal-provider";
 import TanstackProvider from "@/providers/tanstack-provider";
 
 const quicksand = Quicksand({
@@ -42,12 +41,9 @@ export default function RootLayout({
           storageKey="theme"
         >
           <TopLoaderBarProvider>
-            <Toaster position="top-right" duration={5000} />
+            <Toaster position="top-right" duration={2000} />
             <SessionProvider>
-              <TanstackProvider>
-                <ModalProvider />
-                {children}
-              </TanstackProvider>
+              <TanstackProvider>{children}</TanstackProvider>
             </SessionProvider>
           </TopLoaderBarProvider>
         </ThemeProvider>

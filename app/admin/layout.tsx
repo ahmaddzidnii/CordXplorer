@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarAdmin } from "./sidebar";
+import { SidebarAdmin } from "@/features/admin/sidebar/components/sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

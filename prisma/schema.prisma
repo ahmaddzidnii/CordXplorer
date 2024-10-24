@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
  
@@ -58,11 +58,10 @@ model Songs {
   release_year  Int
   songs_key     String
   album         String
-  genre         String
   publisher     String
   added_by      String
 
-  isDraft      Boolean @default(true)
+  is_draft      Boolean @default(true)
 
   sections Section[]
   artists SongsToArtists[]

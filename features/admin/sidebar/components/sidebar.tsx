@@ -7,14 +7,14 @@ import { IoMusicalNoteSharp } from "react-icons/io5";
 import { SidebarButton } from "./sidebar-button";
 import { UserProfile } from "@/components/auth/user-profile";
 import { ToogleTheme } from "@/components/navbar/toogle-theme";
-import { isActive } from "./_components/is-active";
+import { isActive } from "./is-active";
 
 export const SidebarAdmin = () => {
   const pathname = usePathname();
   return (
     <aside className="flex h-full w-[70px] flex-col items-center gap-y-4 bg-[#481349] pb-4 pt-[9px]">
       <div className="mt-3 flex aspect-square items-center justify-center rounded-full">
-        <Image src="/logo.svg" width={40} height={40} alt="logo" />
+        {/* TODO:LOGO APP */}
       </div>
       <div className="flex flex-col items-center space-y-2">
         <SidebarButton

@@ -1,6 +1,13 @@
 "use client";
 
+import { z } from "zod";
+import { X } from "lucide-react";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+
+import { useCreateSongModal } from "@/features/admin/songs/store/use-create-song-modal";
 
 import {
   Dialog,
@@ -8,14 +15,8 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useModal } from "@/hooks/use-modal";
-import { Separator } from "../ui/separator";
-import { X } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
+import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-
 import {
   Form,
   FormControl,
@@ -26,13 +27,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
-import { MediaPlayerCreateSong } from "../admin/songs/create/media-player";
-import { DisplayImage } from "../admin/songs/create/display-image";
-import { set, z } from "zod";
+import { MediaPlayerCreateSong } from "../../../../components/admin/songs/create/media-player";
+import { DisplayImage } from "../../../../components/admin/songs/create/display-image";
 import { isValidYouTubeUrl } from "@/lib/validation/validation-url-youtube";
-import { isDraft } from "immer";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "../../../../components/ui/checkbox";
 
 const schema = z.object({
   title: z
@@ -49,13 +47,6 @@ const schema = z.object({
   artists: z
     .string({
       required_error: "Artist is required.",
-    })
-    .refine((value) => value.length > 0, {
-      message: "Publisher is required.",
-    }),
-  genre: z
-    .string({
-      required_error: "Genre is required.",
     })
     .refine((value) => value.length > 0, {
       message: "Publisher is required.",
@@ -120,7 +111,7 @@ const schema = z.object({
 type TypeFromSchema = z.infer<typeof schema>;
 
 export const CreateSongModal = () => {
-  const { isOpen, onClose } = useModal();
+  const { isOpen, onClose } = useCreateSongModal();
 
   const [imageLink, setImageLink] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
@@ -136,7 +127,6 @@ export const CreateSongModal = () => {
     defaultValues: {
       title: "",
       artists: "",
-      genre: "",
       coverImage: "",
       youtubeUrl: "",
       key: "",
@@ -210,23 +200,6 @@ export const CreateSongModal = () => {
                       </FormControl>
                       <FormDescription>
                         If more than one artist, separate them with a comma
-                        &#40;for example A,B&#41;.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="genre"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Genre</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Genre" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        If more than one genre, separate them with a comma
                         &#40;for example A,B&#41;.
                       </FormDescription>
                       <FormMessage />

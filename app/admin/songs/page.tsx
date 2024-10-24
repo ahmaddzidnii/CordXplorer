@@ -1,59 +1,98 @@
-import { Separator } from "@/components/ui/separator";
-import { MusicEmptyPlaceholder } from "./_components/music-empty-placeholder";
-import { AddMusic } from "./_components/add-music";
-import Link from "next/link";
+"use client";
+import { Users, PlusCircle } from "lucide-react";
+
+import { useGetSongs } from "@/features/admin/songs/api/use-get-songs";
+import { useGetSongsCount } from "@/features/admin/songs/api/use-get-songs-count";
+
+import { Loader } from "@/components/loader";
+import { Button } from "@/components/ui/button";
+import { Triangle } from "@/components/triangle";
 import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function SongsAdminPage() {
+import { columns } from "./columns";
+import { DataTable } from "./data-table";
+import { CreateSongModal } from "@/features/admin/songs/modal/create-song-modal";
+import { useCreateSongModal } from "@/features/admin/songs/store/use-create-song-modal";
+
+export default function ArtistAdminPage() {
+  const {
+    data: songs,
+    isLoading: isLoadingSongs,
+    isError: isErrorSongs,
+    error: errorSongs,
+  } = useGetSongs();
+
+  const songs_tabel = songs?.data?.map((song) => ({
+    id: song.id,
+    cover_image: song.cover_image,
+    songs_title: song.songs_title,
+    artists: song.artists.map((artist) => artist.artist_name).join(", "),
+    release_year: song.release_year,
+    album: song.album,
+    publisher: song.publisher,
+  }));
+
+  const {
+    data: songsCount,
+    isLoading: isLoadingCount,
+    isError: isErrorCount,
+    error: errorCount,
+    refetch: refetchCount,
+  } = useGetSongsCount();
+
+  const { onOpen } = useCreateSongModal();
+
   return (
-    <div className="flex w-full flex-col">
-      <div className="flex-1 space-y-4 pt-6">
-        <div className="space-y-5">
-          <MusicEmptyPlaceholder />
-          <div className="flex flex-col gap-y-2">
-            {[1, 2, 3, 4, 5].map((item, index) => (
-              <Link
-                href={`/admin/songs/${index}`}
-                key={index}
-                className="flex items-center rounded-lg bg-background hover:border hover:border-secondary-foreground"
-              >
-                <div className="flex items-center space-x-4 p-4">
-                  <Image
-                    width={64}
-                    height={64}
-                    alt="music"
-                    className="aspect-square flex-shrink-0 rounded-lg"
-                    src="https://lh3.googleusercontent.com/lkr1V6gP9v3t91jOx1WwAHJW4uBiQo_3VOMyTPF8hQV_-WCrO8Tdhshs05340bzrhZ2nIuotoiVz1ISOXA"
-                  />
+    <>
+      <CreateSongModal />
+      <main className="mx-auto max-w-[1920px] flex-1 overflow-auto p-3 md:p-6">
+        <header className="mb-6 flex items-center justify-between">
+          <h1 className="overflow-hidden truncate text-3xl font-bold">
+            Song Management
+          </h1>
+          <Button onClick={onOpen}>
+            <PlusCircle className="mr-2 h-5 w-5" />
+            Add New Song
+          </Button>
+        </header>
 
-                  <div className="w-full">
-                    <h3 className="text-lg font-semibold">Title</h3>
-                    <p className="text-muted-foreground">Artist</p>
-                  </div>
+        <div className="mb-6 w-full">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Song</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              {isLoadingCount ? (
+                <Skeleton className="h-9 w-16" />
+              ) : isErrorCount ? (
+                <div className="flex items-center gap-x-2 text-xs">
+                  <Triangle />
+                  {errorCount.message}
+                  <button className="underline" onClick={() => refetchCount()}>
+                    Refetch
+                  </button>
                 </div>
-              </Link>
-            ))}
-          </div>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <ListMusicSkeleton key={index} />
-          ))}
+              ) : (
+                <p className="text-3xl font-bold">{songsCount?.data}</p>
+              )}
+            </CardContent>
+          </Card>
         </div>
-      </div>
-    </div>
+        {isLoadingSongs || !songs_tabel ? (
+          <div className="flex h-full items-center justify-center">
+            <Loader />
+          </div>
+        ) : isErrorSongs ? (
+          <div className="flex h-full flex-col items-center justify-center">
+            <Triangle />
+            <p className="text-xs">{errorSongs.message}</p>
+          </div>
+        ) : (
+          <DataTable columns={columns} data={songs_tabel} />
+        )}
+      </main>
+    </>
   );
 }
-
-const ListMusicSkeleton = () => {
-  return (
-    <div className="flex w-full items-center rounded-lg bg-background p-4">
-      <div className="flex w-full items-center space-x-4">
-        <Skeleton className="aspect-square h-16 w-16 flex-shrink-0 rounded-lg" />
-        <div className="w-full space-y-2">
-          <Skeleton className="h-6 w-full" />
-          <Skeleton className="h-5 w-1/2" />
-        </div>
-      </div>
-    </div>
-  );
-};
