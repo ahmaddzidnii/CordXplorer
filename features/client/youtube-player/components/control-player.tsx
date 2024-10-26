@@ -1,23 +1,29 @@
 "use client";
 
+import throttle from "lodash.throttle";
+import { memo, RefObject, use, useCallback, useEffect, useState } from "react";
 import {
-  FaPlay,
-  FaPause,
-  FaMusic,
-  FaTextHeight,
-  FaRotateLeft,
   FaMinus,
+  FaMusic,
+  FaPause,
+  FaPlay,
   FaPlus,
+  FaRotateLeft,
+  FaTextHeight,
 } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
-import { memo, RefObject, useCallback, useEffect, useState } from "react";
-import throttle from "lodash.throttle";
-import ReactPlayer from "react-player";
-
 import {
   TbPlayerTrackNextFilled,
   TbPlayerTrackPrevFilled,
 } from "react-icons/tb";
+import ReactPlayer from "react-player";
+
+import {
+  dialogOptionsStore,
+  usePreferenceStore,
+} from "@/features/client/preferences/store/dialog-options-store";
+import { useTransposeState } from "@/features/client/transpose/store/use-tranpose-state";
+import { useTransposeSwitcher } from "@/features/client/transpose/store/use-transpose-switcher";
 
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -26,13 +32,8 @@ import {
   useMediaPlayer,
   usePlaybackControl,
 } from "@/hooks/chord/use-media-player";
-import { useTransposeSwitcher } from "@/features/client/transpose/store/use-transpose-switcher";
-import { useTransposeState } from "@/features/client/transpose/store/use-tranpose-state";
-import {
-  dialogOptionsStore,
-  usePreferenceStore,
-} from "@/features/client/preferences/store/dialog-options-store";
-import { SnackBar } from "../snack-bar";
+
+import { SnackBar } from "../../../../components/snack-bar";
 
 interface PlayerRefProps {
   playerRef: RefObject<ReactPlayer>;
@@ -128,12 +129,18 @@ function RenderScrollType() {
 RenderScrollType.displayName = "RenderScrollType";
 
 function SliderControl({ playerRef }: PlayerRefProps) {
-  const { state, setState } = useMediaPlayer();
+  const { state } = useMediaPlayer();
 
-  const onValueChange = throttle(([value]: number[]) => {
+  const [localProgress, setLocalProgress] = useState(0);
+
+  useEffect(() => {
+    setLocalProgress(state.progress!);
+  }, [state.progress]);
+
+  const onValueChange = useCallback(([value]: number[]) => {
     playerRef?.current?.getInternalPlayer().pauseVideo();
-    setState({ progress: value });
-  }, 100);
+    setLocalProgress(value);
+  }, []);
 
   const onValueCommit = ([value]: number[]) => {
     playerRef?.current?.seekTo(value, "seconds");
@@ -144,7 +151,7 @@ function SliderControl({ playerRef }: PlayerRefProps) {
     <div className="mt-8">
       <Slider
         className="cursor-pointer py-1"
-        value={[state.progress!]}
+        value={[localProgress]}
         defaultValue={[0]}
         max={state.duration! - 1}
         step={1}

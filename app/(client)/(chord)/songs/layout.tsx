@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/navbar";
-import { DialogOptions } from "@/components/chord/dialog-options";
+import { DialogOptions } from "@/features/client/preferences/components/dialog-options";
 import { MobileNavbar } from "@/components/navbar/mobile-navbar";
 
 export default function SongsLayout({

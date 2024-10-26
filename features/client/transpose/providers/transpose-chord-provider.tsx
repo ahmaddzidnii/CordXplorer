@@ -2,11 +2,15 @@
 
 import { useEffect, useLayoutEffect, useState } from "react";
 
-import { transpose as transposeFunc } from "@/features/client/transpose/constants/chord-index";
 import { useTransposeState } from "@/features/client/transpose/store/use-tranpose-state";
 import { usePreferenceStore } from "@/features/client/preferences/store/dialog-options-store";
+import { transpose as transposeFunc } from "@/features/client/transpose/constants/chord-index";
 
-export const ChordWrapper = ({ children }: { children: React.ReactNode }) => {
+export const TransposeChordProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const { tranpose } = useTransposeState();

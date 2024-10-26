@@ -2,12 +2,14 @@
 import { Minus, Plus, X } from "lucide-react";
 import Draggable from "react-draggable";
 import { FaGear } from "react-icons/fa6";
-import { SwitchValue } from "../switch/switch-value";
+
+import { cn } from "@/lib/utils";
 import {
   dialogOptionsStore,
   usePreferenceStore,
 } from "@/features/client/preferences/store/dialog-options-store";
-import { cn } from "@/lib/utils";
+
+import { SwitchValue } from "@/components/switch/switch-value";
 
 export const DialogOptions = () => {
   const state = dialogOptionsStore();

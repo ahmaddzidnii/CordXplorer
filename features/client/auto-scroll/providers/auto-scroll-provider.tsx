@@ -44,8 +44,10 @@ function pageScroll() {
   window.scrollBy(0, PIXEL_PER_SCROLL);
 }
 
-export const AutoScrollWrapper: React.FC<{ children: React.ReactNode }> = ({
+export const AutoScrollWrapper = ({
   children,
+}: {
+  children: React.ReactNode;
 }) => {
   const windowWidth = useWindowWidth();
   const isMobile = windowWidth < 768;

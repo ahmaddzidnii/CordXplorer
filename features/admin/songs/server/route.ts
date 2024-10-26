@@ -4,6 +4,8 @@ import { UserRole } from "@prisma/client";
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 
+import { prisma } from "@/lib/prisma";
+
 import { ApiResponse } from "@/lib/response-api";
 
 const app = new Hono()

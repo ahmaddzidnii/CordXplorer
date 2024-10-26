@@ -32,7 +32,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className="min-w-[300px] subpixel-antialiased"
     >
-      <body className={quicksand.className}>
+      <body className={quicksand.className} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

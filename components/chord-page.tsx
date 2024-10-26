@@ -4,9 +4,8 @@ import parse from "html-react-parser";
 
 import { useMediaPlayer } from "@/hooks/chord/use-media-player";
 import { cn } from "@/lib/utils";
-import { Song } from "@/data";
 
-export const ChordPage = ({ data }: { data: Song }) => {
+export const ChordPage = ({ data }: { data: any }) => {
   const { state } = useMediaPlayer();
 
   const isCurrentActive = (
@@ -24,7 +23,7 @@ export const ChordPage = ({ data }: { data: Song }) => {
 
   return (
     <>
-      {data.sections.map((section, index) => {
+      {data.sections.map((section: any, index: number) => {
         const isActived = isCurrentActive(
           state.progress!,
           section.startTime,

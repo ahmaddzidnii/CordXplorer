@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
-import throttle from "lodash.throttle";
+import { OnProgressProps } from "react-player/base";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { OnProgressProps } from "react-player/base";
+
 import {
   useMediaPlayer,
   usePlaybackControl,
@@ -14,7 +14,8 @@ import {
 const YtEmbedSkeleton = () => {
   return <Skeleton className="h-[190px] w-full bg-muted" />;
 };
-export const YtEmbed = ({
+
+export const YoutubePlayer = ({
   playerRef,
   youtubeUrl,
 }: {
@@ -26,9 +27,9 @@ export const YtEmbed = ({
   const { setState } = useMediaPlayer();
   const { playbackControl, setPlaybackControl } = usePlaybackControl();
 
-  const handleProgress = throttle((state: OnProgressProps) => {
+  const handleProgress = (state: OnProgressProps) => {
     setState({ progress: Math.floor(state.playedSeconds) });
-  }, 1000);
+  };
 
   const onPause = () => {
     setPlaybackControl({ playing: false });
